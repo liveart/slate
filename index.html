@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <title>API Reference</title>
+    <title>LiveArt HTML5 Documentation</title>
 
     <link href="stylesheets/screen.css" rel="stylesheet" type="text/css" media="screen" />
     <link href="stylesheets/print.css" rel="stylesheet" type="text/css" media="print" />
@@ -13,7 +13,7 @@
 
       <script>
         $(function() {
-          setupLanguages(["shell","ruby","python"]);
+          setupLanguages(["Sample JSONs"]);
         });
       </script>
   </head>
@@ -28,9 +28,7 @@
     <div class="tocify-wrapper">
       <img src="images/logo.png" />
         <div class="lang-selector">
-              <a href="#" data-language-name="shell">shell</a>
-              <a href="#" data-language-name="ruby">ruby</a>
-              <a href="#" data-language-name="python">python</a>
+              <a href="#" data-language-name="Sample JSONs">Sample JSONs</a>
         </div>
         <div class="search">
           <input type="text" class="search" id="input-search" placeholder="Search">
@@ -39,217 +37,288 @@
       <div id="toc">
       </div>
         <ul class="toc-footer">
-            <li><a href='#'>Sign Up for a Developer Key</a></li>
-            <li><a href='http://github.com/tripit/slate'>Documentation Powered by Slate</a></li>
+            <li><a href='http://liveart.uservoice.com/' target='_blank'>Uservoice Portal</a></li>
+            <li><a href='https://extranet.newtonideas.com/open.aspx/NI/LAJS/SUBMIT/HDTICKET' target='_blank'>Report a bug</a></li>
+            <li><a href='http://www.developflash.com/Blog' target='_blank'>LiveArt Blog</a></li>
         </ul>
     </div>
     <div class="page-wrapper">
       <div class="dark-box"></div>
       <div class="content">
-        <h1 id='introduction'>Introduction</h1>
-<p>Welcome to the Kittn API! You can use our API to access Kittn API endpoints, which can get information on various cats, kittens, and breeds in our database.</p>
+        <h1 id="introduction">Introduction</h1>
 
-<p>We have language bindings in Shell, Ruby, and Python! You can view code examples in the dark area to the right, and you can switch the programming language of the examples with the tabs in the top right.</p>
+<p>LiveArt HTML5 uses JSON format to transfer data, such as information about design, pricing and order, to backend. In order to prepare server-side application for work in pair with LiveArt component, backend services should be ready to receive and deliver valid data structures via HTTP queries. The detailed description of this queries and datatypes is given in the following article.</p>
 
-<p>This example API documentation page was created with <a href="http://github.com/tripit/slate">Slate</a>. Feel free to edit it and use it as a base for your own API&rsquo;s documentation.</p>
-<h1 id='authentication'>Authentication</h1>
-<blockquote>
-<p>To authorize, use this code:</p>
-</blockquote>
-<pre><code class="highlight ruby"><span class="nb">require</span> <span class="s1">'kittn'</span>
+<aside class="warning">LiveArt HTML5 integration requires profound coding knowledge of GET/POST requests and JSON processing in your native platform. Regardless of the letter, we recommend constantly using Net Inspector and/or Fiddler tool to debug your requests and responses of the API.</aside>
 
-<span class="n">api</span> <span class="o">=</span> <span class="no">Kittn</span><span class="o">::</span><span class="no">APIClient</span><span class="p">.</span><span class="nf">authorize!</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">)</span>
-</code></pre>
-<pre><code class="highlight python"><span class="kn">import</span> <span class="nn">kittn</span>
+<h1 id="api-endpoints">API Endpoints</h1>
 
-<span class="n">api</span> <span class="o">=</span> <span class="n">kittn</span><span class="o">.</span><span class="n">authorize</span><span class="p">(</span><span class="s">'meowmeowmeow'</span><span class="p">)</span>
-</code></pre>
-<pre><code class="highlight shell"><span class="c"># With shell, you can just pass the correct header with each request</span>
-curl <span class="s2">"api_endpoint_here"</span>
-  -H <span class="s2">"Authorization: meowmeowmeow"</span>
-</code></pre>
+<h2 id="getquote---post">GetQuote - POST</h2>
 
 <blockquote>
-<p>Make sure to replace <code class="prettyprint">meowmeowmeow</code> with your API key.</p>
-</blockquote>
-
-<p>Kittn uses API keys to allow access to the API. You can register a new Kittn API key at our <a href="http://example.com/developers">developer portal</a>.</p>
-
-<p>Kittn expects for the API key to be included in all API requests to the server in a header that looks like the following:</p>
-
-<p><code class="prettyprint">Authorization: meowmeowmeow</code></p>
-
-<p><aside class="notice">
-You must replace <code class="prettyprint">meowmeowmeow</code> with your personal API key.
-</aside></p>
-<h1 id='kittens'>Kittens</h1><h2 id='get-all-kittens'>Get All Kittens</h2><pre><code class="highlight ruby"><span class="nb">require</span> <span class="s1">'kittn'</span>
-
-<span class="n">api</span> <span class="o">=</span> <span class="no">Kittn</span><span class="o">::</span><span class="no">APIClient</span><span class="p">.</span><span class="nf">authorize!</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">)</span>
-<span class="n">api</span><span class="p">.</span><span class="nf">kittens</span><span class="p">.</span><span class="nf">get</span>
-</code></pre>
-<pre><code class="highlight python"><span class="kn">import</span> <span class="nn">kittn</span>
-
-<span class="n">api</span> <span class="o">=</span> <span class="n">kittn</span><span class="o">.</span><span class="n">authorize</span><span class="p">(</span><span class="s">'meowmeowmeow'</span><span class="p">)</span>
-<span class="n">api</span><span class="o">.</span><span class="n">kittens</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
-</code></pre>
-<pre><code class="highlight shell">curl <span class="s2">"http://example.com/api/kittens"</span>
-  -H <span class="s2">"Authorization: meowmeowmeow"</span>
-</code></pre>
-
-<blockquote>
-<p>The above command returns JSON structured like this:</p>
-</blockquote>
-<pre><code class="highlight json"><span class="p">[</span><span class="w">
-  </span><span class="p">{</span><span class="w">
-    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Fluffums"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"breed"</span><span class="p">:</span><span class="w"> </span><span class="s2">"calico"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"fluffiness"</span><span class="p">:</span><span class="w"> </span><span class="mi">6</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"cuteness"</span><span class="p">:</span><span class="w"> </span><span class="mi">7</span><span class="w">
-  </span><span class="p">},</span><span class="w">
-  </span><span class="p">{</span><span class="w">
-    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Isis"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"breed"</span><span class="p">:</span><span class="w"> </span><span class="s2">"unknown"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"fluffiness"</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"cuteness"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="w">
-  </span><span class="p">}</span><span class="w">
-</span><span class="p">]</span><span class="w">
-</span></code></pre>
-
-<p>This endpoint retrieves all kittens.</p>
-<h3 id='http-request'>HTTP Request</h3>
-<p><code class="prettyprint">GET http://example.com/kittens</code></p>
-<h3 id='query-parameters'>Query Parameters</h3>
-<table><thead>
-<tr>
-<th>Parameter</th>
-<th>Default</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>include_cats</td>
-<td>false</td>
-<td>If set to true, the result will also include cats.</td>
-</tr>
-<tr>
-<td>available</td>
-<td>true</td>
-<td>If set to false, the result will include kittens that have already been adopted.</td>
-</tr>
-</tbody></table>
-
-<p><aside class="success">
-Remember — a happy kitten is an authenticated kitten!
-</aside></p>
-<h2 id='get-a-specific-kitten'>Get a Specific Kitten</h2><pre><code class="highlight ruby"><span class="nb">require</span> <span class="s1">'kittn'</span>
-
-<span class="n">api</span> <span class="o">=</span> <span class="no">Kittn</span><span class="o">::</span><span class="no">APIClient</span><span class="p">.</span><span class="nf">authorize!</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">)</span>
-<span class="n">api</span><span class="p">.</span><span class="nf">kittens</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-</code></pre>
-<pre><code class="highlight python"><span class="kn">import</span> <span class="nn">kittn</span>
-
-<span class="n">api</span> <span class="o">=</span> <span class="n">kittn</span><span class="o">.</span><span class="n">authorize</span><span class="p">(</span><span class="s">'meowmeowmeow'</span><span class="p">)</span>
-<span class="n">api</span><span class="o">.</span><span class="n">kittens</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-</code></pre>
-<pre><code class="highlight shell">curl <span class="s2">"http://example.com/api/kittens/3"</span>
-  -H <span class="s2">"Authorization: meowmeowmeow"</span>
-</code></pre>
-
-<blockquote>
-<p>The above command returns JSON structured like this:</p>
+<p>Request example</p>
 </blockquote>
 <pre><code class="highlight json"><span class="p">{</span><span class="w">
-  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Isis"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"breed"</span><span class="p">:</span><span class="w"> </span><span class="s2">"unknown"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"fluffiness"</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"cuteness"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="w">
+  </span><span class="s2">"product"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"21"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"color"</span><span class="p">:</span><span class="w"> </span><span class="s2">"#9cb8d0"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"colorName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Aero"</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="s2">"locations"</span><span class="p">:</span><span class="w"> </span><span class="p">[{</span><span class="w">
+    </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Front"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"colors"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"colorsList"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"#ee6363"</span><span class="p">],</span><span class="w">
+    </span><span class="s2">"designedArea"</span><span class="p">:</span><span class="w"> </span><span class="mf">154271.6304253942</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"designedAreaRect"</span><span class="p">:</span><span class="w"> </span><span class="mf">237446.57184553126</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"objects"</span><span class="p">:</span><span class="w"> </span><span class="p">[{</span><span class="w">
+      </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"txt"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"designedArea"</span><span class="p">:</span><span class="w"> </span><span class="mf">27038.5473910787</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"colors"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"colorsList"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"#ee6363"</span><span class="p">]</span><span class="w">
+    </span><span class="p">}],</span><span class="w">
+    </span><span class="s2">"objectCount"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"letterings"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"images"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w">
+  </span><span class="p">}],</span><span class="w">
+  </span><span class="s2">"quantities"</span><span class="p">:</span><span class="w"> </span><span class="p">[{</span><span class="w">
+    </span><span class="s2">"size"</span><span class="p">:</span><span class="w"> </span><span class="s2">"S"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w">
+  </span><span class="p">}]</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 
-<p>This endpoint retrieves a specific kitten.</p>
+<blockquote>
+<p>Response example</p>
+</blockquote>
+<pre><code class="highlight json"><span class="p">{</span><span class="w">
+  </span><span class="s2">"prices"</span><span class="p">:</span><span class="w"> </span><span class="p">[{</span><span class="w">
+    </span><span class="s2">"label"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Item Price"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"$ 94.62"</span><span class="w">
+  </span><span class="p">},</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"label"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Discount"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"$ -6.00"</span><span class="w">
+  </span><span class="p">},</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"label"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Total"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"$ 904.20"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"isTotal"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+  </span><span class="p">}]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
 
-<p><aside class="warning">If you&rsquo;re not using an administrator API key, note that some kittens will return 403 Forbidden if they are hidden for admins only.</aside></p>
-<h3 id='http-request'>HTTP Request</h3>
-<p><code class="prettyprint">GET http://example.com/kittens/&lt;ID&gt;</code></p>
-<h3 id='url-parameters'>URL Parameters</h3>
+<p>This service is used to get the price of a current design. It is called every time when end user is making some changes to the design or product selection.</p>
+
+<p>To bind LiveArt HTML5 to the server side GetQuote service, you will need to define the getQuoteUrl property in config JSON. The value has to be a link to a backend service. See example below:</p>
+
+<h3 id="service-definition-in-config.json">Service definition in config.json</h3>
+
+<p><code class="prettyprint">&quot;getQuoteUrl&quot;: &quot;services/getQuote.php&quot;</code>
+<aside class="success">
+If you need to switch off the pricing aspect of your application, simply leave <code class="prettyprint">getQuoteUrl</code> empty!
+</aside></p>
+
+<h3 id="request-fields-description">Request fields description</h3>
+
 <table><thead>
 <tr>
-<th>Parameter</th>
+<th>Field</th>
 <th>Description</th>
+<th>Type</th>
 </tr>
 </thead><tbody>
 <tr>
-<td>ID</td>
-<td>The ID of the cat to retrieve</td>
+<td>id</td>
+<td>unique identifier of the product.</td>
+<td>string</td>
+</tr>
+<tr>
+<td>color</td>
+<td>hexadecimal value of product color.</td>
+<td>string</td>
+</tr>
+<tr>
+<td>colorName</td>
+<td>name of product color.</td>
+<td>string</td>
+</tr>
+<tr>
+<td>name</td>
+<td>name of product location</td>
+<td>string</td>
+</tr>
+<tr>
+<td>colors</td>
+<td>amount of the colors which are used at the current location</td>
+<td>number</td>
+</tr>
+<tr>
+<td>colorsList</td>
+<td>list of hexadecimal values of the colors which are used at the current location.</td>
+<td>array</td>
+</tr>
+<tr>
+<td>designedArea</td>
+<td>total area of all decoration objects at the current location (square units).</td>
+<td>number</td>
+</tr>
+<tr>
+<td>designedAreaRect</td>
+<td>area of rectangle, containing all objects in location (square units).</td>
+<td>number</td>
+</tr>
+<tr>
+<td>objectCount</td>
+<td>total count of all decoration objects at the current location.</td>
+<td>number</td>
+</tr>
+<tr>
+<td>letterings</td>
+<td>total count of all text objects at the current location.</td>
+<td>number</td>
+</tr>
+<tr>
+<td>images</td>
+<td>total count of all graphic objects at the current location.</td>
+<td>number</td>
+</tr>
+<tr>
+<td>objects</td>
+<td>list of decoration objects which are present at the current location.</td>
+<td>array</td>
+</tr>
+<tr>
+<td>type</td>
+<td>type of decoration object.</td>
+<td>string, possible values: &ldquo;txt&rdquo;, &ldquo;svg&rdquo; and &ldquo;image&rdquo;</td>
+</tr>
+<tr>
+<td>designedArea</td>
+<td>area occupied by the object (in square units).</td>
+<td>number</td>
+</tr>
+<tr>
+<td>colors</td>
+<td>amount of colors used to colorize the object.</td>
+<td>number</td>
+</tr>
+<tr>
+<td>colorsList</td>
+<td>list of RGB colors used to colorize the object.</td>
+<td>array</td>
+</tr>
+<tr>
+<td>size</td>
+<td>name of the product size.</td>
+<td>string</td>
+</tr>
+<tr>
+<td>quantity</td>
+<td>quantity of the size.</td>
+<td>number</td>
 </tr>
 </tbody></table>
 
-          <h1 id='errors'>Errors</h1>
-<p><aside class="notice">This error section is stored in a separate file in <code class="prettyprint">includes/_errors.md</code>. Slate allows you to optionally separate out your docs into many files&hellip;just save them to the <code class="prettyprint">includes</code> folder and add them to the top of your <code class="prettyprint">index.md</code>&rsquo;s frontmatter. Files are included in the order listed.</aside></p>
+<h3 id="response-field-description">Response field description</h3>
 
-<p>The Kittn API uses the following error codes:</p>
+<aside class="notice">
+The response should be compiled and provided as `Content-Type: application/json`, with no extra content. This is important as otherwise LiveArt may not parse your response and update prices respectively.
+</aside>
+
+<p>The only expected node is designated as <code class="prettyprint">prices</code>, type array each elements of which may contain the following fields.</p>
 
 <table><thead>
 <tr>
-<th>Error Code</th>
-<th>Meaning</th>
+<th>Field</th>
+<th>Description</th>
+<th>Type</th>
 </tr>
 </thead><tbody>
 <tr>
-<td>400</td>
-<td>Bad Request &ndash; Your request sucks</td>
+<td>label</td>
+<td>title of price line, e.g. Item Price, Discount, etc.</td>
+<td>string</td>
 </tr>
 <tr>
-<td>401</td>
-<td>Unauthorized &ndash; Your API key is wrong</td>
+<td>price</td>
+<td>the actual price of the price line</td>
+<td>string</td>
 </tr>
 <tr>
-<td>403</td>
-<td>Forbidden &ndash; The kitten requested is hidden for administrators only</td>
-</tr>
-<tr>
-<td>404</td>
-<td>Not Found &ndash; The specified kitten could not be found</td>
-</tr>
-<tr>
-<td>405</td>
-<td>Method Not Allowed &ndash; You tried to access a kitten with an invalid method</td>
-</tr>
-<tr>
-<td>406</td>
-<td>Not Acceptable &ndash; You requested a format that isn&rsquo;t json</td>
-</tr>
-<tr>
-<td>410</td>
-<td>Gone &ndash; The kitten requested has been removed from our servers</td>
-</tr>
-<tr>
-<td>418</td>
-<td>I&rsquo;m a teapot</td>
-</tr>
-<tr>
-<td>429</td>
-<td>Too Many Requests &ndash; You&rsquo;re requesting too many kittens! Slown down!</td>
-</tr>
-<tr>
-<td>500</td>
-<td>Internal Server Error &ndash; We had a problem with our server. Try again later.</td>
-</tr>
-<tr>
-<td>503</td>
-<td>Service Unavailable &ndash; We&rsquo;re temporarially offline for maintanance. Please try again later.</td>
+<td>isTotal</td>
+<td>defines whether this price line designates total and will be bolded in LiveArt</td>
+<td>boolean, optional</td>
 </tr>
 </tbody></table>
+
+          <h1 id="configuration">Configuration</h1>
+
+<p>LiveArt JS uses JSON format for its main configuration file and data configuration files for resources such as products and gallery images. The primary configuration file contains all the necessary options, as well as REST-like endpoints for server-side integration.</p>
+
+          <h1 id="data-structures">Data Structures</h1>
+
+<p>This section describes JSON data structures of LiveArt resources, such as products, fonts, colors, graphics and text effects.</p>
+
+          <h1 id="package-structure">Package Structure</h1>
+
+<p>LiveArt JS (HTML5) is a Javascript application which uses allows user add text or image objects to stage and manipulate them with mouse or gestures on tablets. A number of Javascript technologies are used and part of the code is open to modifications.</p>
+
+<p>Please note that a particular package which may be released to you may differ in its files or features if you have also ordered custom modifications to original software. Contact LiveArt team to obtain specific details pertaining your package.</p>
+
+<p>Once unpacked, the LiveArt JS package consists of the following structure (subject to change).</p>
+
+<p><code class="prettyprint">/index.html</code></p>
+
+<p>Main page containing the designer. This can be used as base or embedded with an iframe into your website or ecommerce application.</p>
+
+<p><code class="prettyprint">/LiveArtJS.js</code></p>
+
+<p>The core LiveArt JS code, copyrighted and protected from unauthorised access. This particular library is locked to your website domain for protection when launched on production.</p>
+
+<p><code class="prettyprint">/LA.js</code></p>
+
+<p>The Knockout controlling scripts for the designer page. You can edit these scripts (but not recommended to do so) to amend the logic of specific designer elements or behavior by yourself. Please note that since the code is copyrighted you cannot redistribute it withouth LiveArt consent.</p>
+
+<p><code class="prettyprint">/assets</code></p>
+
+<p>The folder contains Bootstrap files, required for designer running, images and additional libraries.</p>
+
+<p><code class="prettyprint">/config</code></p>
+
+<p>Main LiveArt JS configuration files. The format of the files is JSON.</p>
+
+<p><code class="prettyprint">/fonts</code></p>
+
+<p>The folder with fonts, which you can add to designer along with fonts.css fonts declaration file.</p>
+
+<p><code class="prettyprint">/gallery</code></p>
+
+<p>Artwork graphics gallery. Please note that graphics added here should be also referred in respective JSON configuration file.</p>
+
+<p><code class="prettyprint">/lib</code></p>
+
+<p>Additional low-level core Javascript libraries handling designer. This folder also contains standard libraries such as Knockout and JQuery.</p>
+
+<p><code class="prettyprint">/products</code></p>
+
+<p>Demo products images and thumbnails.</p>
+
+          <h1 id="errors-and-debugging">Errors and Debugging</h1>
+
+<p>Developing a backend integration for LiveArt HTML5 will always require debugging and looking for errors. Below are brief recommendations that will facilitate the development process.</p>
+
+<ul>
+<li>Use Net/Network tab of your favorite browser extensively to monitor what requests and responds are going through your integration;</li>
+<li>Use <a href="http://www.telerik.com/fiddler">Fiddler</a> to capture and manipulate sessions and measure performance;</li>
+<li>Look into Console each time you encounter a missing functionality;</li>
+</ul>
+
+<aside class="warning">
+LiveArt does not validate response of the services in most of the cases, so make sure they are JSON and correspond the examples, provided with the trial or your build package. 
+</aside>
 
       </div>
       <div class="dark-box">
           <div class="lang-selector">
-                <a href="#" data-language-name="shell">shell</a>
-                <a href="#" data-language-name="ruby">ruby</a>
-                <a href="#" data-language-name="python">python</a>
+                <a href="#" data-language-name="Sample JSONs">Sample JSONs</a>
           </div>
       </div>
     </div>
