@@ -1,168 +1,121 @@
 ---
-title: API Reference
+title: LiveArt HTML5 Documentation
 
 language_tabs:
-  - shell
-  - ruby
-  - python
+  - Sample JSONs
 
 toc_footers:
-  - <a href='#'>Sign Up for a Developer Key</a>
-  - <a href='http://github.com/tripit/slate'>Documentation Powered by Slate</a>
+  - <a href='http://liveart.uservoice.com/' target='_blank'>Uservoice Portal</a>
+  - <a href='https://extranet.newtonideas.com/open.aspx/NI/LAJS/SUBMIT/HDTICKET' target='_blank'>Report a bug</a>
+  - <a href='http://www.developflash.com/Blog' target='_blank'>LiveArt Blog</a>
 
 includes:
+  - configuration
+  - data
+  - structure
   - errors
 
 search: true
 ---
-
 # Introduction
 
-Welcome to the Kittn API! You can use our API to access Kittn API endpoints, which can get information on various cats, kittens, and breeds in our database.
+LiveArt HTML5 uses JSON format to transfer data, such as information about design, pricing and order, to backend. In order to prepare server-side application for work in pair with LiveArt component, backend services should be ready to receive and deliver valid data structures via HTTP queries. The detailed description of this queries and datatypes is given in the following article.
 
-We have language bindings in Shell, Ruby, and Python! You can view code examples in the dark area to the right, and you can switch the programming language of the examples with the tabs in the top right.
+<aside class="warning">LiveArt HTML5 integration requires profound coding knowledge of GET/POST requests and JSON processing in your native platform. Regardless of the letter, we recommend constantly using Net Inspector and/or Fiddler tool to debug your requests and responses of the API.</aside>
 
-This example API documentation page was created with [Slate](http://github.com/tripit/slate). Feel free to edit it and use it as a base for your own API's documentation.
-
-# Authentication
-
-> To authorize, use this code:
-
-```ruby
-require 'kittn'
-
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-```
-
-```python
-import kittn
-
-api = kittn.authorize('meowmeowmeow')
-```
-
-```shell
-# With shell, you can just pass the correct header with each request
-curl "api_endpoint_here"
-  -H "Authorization: meowmeowmeow"
-```
-
-> Make sure to replace `meowmeowmeow` with your API key.
-
-Kittn uses API keys to allow access to the API. You can register a new Kittn API key at our [developer portal](http://example.com/developers).
-
-Kittn expects for the API key to be included in all API requests to the server in a header that looks like the following:
-
-`Authorization: meowmeowmeow`
-
-<aside class="notice">
-You must replace `meowmeowmeow` with your personal API key.
-</aside>
-
-# Kittens
-
-## Get All Kittens
-
-```ruby
-require 'kittn'
-
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-api.kittens.get
-```
-
-```python
-import kittn
-
-api = kittn.authorize('meowmeowmeow')
-api.kittens.get()
-```
-
-```shell
-curl "http://example.com/api/kittens"
-  -H "Authorization: meowmeowmeow"
-```
-
-> The above command returns JSON structured like this:
-
-```json
-[
-  {
-    "id": 1,
-    "name": "Fluffums",
-    "breed": "calico",
-    "fluffiness": 6,
-    "cuteness": 7
-  },
-  {
-    "id": 2,
-    "name": "Isis",
-    "breed": "unknown",
-    "fluffiness": 5,
-    "cuteness": 10
-  }
-]
-```
-
-This endpoint retrieves all kittens.
-
-### HTTP Request
-
-`GET http://example.com/kittens`
-
-### Query Parameters
-
-Parameter | Default | Description
---------- | ------- | -----------
-include_cats | false | If set to true, the result will also include cats.
-available | true | If set to false, the result will include kittens that have already been adopted.
-
-<aside class="success">
-Remember — a happy kitten is an authenticated kitten!
-</aside>
-
-## Get a Specific Kitten
-
-```ruby
-require 'kittn'
-
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-api.kittens.get(2)
-```
-
-```python
-import kittn
-
-api = kittn.authorize('meowmeowmeow')
-api.kittens.get(2)
-```
-
-```shell
-curl "http://example.com/api/kittens/3"
-  -H "Authorization: meowmeowmeow"
-```
-
-> The above command returns JSON structured like this:
+# API Endpoints
+## GetQuote - POST
+> Request example
 
 ```json
 {
-  "id": 2,
-  "name": "Isis",
-  "breed": "unknown",
-  "fluffiness": 5,
-  "cuteness": 10
+  "product": {
+    "id": "21",
+    "color": "#9cb8d0",
+    "colorName": "Aero"
+  },
+  "locations": [{
+    "name": "Front",
+    "colors": 1,
+    "colorsList": ["#ee6363"],
+    "designedArea": 154271.6304253942,
+    "designedAreaRect": 237446.57184553126,
+    "objects": [{
+      "type": "txt",
+      "designedArea": 27038.5473910787,
+      "colors": 1,
+      "colorsList": ["#ee6363"]
+    }],
+    "objectCount": 1,
+    "letterings": 1,
+    "images": 1
+  }],
+  "quantities": [{
+    "size": "S",
+    "quantity": 1
+  }]
 }
 ```
 
-This endpoint retrieves a specific kitten.
+> Response example
 
-<aside class="warning">If you're not using an administrator API key, note that some kittens will return 403 Forbidden if they are hidden for admins only.</aside>
+```json
+{
+  "prices": [{
+    "label": "Item Price",
+    "price": "$ 94.62"
+  }, {
+    "label": "Discount",
+    "price": "$ -6.00"
+  }, {
+    "label": "Total",
+    "price": "$ 904.20",
+    "isTotal": true
+  }]
+}
+```
 
-### HTTP Request
+This service is used to get the price of a current design. It is called every time when end user is making some changes to the design or product selection.
 
-`GET http://example.com/kittens/<ID>`
+To bind LiveArt HTML5 to the server side GetQuote service, you will need to define the getQuoteUrl property in config JSON. The value has to be a link to a backend service. See example below:
 
-### URL Parameters
+### Service definition in config.json
+`"getQuoteUrl": "services/getQuote.php"`
+<aside class="success">
+If you need to switch off the pricing aspect of your application, simply leave `getQuoteUrl` empty!
+</aside>
 
-Parameter | Description
---------- | -----------
-ID | The ID of the cat to retrieve
+### Request fields description
+Field | Description | Type
+----- | ----------- | ----
+id | unique identifier of the product. | string
+color | hexadecimal value of product color. | string
+colorName | name of product color. | string
+name | name of product location | string
+colors | amount of the colors which are used at the current location | number
+colorsList | list of hexadecimal values of the colors which are used at the current location. | array
+designedArea | total area of all decoration objects at the current location (square units). | number
+designedAreaRect | area of rectangle, containing all objects in location (square units). | number
+objectCount | total count of all decoration objects at the current location. | number
+letterings | total count of all text objects at the current location. | number
+images | total count of all graphic objects at the current location. | number
+objects | list of decoration objects which are present at the current location. | array
+type | type of decoration object. | string, possible values: "txt", "svg" and "image"
+designedArea | area occupied by the object (in square units). | number
+colors | amount of colors used to colorize the object. | number
+colorsList | list of RGB colors used to colorize the object. | array
+size | name of the product size. | string
+quantity | quantity of the size. | number
 
+### Response field description
+<aside class="notice">
+The response should be compiled and provided as `Content-Type: application/json`, with no extra content. This is important as otherwise LiveArt may not parse your response and update prices respectively.
+</aside>
+
+The only expected node is designated as `prices`, type array each elements of which may contain the following fields.
+
+Field | Description | Type
+----- | ----------- | ----
+label | title of price line, e.g. Item Price, Discount, etc. | string
+price | the actual price of the price line | string
+isTotal | defines whether this price line designates total and will be bolded in LiveArt | boolean, optional
