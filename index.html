@@ -51,6 +51,10 @@
 
 <aside class="warning">LiveArt HTML5 integration requires profound coding knowledge of GET/POST requests and JSON processing in your native platform. Regardless of the letter, we recommend constantly using Net Inspector and/or Fiddler tool to debug your requests and responses of the API.</aside>
 
+<p>Each request is normally sent as POST request with the payload, contained in <code class="prettyprint">value</code> parameter. Sometimes additional parameters may include design id or timestamp. Using Inspector properly, you will be able to notice all information that is being sent.</p>
+
+<p>All endpoint URLs can be both relative or absolute. For correct operation of the tool we advise using relative URLs more as you may get into CORS issue if your users will be accessing tool with a different URL than provided in main configuration file. A common example is accessing site with or without the <code class="prettyprint">www</code>.</p>
+
 <h1 id="api-endpoints">API Endpoints</h1>
 
 <h2 id="getquote---post">GetQuote - POST</h2>
@@ -217,7 +221,7 @@ If you need to switch off the pricing aspect of your application, simply leave <
 </tr>
 </tbody></table>
 
-<h3 id="response-field-description">Response field description</h3>
+<h3 id="response-fields-description">Response fields description</h3>
 
 <aside class="notice">
 The response should be compiled and provided as `Content-Type: application/json`, with no extra content. This is important as otherwise LiveArt may not parse your response and update prices respectively.
@@ -249,13 +253,1138 @@ The response should be compiled and provided as `Content-Type: application/json`
 </tr>
 </tbody></table>
 
+<h2 id="savedesign---post">SaveDesign - POST</h2>
+
+<blockquote>
+<p>Request Example</p>
+</blockquote>
+<pre><code class="highlight json"><span class="p">{</span><span class="w">
+  </span><span class="s2">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"product"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"11"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Cool Tee 1"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="s2">"locations"</span><span class="p">:</span><span class="w"> </span><span class="p">[{</span><span class="w">
+      </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Front"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"svg"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;svg&gt;&lt;!-- svg content is omitted here due to its large size --&gt;&lt;/svg&gt;"</span><span class="w">
+    </span><span class="p">},</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Back"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"svg"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;svg&gt;&lt;!-- svg content is omitted here due to its large size --&gt;&lt;/svg&gt;"</span><span class="w">
+    </span><span class="p">}],</span><span class="w">
+    </span><span class="s2">"quantities"</span><span class="p">:</span><span class="w"> </span><span class="p">[{</span><span class="w">
+      </span><span class="s2">"size"</span><span class="p">:</span><span class="w"> </span><span class="s2">"XS"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w">
+    </span><span class="p">}],</span><span class="w">
+    </span><span class="s2">"prices"</span><span class="p">:</span><span class="w"> </span><span class="p">[{</span><span class="w">
+      </span><span class="s2">"label"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Item Price"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"$ 12.01"</span><span class="w">
+    </span><span class="p">},</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"label"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Discount"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"$ -3.00"</span><span class="w">
+    </span><span class="p">},</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"label"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Total"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"$ 324.30"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"isTotal"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+    </span><span class="p">}]</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<blockquote>
+<p>Response Example</p>
+</blockquote>
+<pre><code class="highlight json"><span class="p">{</span><span class="w">
+  </span><span class="s2">"design"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"20130514-131710-50632"</span><span class="p">,</span><span class="w"> </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Lorem Ipsum"</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<p>SaveDesign service is called in the following cases:</p>
+
+<ul>
+<li>User is placing order;</li>
+<li>User is saving design for later use using Save for Later link;</li>
+<li>User is sharing design. In this case design is saved anonymously if user is not authenticated;</li>
+</ul>
+
+<h3 id="service-definition-in-config.json">SERVICE DEFINITION IN CONFIG.JSON</h3>
+
+<p><code class="prettyprint">&quot;saveDesignUrl&quot;: &quot;services/saveDesign.php&quot;</code></p>
+
+<h3 id="request-fields-description">REQUEST FIELDS DESCRIPTION</h3>
+
+<p>Request contains JSON metadata with enclosed SVG which should be extracted with the parsing script and saved. Developers can additionally process SVG to embed images, prepare for conversion into other formats or add additional elements.</p>
+
+<table><thead>
+<tr>
+<th>Field</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>product.id</td>
+<td>unique identifier of the product.</td>
+<td>string</td>
+</tr>
+<tr>
+<td>product.name</td>
+<td>name of product.</td>
+<td>string</td>
+</tr>
+<tr>
+<td>locations</td>
+<td>list of product locations (sides) for each printable side</td>
+<td>array</td>
+</tr>
+<tr>
+<td>location.name</td>
+<td>name of location.</td>
+<td>string</td>
+</tr>
+<tr>
+<td>location.svg</td>
+<td>XML representation of an SVG image which contains the whole design (including product background).</td>
+<td>string</td>
+</tr>
+<tr>
+<td>quantities</td>
+<td>list of selected sizes and their quantities.</td>
+<td>array</td>
+</tr>
+<tr>
+<td>size</td>
+<td>name of the product size.</td>
+<td>string</td>
+</tr>
+<tr>
+<td>quantity</td>
+<td>quantity of the size.</td>
+<td>number</td>
+</tr>
+<tr>
+<td>prices</td>
+<td>list of objects which are related to pricing. The structure is exact to the one you compile for GetQuote service</td>
+<td>array</td>
+</tr>
+</tbody></table>
+
+<h3 id="response-fields-description">RESPONSE FIELDS DESCRIPTION</h3>
+
+<table><thead>
+<tr>
+<th>Field</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>id</td>
+<td>unique design identifier, it is your responsibility to generate it and keep it&rsquo;s consistency.</td>
+<td>string</td>
+</tr>
+<tr>
+<td>title</td>
+<td>design title which is given by end user. In cases of placing order or sharing design it is generated automatically by LiveArt</td>
+<td>string</td>
+</tr>
+</tbody></table>
+
+<h2 id="uploadimage---post/multipart">UploadImage - POST/Multipart</h2>
+
+<p>This service is used to upload user image from local file or URL. After uploading process image is shown on preview area and ready to be moved or resized. Allowed file extensions: *.jpg, *.png, *.gif, *.svg.</p>
+
+<aside class="warning">Make sure to update the rights to your accepting folder as writable for web user. LiveArt will not check this.</aside>
+
+<blockquote>
+<p>Response example</p>
+</blockquote>
+<pre><code class="highlight json"><span class="p">{</span><span class="w">
+  </span><span class="s2">"url"</span><span class="p">:</span><span class="s2">"files\/uploads\/some_image.jpg"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<blockquote>
+<p>In case of error</p>
+</blockquote>
+<pre><code class="highlight json"><span class="p">{</span><span class="w">
+  </span><span class="s2">"error"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="s2">"message"</span><span class="p">:</span><span class="s2">"Incorrect image type!"</span><span class="w"> </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<h3 id="service-definition-in-config.json">SERVICE DEFINITION IN CONFIG.JSON</h3>
+
+<p>To bind LiveArt HTML5 to the server side Upload Image service, you will need to define the uploadImageUrl property in config JSON. The value has to be a link to a backend service. See example below:
+<code class="prettyprint">&quot;uploadImageUrl&quot;: &quot;services/uploadImage.php&quot;</code></p>
+
+<h2 id="getdesigns---get">GetDesigns - GET</h2>
+
+<blockquote>
+<p>Response Example</p>
+</blockquote>
+<pre><code class="highlight json"><span class="p">{</span><span class="w">
+  </span><span class="s2">"designs"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"20130419-175034-29813"</span><span class="p">,</span><span class="w"> </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"My First Design"</span><span class="p">,</span><span class="w"> </span><span class="s2">"date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2013.04.19 17:50"</span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"20130419-175828-96476"</span><span class="p">,</span><span class="w"> </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"My Second Design"</span><span class="p">,</span><span class="w"> </span><span class="s2">"date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2013.04.19 17:58"</span><span class="p">}</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<p>This service is called to get the list of saved designs for certain email. The backend service should use the email from GET parameter as key to filter designs for particular account.</p>
+
+<h3 id="service-definition-in-config.json">SERVICE DEFINITION IN CONFIG.JSON</h3>
+
+<p>Please note that using the token is mandatory. It will be replaced in request with actual email, provided by the user.</p>
+
+<p><code class="prettyprint">&quot;getDesignsUrl&quot;: &quot;services/loadDesigns.php?email=${email}&quot;</code></p>
+
+<h3 id="response-fields-description">RESPONSE FIELDS DESCRIPTION</h3>
+
+<table><thead>
+<tr>
+<th>Field</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>id</td>
+<td>unique design identifier, should be unique per design.</td>
+<td>string</td>
+</tr>
+<tr>
+<td>title</td>
+<td>design title which is given by end user.</td>
+<td>string</td>
+</tr>
+<tr>
+<td>date</td>
+<td>date when design was saved.</td>
+<td>string</td>
+</tr>
+</tbody></table>
+
+<h2 id="loaddesign---get">LoadDesign - GET</h2>
+
+<p>This service is called to load the Design JSON of a previously saved design. The service is called in the following cases:</p>
+
+<ul>
+<li>To load the previously saved design for certain email;</li>
+<li>To preload the shared design from a previously saved link;</li>
+<li>To preload LiveArt with design using a <code class="prettyprint">design_id</code> in the URL;</li>
+</ul>
+
+<h3 id="service-definition-in-config.json">SERVICE DEFINITION IN CONFIG.JSON</h3>
+
+<p>The token will automatically replaced with an associated design_id fetched either from URL <code class="prettyprint">design_id</code> parameter or selected design from list of designs, after user clicked to load a previously saved design.
+&ldquo;loadDesignUrl&rdquo;: &ldquo;services/loadDesign.php?design_id=${design_id}&rdquo;</p>
+
+<h3 id="response-description">RESPONSE DESCRIPTION</h3>
+
+<p>The provided response should correspond the request example from SaveDesign service.</p>
+
           <h1 id="configuration">Configuration</h1>
 
+<blockquote>
+<p>Sample configuration</p>
+</blockquote>
+<pre><code class="highlight json"><span class="p">{</span><span class="w">
+    </span><span class="s2">"productsList"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"config/products.json"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="s2">"defaultProductId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"11"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"defaultProductSize_"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="mi">32</span><span class="p">,</span><span class="w"> </span><span class="mi">16</span><span class="w"> </span><span class="p">],</span><span class="w">
+    </span><span class="s2">"fonts"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"config/fonts.json"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="s2">"colors"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"config/colors.json"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="s2">"graphicsList"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"config/graphics.json"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="s2">"options"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"deleteOnDoubleClick"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"includeProductInDesign"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"includePrintingAreaInDesign"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"includeMaskInDesign"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"fontsCSSUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://yoursite.com/designer/fonts/fonts.css"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"zoomEnabled"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"minZoom"</span><span class="p">:</span><span class="w"> </span><span class="mi">50</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"maxZoom"</span><span class="p">:</span><span class="w"> </span><span class="mi">150</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"checkeredBackground"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"unit"</span><span class="p">:</span><span class="w"> </span><span class="s2">"in"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"unit2"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ft"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"unitConversionMult"</span><span class="p">:</span><span class="w"> </span><span class="mi">12</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"showProductSelector"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"checkTextFXThrottle"</span><span class="p">:</span><span class="w"> </span><span class="mi">400</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"minDPU"</span><span class="p">:</span><span class="w"> </span><span class="mi">300</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="s2">"textEffects"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"config"</span><span class="p">:</span><span class="w"> </span><span class="s2">"config/textEffects.json"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"services/getTextZ.php"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="s2">"defaultNameObjectText"</span><span class="p">:</span><span class="w"> </span><span class="s2">"NAMES HERE"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"defaultNumberObjectText"</span><span class="p">:</span><span class="w"> </span><span class="s2">"00"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"assetsUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"assets/"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"galleryBaseUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"getQuoteUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"services/getQuote.php"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"getDesignsUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"services/getDesigns.php?email=${email}"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"saveDesignUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"services/saveDesign.php"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"loadDesignUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"services/loadDesign.php?design_id=${design_id}"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"redirectUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"services/order.php?design_id=${design_id}"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"uploadImageUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"services/uploadImage.php"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"shareLinkUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"index.html?design_id=${design_id}"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"redirectWindow"</span><span class="p">:</span><span class="w"> </span><span class="s2">"parent"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
 <p>LiveArt JS uses JSON format for its main configuration file and data configuration files for resources such as products and gallery images. The primary configuration file contains all the necessary options, as well as REST-like endpoints for server-side integration.</p>
+
+<aside class="notice">
+While the LiveArt loads configuration by default out of static JSON files, you can generate all of the below automatically. For example, for product list you might want to export it from the database of your shop. In case of static files, you can indicate a path instead of URL.
+</aside>
+
+<h3 id="properties-description">Properties description</h3>
+
+<table><thead>
+<tr>
+<th>Property</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>productsList</td>
+<td>indicates a URL returning a Product JSON structure</td>
+<td>URL</td>
+</tr>
+<tr>
+<td>defaultProductId</td>
+<td>id of a product should be loaded upon start of LiveArt.</td>
+<td>string, optional</td>
+</tr>
+<tr>
+<td>defaultProductSize</td>
+<td>if default product is resizable, this attribute sets default size (will override editableAreaUnits from product configuration) in units, set by configuration.</td>
+<td>array of numbers, optional</td>
+</tr>
+<tr>
+<td>fonts</td>
+<td>indicates a URL returning Fonts JSON structure</td>
+<td>URL</td>
+</tr>
+<tr>
+<td>colors</td>
+<td>indicates a URL returning Colors JSON structure. These are the colors for fonts and colorizable artwork</td>
+<td>URL</td>
+</tr>
+<tr>
+<td>graphicsList</td>
+<td>indicates a URL returning Gallery JSON structure.</td>
+<td>URL</td>
+</tr>
+<tr>
+<td>options</td>
+<td>contains the list of options which control visual appearance and behaviour of the designer area. See detailed description below.</td>
+<td>object</td>
+</tr>
+<tr>
+<td>textEffects</td>
+<td>location for text effects configuration file and URL to service to obtain image of the text effect with certain parameters. See Data Structures section for details on using the text effects. To disable text effects completely, leave both fields empty.</td>
+<td>URL</td>
+</tr>
+<tr>
+<td>defaultNameObjectText, defaultNumberObjectText</td>
+<td>a default text/number text, rendered in placeholder for Names or Numbers list respectively.</td>
+<td>string</td>
+</tr>
+<tr>
+<td>assetsUrl</td>
+<td>relative or absolute URL to the assets folder. Assets folder contains necessary css, images and javascript libraries that make LiveArt HTML5 component work.</td>
+<td>URL</td>
+</tr>
+<tr>
+<td>galleryBaseUrl</td>
+<td>an absolute URL to the folder where artwork gallery is located. This could be useful if you&rsquo;d like the gallery to reside on different server or folder rather than default one.</td>
+<td>URL</td>
+</tr>
+<tr>
+<td>getQuoteUrl</td>
+<td>a link to a backend service which gets a record with a current design and returns the information about pricing, such as a price per item, discount amount, total price and so on in JSON format.</td>
+<td>URL</td>
+</tr>
+<tr>
+<td>getDesignsUrl</td>
+<td>a link to a backend service which returns the list of saved designs in JSON format.</td>
+<td>URL</td>
+</tr>
+<tr>
+<td>saveDesignUrl</td>
+<td>a link to a backend service which gets the description of design in JSON format, saves it and returns its unique identifier, url, etc.</td>
+<td>URL</td>
+</tr>
+<tr>
+<td>loadDesignUrl</td>
+<td>a link to a backend service which returns a single design using its unique identifier.</td>
+<td>URL</td>
+</tr>
+<tr>
+<td>redirectUrl</td>
+<td>a link to a backend service which places order and redirects user to some another page, for example, shopping cart.</td>
+<td>URL</td>
+</tr>
+<tr>
+<td>uploadImageUrl</td>
+<td>a link to a backend service which uploads user image from local file or URL. After uploading process image is shown on preview area and ready to be moved or resized. Allowed file extensions: *.jpg, *.png, *.gif, *.svg.</td>
+<td>URL</td>
+</tr>
+<tr>
+<td>shareLinkUrl</td>
+<td>this parameter defines the template of the shared link url. Sharing a design calls a saveDesign service that should return an identifier under which design was saved. This id will be replaced in ${design_id} token and presented to user that may copy it and load the design later.</td>
+<td>URL</td>
+</tr>
+</tbody></table>
+
+<h3 id="options-description">Options Description</h3>
+
+<table><thead>
+<tr>
+<th>Property</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>deleteOnDoubleClick</td>
+<td>boolean value which defines whether user can remove any object from working area by simple double-click or double tap (for mobile devices).</td>
+<td>false</td>
+</tr>
+<tr>
+<td>includeProductInDesign</td>
+<td>boolean value which defines whether product background image is included into output mockup of the design.</td>
+<td>false</td>
+</tr>
+<tr>
+<td>includePrintingAreaInDesign</td>
+<td>boolean value which defines whether constraints of area available for printing are included in output mockup of design.</td>
+<td>false</td>
+</tr>
+<tr>
+<td>includeMaskInDesign</td>
+<td>boolean value which defines whether product locations mask are included in output mockup of design.</td>
+<td>false</td>
+</tr>
+<tr>
+<td>fontsCSSUrl</td>
+<td>URL to the location of fonts CSS definitions that will be available for the user.</td>
+<td>&ldquo;/fonts/fonts.css&rdquo;</td>
+</tr>
+<tr>
+<td>zoomEnabled</td>
+<td>boolean value, defines whether zoom tool will be enabled inside designer.</td>
+<td></td>
+</tr>
+<tr>
+<td>minZoom, maxZoom (optional)</td>
+<td>numeric values, defining min and max value for the zoom control respectively, in percents.</td>
+<td>50, 150</td>
+</tr>
+<tr>
+<td>checkeredBackground</td>
+<td>If enabled, shows checkered background where no product background is rendered. The asset for background is located in img/bg-fill.png</td>
+<td>true</td>
+</tr>
+<tr>
+<td>unit, unit2, unitConversionMult</td>
+<td>units, shown for custom sizes products. Possible values are &ldquo;in&rdquo; and &ldquo;ft&rdquo; or &ldquo;cm&rdquo; and &ldquo;m&rdquo; and so on. Use unitConversionMult to indicate respective multiplier for proper conversion of unit to unit2.</td>
+<td>&ldquo;in&rdquo;, &ldquo;ft&rdquo;</td>
+</tr>
+<tr>
+<td>showProductSelector</td>
+<td>possible values: true/false. Defines whether Select Product form is shown. If false, make sure you indicate the defaultProductId to preload the product.</td>
+<td>true</td>
+</tr>
+<tr>
+<td>checkTextFXThrottle</td>
+<td>type: milliseconds. A delay in events for typing text, before LiveArt will trigger the server script to obtain new image for certain raster effect.</td>
+<td>400</td>
+</tr>
+</tbody></table>
 
           <h1 id="data-structures">Data Structures</h1>
 
 <p>This section describes JSON data structures of LiveArt resources, such as products, fonts, colors, graphics and text effects.</p>
+
+<h2 id="products-list">Products List</h2>
+
+<blockquote>
+<p>Sample mini Products JSON file</p>
+</blockquote>
+<pre><code class="highlight json"><span class="p">{</span><span class="w">
+  </span><span class="s2">"productCategoriesList"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"r1"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Clothing"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"thumbUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"products/cool-t-shirt/thumbs/t-shirt-blue.png"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"categories"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+          </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Apparel"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"thumbUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"products/cool-t-shirt/thumbs/apparel_cat.jpg"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"products"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+            </span><span class="p">{</span><span class="w">
+              </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"11"</span><span class="p">,</span><span class="w">
+              </span><span class="s2">"categoryId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span><span class="w">
+              </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"T-shirt"</span><span class="p">,</span><span class="w">
+              </span><span class="s2">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"A perfect tee for hipsters, 4.8x8.2 (4.8x8.6), vector multicolor product images, clip-rect, 150DPU"</span><span class="p">,</span><span class="w">
+              </span><span class="s2">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="s2">"price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"29"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"material"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Cotton"</span><span class="w">
+              </span><span class="p">},</span><span class="w">
+              </span><span class="s2">"thumbUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"products/cool-t-shirt/thumbs/t-shirt-blue.png"</span><span class="p">,</span><span class="w">
+              </span><span class="s2">"namesNumbersEnabled"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+              </span><span class="s2">"multicolor"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+              </span><span class="s2">"minDPU"</span><span class="p">:</span><span class="w"> </span><span class="mi">150</span><span class="p">,</span><span class="w">
+              </span><span class="s2">"locations"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+                </span><span class="p">{</span><span class="w">
+                  </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Front"</span><span class="p">,</span><span class="w">
+                  </span><span class="s2">"image"</span><span class="p">:</span><span class="w"> </span><span class="s2">"products/cool-t-shirt/t-shirt_front.svg"</span><span class="p">,</span><span class="w">
+                  </span><span class="s2">"editableArea"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="mi">170</span><span class="p">,</span><span class="mi">75</span><span class="p">,</span><span class="mi">410</span><span class="p">,</span><span class="mi">485</span><span class="p">],</span><span class="w">
+                  </span><span class="s2">"editableAreaUnits"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="mf">4.8</span><span class="p">,</span><span class="mf">8.2</span><span class="p">],</span><span class="w">
+                  </span><span class="s2">"clipRect"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="mi">170</span><span class="p">,</span><span class="mi">75</span><span class="p">,</span><span class="mi">410</span><span class="p">,</span><span class="mi">485</span><span class="p">]</span><span class="w">
+                </span><span class="p">},</span><span class="w">
+                </span><span class="p">{</span><span class="w">
+                  </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Back"</span><span class="p">,</span><span class="w">
+                  </span><span class="s2">"image"</span><span class="p">:</span><span class="w"> </span><span class="s2">"products/cool-t-shirt/t-shirt_back.svg"</span><span class="p">,</span><span class="w">
+                  </span><span class="s2">"editableArea"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="mi">170</span><span class="p">,</span><span class="mi">55</span><span class="p">,</span><span class="mi">410</span><span class="p">,</span><span class="mi">485</span><span class="p">],</span><span class="w">
+                  </span><span class="s2">"editableAreaUnits"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="mf">4.8</span><span class="p">,</span><span class="mf">8.6</span><span class="p">],</span><span class="w">
+                  </span><span class="s2">"clipRect"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="mi">170</span><span class="p">,</span><span class="mi">75</span><span class="p">,</span><span class="mi">410</span><span class="p">,</span><span class="mi">485</span><span class="p">]</span><span class="w">
+                </span><span class="p">}</span><span class="w">
+              </span><span class="p">],</span><span class="w">
+              </span><span class="s2">"colorizableElements"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+                </span><span class="p">{</span><span class="w">
+                  </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Color"</span><span class="p">,</span><span class="w">
+                  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">".bg.fill"</span><span class="p">,</span><span class="w">
+                  </span><span class="s2">"colors"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+                    </span><span class="p">{</span><span class="w">
+                      </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"White"</span><span class="p">,</span><span class="w">
+                      </span><span class="s2">"value"</span><span class="p">:</span><span class="w"> </span><span class="s2">"#FFF"</span><span class="w">
+                    </span><span class="p">},</span><span class="w">
+                    </span><span class="p">{</span><span class="w">
+                      </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Black"</span><span class="p">,</span><span class="w">
+                      </span><span class="s2">"value"</span><span class="p">:</span><span class="w"> </span><span class="s2">"#000"</span><span class="w">
+                    </span><span class="p">},</span><span class="w">
+                    </span><span class="p">{</span><span class="w">
+                      </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Steel Blue"</span><span class="p">,</span><span class="w">
+                      </span><span class="s2">"value"</span><span class="p">:</span><span class="w"> </span><span class="s2">"#4682B4"</span><span class="w">
+                    </span><span class="p">}</span><span class="w">
+                  </span><span class="p">]</span><span class="w">
+                </span><span class="p">}</span><span class="w">
+              </span><span class="p">],</span><span class="w">
+              </span><span class="s2">"sizes"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"XS"</span><span class="p">,</span><span class="s2">"S"</span><span class="p">,</span><span class="s2">"M"</span><span class="p">,</span><span class="s2">"L"</span><span class="p">,</span><span class="s2">"XL"</span><span class="p">,</span><span class="s2">"XXL"</span><span class="p">,</span><span class="s2">"XXXL"</span><span class="p">]</span><span class="w">
+            </span><span class="p">}</span><span class="w">
+          </span><span class="p">]</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">]</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<p>The JSON object that is returned by this link should have the following tree-like structure. The root node of this tree is productCategoriesList — the array of category objects. See description of a category object below.</p>
+
+<h3 id="category">Category</h3>
+
+<p>A category may be nested if necessary and thus include either child categories or products.</p>
+
+<table><thead>
+<tr>
+<th>Attribute</th>
+<th>Description</th>
+<th>Type</th>
+<th>Required</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>id</td>
+<td>unique identifier of category object, used for internal needs.</td>
+<td>string</td>
+<td>yes</td>
+</tr>
+<tr>
+<td>name</td>
+<td>name of category, visible to the end user.</td>
+<td>string</td>
+<td>yes</td>
+</tr>
+<tr>
+<td>thumbUrl</td>
+<td>path or URL of the category thumbnail</td>
+<td>string</td>
+<td>no</td>
+</tr>
+<tr>
+<td>categories</td>
+<td>a nested list of categories, if present</td>
+<td>string</td>
+<td>no</td>
+</tr>
+<tr>
+<td>products</td>
+<td>list of product objects (see description below).</td>
+<td>array</td>
+<td>no</td>
+</tr>
+</tbody></table>
+
+<h3 id="product">Product</h3>
+
+<p>Product is perhaps one of the most complex objects in LiveArt, presenting numerous options of usage that can be combined. The child objects like Locations, Colors and ColorizableElements are described later in this section.</p>
+
+<table><thead>
+<tr>
+<th>Attribute</th>
+<th>Description</th>
+<th>Type</th>
+<th>Required</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>categoryId</td>
+<td>unique identifier of category to which belongs the product.</td>
+<td>string</td>
+<td>yes</td>
+</tr>
+<tr>
+<td>colorizableElements</td>
+<td>indicates list of elements of the product that can be colorized, e.g. uniform or multiple panel products. Works same as colorizableElements for artwork gallery.</td>
+<td>structure</td>
+<td>no</td>
+</tr>
+<tr>
+<td>colors</td>
+<td>list of available colors for the product. See description of color object below. If the list is not indicated, the product is considered as non-colorizable.</td>
+<td>string</td>
+<td>no</td>
+</tr>
+<tr>
+<td>data</td>
+<td>arbitrary object with additional product fields to pass to front-end, e.g. material, cost, etc.</td>
+<td>object</td>
+<td>no</td>
+</tr>
+<tr>
+<td>description</td>
+<td>description of product, visible to the end user.</td>
+<td>string</td>
+<td>no</td>
+</tr>
+<tr>
+<td>hideEditableAreaBord​er</td>
+<td>If false, the printable area border is not rendered.</td>
+<td>boolean</td>
+<td>no</td>
+</tr>
+<tr>
+<td>id</td>
+<td>unique identifier of product object, used for internal needs. string</td>
+<td>yes</td>
+<td></td>
+</tr>
+<tr>
+<td>locations</td>
+<td>list of available locations for the products (for example, front, back and so forth). See description of location object below.</td>
+<td>array</td>
+<td>no</td>
+</tr>
+<tr>
+<td>multicolor</td>
+<td>whether product can be colorizable. This requires special SVG image of product to be prepared in a same way as multicolor artwork and colorizableElements to be indicated</td>
+<td>boolean</td>
+<td>no</td>
+</tr>
+<tr>
+<td>name</td>
+<td>name of product, visible to the end user.</td>
+<td>string</td>
+<td>yes</td>
+</tr>
+<tr>
+<td>resizable</td>
+<td>defines whether the product dimensions can be changed by user. Setting this to true is typical for products like business cards, signs or banners. Default size will be taken from editableAreaUnits of the first location structure and may be overridden by defaultProductSize from main configuration file.</td>
+<td>boolean</td>
+<td>yes</td>
+</tr>
+<tr>
+<td>editableAreaSizes</td>
+<td>defines preselected possible sizes for user, works only if resizable attribute is true. Sample definition: <code class="prettyprint">&quot;editableAreaSizes&quot;:[{&quot;label&quot;:&quot;2x2in&quot;, &quot;width&quot;:2, &quot;height&quot;:2}]</code></td>
+<td>object</td>
+<td>no</td>
+</tr>
+<tr>
+<td>showRuler</td>
+<td>indicates whether ruler should be shown. Depends on editableAreaUnits values for each location. Default value: false.</td>
+<td>boolean</td>
+<td>no</td>
+</tr>
+<tr>
+<td>sizes</td>
+<td>list of available sizes for certain product. Type: array. If not indicated, only Quantity field will be rendered on the checkout panel.</td>
+<td>array</td>
+<td>yes</td>
+</tr>
+<tr>
+<td>template</td>
+<td>If this attribute is indicated, LiveArt will attempt to load the design with by indicated Design ID. This is perfect if certain default design is associated with a product. Please note that the design should be previously prepared and saved for this particular product.</td>
+<td>string</td>
+<td>no</td>
+</tr>
+<tr>
+<td>thumbUrl</td>
+<td>url to thumbnail image (allowed file extensions: *.jpg, *.png, *.gif, *.svg, dimensions: 110px x 110px) which will be shown in the products catalog.</td>
+<td>string</td>
+<td>no</td>
+</tr>
+</tbody></table>
+
+<h3 id="location">Location</h3>
+
+<p>JSON representation of product location which contains the following properties:</p>
+
+<table><thead>
+<tr>
+<th>Attribute</th>
+<th>Description</th>
+<th>Type</th>
+<th>Required</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>name</td>
+<td>name of location, visible to the end user.</td>
+<td>string</td>
+<td>no</td>
+</tr>
+<tr>
+<td>image</td>
+<td>url to background image (allowed file extensions: *.jpg, *.png, *.gif, *.svg) of the product for the current location.</td>
+<td>string</td>
+<td>no</td>
+</tr>
+<tr>
+<td>mask</td>
+<td>url to the mask image, that will be applied to the product background image. If config option includeMaskInDesign is true — included into output design svg file.</td>
+<td>string</td>
+<td>no</td>
+</tr>
+<tr>
+<td>overlayInfo</td>
+<td>url to the image with additional location graphical markup (safe, trim, print areas, additional comments). This image is not included into svg design output.</td>
+<td>string</td>
+<td>no</td>
+</tr>
+<tr>
+<td>editableArea</td>
+<td>list of 4 number that represent coordinates of top left (first two numbers) and bottom right points (last two). On design is rendered as rectangle; if config option includePrintingAreaInDesign is true, editable area is included into output design svg file. Default values: canvas width and height.</td>
+<td>array</td>
+<td>no</td>
+</tr>
+<tr>
+<td>editableAreaUnits</td>
+<td>list of 2 number that represent width and height of editable area in real-life units, e.g. millimeters or inches.</td>
+<td>array/numbers</td>
+<td>no</td>
+</tr>
+<tr>
+<td>editableAreaUnitsRan​ge</td>
+<td>this sets min/max ranges and steps for dimensions of resizable product. Example:<code class="prettyprint">&quot;editableAreaUnitsRan​ge&quot;: [[5, 150, 1],[5, 100, 1]]</code>, where [min, max, step (optional, default = 1)]</td>
+<td>array</td>
+<td>no</td>
+</tr>
+<tr>
+<td>clipRect</td>
+<td>list of 2 coordinates for top left and bottom right corners of clipped area. It is very handy to copy these from editableArea if the design should be cropped at the sides of editableArea.</td>
+<td>array</td>
+<td>no</td>
+</tr>
+</tbody></table>
+
+<aside class="notice">
+Please pay attention that all coordinates or measurements should be numbers, not strings.
+</aside>
+
+<h3 id="color">Color</h3>
+
+<p>JSON representation of product color which contains the following properties:</p>
+
+<table><thead>
+<tr>
+<th>Attribute</th>
+<th>Description</th>
+<th>Type</th>
+<th>Required</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>name</td>
+<td>name of color, visible to the end user.</td>
+<td>string</td>
+<td>no</td>
+</tr>
+<tr>
+<td>value</td>
+<td>hexadecimal value of color.</td>
+<td>string</td>
+<td>no</td>
+</tr>
+<tr>
+<td>location</td>
+<td>list of locations for which this color is available.</td>
+<td>array</td>
+<td>no</td>
+</tr>
+<tr>
+<td></td>
+<td>Each object in locations array consist of two properties:</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>name</td>
+<td>name of location for which current color is available.</td>
+<td>string</td>
+<td>yes</td>
+</tr>
+<tr>
+<td>image</td>
+<td>url to background image (allowed file extensions: *.jpg, *.png, *.gif, *.svg) for current location and color</td>
+<td>string</td>
+<td>yes</td>
+</tr>
+</tbody></table>
+
+<h2 id="fonts-list">Fonts List</h2>
+
+<blockquote>
+<p>Fonts JSON structure example</p>
+</blockquote>
+<pre><code class="highlight json"><span class="p">{</span><span class="w">
+    </span><span class="s2">"fonts"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w"> </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Action"</span><span class="p">,</span><span class="w"> </span><span class="s2">"fontFamily"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Action Man"</span><span class="p">,</span><span class="w"> </span><span class="s2">"ascent"</span><span class="p">:</span><span class="w"> </span><span class="mi">22</span><span class="p">,</span><span class="w"> </span><span class="s2">"vector"</span><span class="p">:</span><span class="w"> </span><span class="s2">"fonts/Action-Man/Action_Man.font.js"</span><span class="w"> </span><span class="p">},</span><span class="w">
+        </span><span class="p">{</span><span class="w"> </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Arial"</span><span class="p">,</span><span class="w"> </span><span class="s2">"fontFamily"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Arial"</span><span class="p">,</span><span class="w"> </span><span class="s2">"ascent"</span><span class="p">:</span><span class="w"> </span><span class="mi">23</span><span class="p">,</span><span class="w"> </span><span class="s2">"vector"</span><span class="p">:</span><span class="w"> </span><span class="s2">"fonts/Arial/Arial.font.js"</span><span class="w"> </span><span class="p">},</span><span class="w">
+        </span><span class="p">{</span><span class="w"> </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Bebas Neue"</span><span class="p">,</span><span class="w"> </span><span class="s2">"fontFamily"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Bebas Neue"</span><span class="p">,</span><span class="w"> </span><span class="s2">"ascent"</span><span class="p">:</span><span class="w"> </span><span class="mi">23</span><span class="p">,</span><span class="w"> </span><span class="s2">"boldAllowed"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"> </span><span class="s2">"italicAllowed"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"> </span><span class="s2">"vector"</span><span class="p">:</span><span class="w"> </span><span class="s2">"fonts/Bebas-Neue/Bebas_Neue.font.js"</span><span class="p">},</span><span class="w">      
+        </span><span class="p">{</span><span class="w"> </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Capture It"</span><span class="p">,</span><span class="w"> </span><span class="s2">"fontFamily"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Capture it"</span><span class="p">,</span><span class="w"> </span><span class="s2">"ascent"</span><span class="p">:</span><span class="w"> </span><span class="mi">23</span><span class="p">,</span><span class="w"> </span><span class="s2">"boldAllowed"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"> </span><span class="s2">"italicAllowed"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"> </span><span class="s2">"vector"</span><span class="p">:</span><span class="w"> </span><span class="s2">"fonts/Capture-It/Capture_It.font.js"</span><span class="p">},</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<p>The JSON object that is returned by fonts service should have main <code class="prettyprint">fonts</code> node with the following properties:</p>
+
+<table><thead>
+<tr>
+<th>Attribute</th>
+<th>Description</th>
+<th>Type</th>
+<th>Required</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>name</td>
+<td>name of font, visible to the end user. The name will be automatically written with the font.</td>
+<td>string</td>
+<td>yes</td>
+</tr>
+<tr>
+<td>fontFamily</td>
+<td>name of typeface that is used by this font.</td>
+<td>string</td>
+<td>yes</td>
+</tr>
+<tr>
+<td>ascent</td>
+<td>should be indicated, as height in pixels for 32pt font size. This parameter is essential for calculating correct measurements in resizable products and size-sensitive price calculations. Normal values are 22-29.</td>
+<td>number</td>
+<td>no</td>
+</tr>
+<tr>
+<td>boldAllowed, italicAllowed</td>
+<td>if false, disables respective control. Usable if font does not have bold or italic typefaces.</td>
+<td>boolean</td>
+<td>no</td>
+</tr>
+<tr>
+<td>vector</td>
+<td>vector representation of the font glyphs for vector text effects. Can be obtained by running the font through http://cufon.shoqolate.com/generate/ tool.</td>
+<td>path,URL</td>
+<td>no</td>
+</tr>
+</tbody></table>
+
+<h2 id="colors-list">Colors List</h2>
+
+<blockquote>
+<p>Colors JSON example</p>
+</blockquote>
+<pre><code class="highlight json"><span class="p">{</span><span class="w">
+    </span><span class="s2">"colors"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w"> </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Black"</span><span class="p">,</span><span class="w"> </span><span class="s2">"value"</span><span class="p">:</span><span class="w"> </span><span class="s2">"#000000"</span><span class="w"> </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w"> </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Dim Gray"</span><span class="p">,</span><span class="w"> </span><span class="s2">"value"</span><span class="p">:</span><span class="w"> </span><span class="s2">"#696969"</span><span class="w"> </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w"> </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Gray"</span><span class="p">,</span><span class="w"> </span><span class="s2">"value"</span><span class="p">:</span><span class="w"> </span><span class="s2">"#808080"</span><span class="w"> </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w"> </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Silver"</span><span class="p">,</span><span class="w"> </span><span class="s2">"value"</span><span class="p">:</span><span class="w"> </span><span class="s2">"#C0C0C0"</span><span class="w"> </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w"> </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"White"</span><span class="p">,</span><span class="w"> </span><span class="s2">"value"</span><span class="p">:</span><span class="w"> </span><span class="s2">"#FFFFFF"</span><span class="w"> </span><span class="p">}</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<p>The JSON object that is returned by this link should have the following properties:</p>
+
+<table><thead>
+<tr>
+<th>Attribute</th>
+<th>Description</th>
+<th>Type</th>
+<th>Required</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>colors</td>
+<td>list of the objects.</td>
+<td>array</td>
+<td></td>
+</tr>
+<tr>
+<td>name</td>
+<td>name of color, visible to the end user.</td>
+<td>string</td>
+<td></td>
+</tr>
+</tbody></table>
+
+<p>value — hexadecimal value of color. Type: string.</p>
+
+<h2 id="graphics-list">Graphics List</h2>
+
+<blockquote>
+<p>Graphics JSON example</p>
+</blockquote>
+<pre><code class="highlight json"><span class="p">{</span><span class="w">
+  </span><span class="s2">"graphicsCategoriesList"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"r1"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Animals"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"thumb"</span><span class="p">:</span><span class="w"> </span><span class="s2">"gallery/raster/thumbs/crab.png"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"categories"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+          </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Raster"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"thumb"</span><span class="p">:</span><span class="w"> </span><span class="s2">"gallery/raster/thumbs/crab.png"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"graphicsList"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+            </span><span class="p">{</span><span class="w">
+              </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"11"</span><span class="p">,</span><span class="w">
+              </span><span class="s2">"categoryId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span><span class="w">
+              </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Crab"</span><span class="p">,</span><span class="w">
+              </span><span class="s2">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"crab"</span><span class="p">,</span><span class="w">
+              </span><span class="s2">"colors"</span><span class="p">:</span><span class="w"> </span><span class="s2">"-1"</span><span class="p">,</span><span class="w">
+              </span><span class="s2">"thumb"</span><span class="p">:</span><span class="w"> </span><span class="s2">"gallery/raster/thumbs/crab.png"</span><span class="p">,</span><span class="w">
+              </span><span class="s2">"image"</span><span class="p">:</span><span class="w"> </span><span class="s2">"gallery/raster/crab.png"</span><span class="w">
+            </span><span class="p">}</span><span class="w">
+          </span><span class="p">]</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+          </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"4"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Multicolor"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"thumb"</span><span class="p">:</span><span class="w"> </span><span class="s2">"gallery/Icons/multicolor/png/butterfly.png"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"graphicsList"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+            </span><span class="p">{</span><span class="w">
+              </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"42"</span><span class="p">,</span><span class="w">
+              </span><span class="s2">"categoryId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"4"</span><span class="p">,</span><span class="w">
+              </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Lion"</span><span class="p">,</span><span class="w">
+              </span><span class="s2">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"lion"</span><span class="p">,</span><span class="w">
+              </span><span class="s2">"multicolor"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+              </span><span class="s2">"thumb"</span><span class="p">:</span><span class="w"> </span><span class="s2">"gallery/Icons/multicolor/png/lion.png"</span><span class="p">,</span><span class="w">
+              </span><span class="s2">"image"</span><span class="p">:</span><span class="w"> </span><span class="s2">"gallery/Icons/multicolor/svg/lion.svg"</span><span class="p">,</span><span class="w">
+              </span><span class="s2">"colorizableElements"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+                </span><span class="p">{</span><span class="w">
+                  </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Muzzle"</span><span class="p">,</span><span class="w">
+                  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">".muzzle.fill"</span><span class="p">,</span><span class="w">
+                  </span><span class="s2">"colors"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+                    </span><span class="p">{</span><span class="w">
+                      </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Yellow"</span><span class="p">,</span><span class="w">
+                      </span><span class="s2">"value"</span><span class="p">:</span><span class="w"> </span><span class="s2">"#F4EB21"</span><span class="w">
+                    </span><span class="p">},</span><span class="w">
+                    </span><span class="p">{</span><span class="w">
+                      </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Green"</span><span class="p">,</span><span class="w">
+                      </span><span class="s2">"value"</span><span class="p">:</span><span class="w"> </span><span class="s2">"#69F946"</span><span class="w">
+                    </span><span class="p">}</span><span class="w">
+                  </span><span class="p">]</span><span class="w">
+                </span><span class="p">},</span><span class="w">
+                </span><span class="p">{</span><span class="w">
+                  </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Mane"</span><span class="p">,</span><span class="w">
+                  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">".mane.fill"</span><span class="p">,</span><span class="w">
+                  </span><span class="s2">"colors"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+                    </span><span class="p">{</span><span class="w">
+                      </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Orange"</span><span class="p">,</span><span class="w">
+                      </span><span class="s2">"value"</span><span class="p">:</span><span class="w"> </span><span class="s2">"#FAA744"</span><span class="w">
+                    </span><span class="p">},</span><span class="w">
+                    </span><span class="p">{</span><span class="w">
+                      </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Dark Red"</span><span class="p">,</span><span class="w">
+                      </span><span class="s2">"value"</span><span class="p">:</span><span class="w"> </span><span class="s2">"#600308"</span><span class="w">
+                    </span><span class="p">}</span><span class="w">
+                  </span><span class="p">]</span><span class="w">
+                </span><span class="p">}</span><span class="w">
+              </span><span class="p">]</span><span class="w">
+            </span><span class="p">}</span><span class="w">
+          </span><span class="p">]</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">]</span><span class="w">
+    </span><span class="p">}]}</span><span class="w">
+</span></code></pre>
+
+<p>The JSON object that is returned by this link should have the following tree-like structure. The root node of this tree is graphicsCategoriesList — the array of graphic category objects. Each category has its graphics list, represented by Graphic Object.</p>
+
+<h3 id="graphic-object">Graphic Object</h3>
+
+<p>The artwork can be in the following web formats: JPG, GIF, PNG or SVG. For best vector representation we recommend using SVG format. You can easily export your vector grahics into SVG from Adobe Illustrator or CorelDraw.</p>
+
+<p>JSON representation of graphics, contains the following properties:</p>
+
+<table><thead>
+<tr>
+<th>Attribute</th>
+<th>Description</th>
+<th>Type</th>
+<th>Required</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>id</td>
+<td>unique identifier of product object, used for internal needs.</td>
+<td>string</td>
+<td>yes</td>
+</tr>
+<tr>
+<td>categoryId</td>
+<td>unique identifier of category to which belongs the image.</td>
+<td>string</td>
+<td>yes</td>
+</tr>
+<tr>
+<td>colors</td>
+<td>number of colors, present in the image. This will be used for correct get quote request if decoration price depends on number of colors (e.g. screenprinting). Type: string or array of strings. Possible values: &ldquo;-1&rdquo; — process colors are required, e.g. if the graphic is photo; &ldquo;0&rdquo; — default value (need graphic to be colorize = true and get colors information from selected fill color/outline/multicolor layers); integer (e.g. &ldquo;5&rdquo;) — number of unique graphic colors; array of hex web colors (e.g. [&ldquo;#FFFFFF&rdquo;, &ldquo;#000000&rdquo;]) — list of colors for accurate counting</td>
+<td>string or array/string</td>
+<td>yes</td>
+</tr>
+<tr>
+<td>colorize</td>
+<td>acceptable values: true, false. This optional attribute tells designer whether the image can be colorized by user. Please note that this option works with SVG images only. Default value: false.</td>
+<td>boolean</td>
+<td>no</td>
+</tr>
+<tr>
+<td>colorizableElements</td>
+<td>list of colorizable layers inside the SVG image. Please look for applicable samples of such SVG images inside your development package.</td>
+<td>array/objects</td>
+<td>no</td>
+</tr>
+<tr>
+<td>description</td>
+<td>short description of the image, visible to the end user.</td>
+<td>string</td>
+<td>no</td>
+</tr>
+<tr>
+<td>multicolor</td>
+<td>acceptable values: true, false. Optional attribute for indicating whether artwork can be colorized in multiple layers. Works in conjunction with colorizableElements attribute and mutually exclusive with colorize. Default value: false.</td>
+<td>boolean</td>
+<td>no</td>
+</tr>
+<tr>
+<td>thumb</td>
+<td>url to thumbnail image (allowed file extensions: *.jpg, *.png, *.gif, *.svg, dimensions: 110px x 110px) which will be shown in the graphics catalog.</td>
+<td>string</td>
+<td>no</td>
+</tr>
+<tr>
+<td>image</td>
+<td>url to the full size image (allowed file extensions: *.jpg, *.png, *.gif, *.svg) which will be shown at the preview area.</td>
+<td>string</td>
+<td>yes</td>
+</tr>
+</tbody></table>
+
+<h2 id="text-effects-list">Text Effects List</h2>
+
+<blockquote>
+<p>Example</p>
+</blockquote>
+<pre><code class="highlight json"><span class="p">{</span><span class="w"> </span><span class="s2">"textEffects"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w"> </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"arcUp"</span><span class="p">,</span><span class="w"> </span><span class="s2">"label"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Arc Up"</span><span class="p">,</span><span class="w"> </span><span class="s2">"fxName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"arc"</span><span class="p">,</span><span class="w"> </span><span class="s2">"paramName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Angle"</span><span class="p">,</span><span class="w"> </span><span class="s2">"paramValName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"a"</span><span class="p">,</span><span class="w"> </span><span class="s2">"min"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="p">,</span><span class="w"> </span><span class="s2">"max"</span><span class="p">:</span><span class="w"> </span><span class="mi">360</span><span class="p">,</span><span class="w"> </span><span class="s2">"step"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="w"> </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w"> </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"inflate"</span><span class="p">,</span><span class="w"> </span><span class="s2">"label"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Inflate"</span><span class="p">,</span><span class="w"> </span><span class="s2">"paramName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Distort"</span><span class="p">,</span><span class="w"> </span><span class="s2">"paramValName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"d"</span><span class="p">,</span><span class="w"> </span><span class="s2">"min"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.1</span><span class="p">,</span><span class="w"> </span><span class="s2">"max"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="s2">"step"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.1</span><span class="w"> </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w"> </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"perspective"</span><span class="p">,</span><span class="w"> </span><span class="s2">"label"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Perspective"</span><span class="p">,</span><span class="w"> </span><span class="s2">"paramName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Distort"</span><span class="p">,</span><span class="w"> </span><span class="s2">"paramValName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"d"</span><span class="p">,</span><span class="w"> </span><span class="s2">"min"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.1</span><span class="p">,</span><span class="w"> </span><span class="s2">"max"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="s2">"step"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.1</span><span class="w"> </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w"> </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"wave"</span><span class="p">,</span><span class="w"> </span><span class="s2">"label"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Wave"</span><span class="p">,</span><span class="w"> </span><span class="s2">"paramName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Distort"</span><span class="p">,</span><span class="w"> </span><span class="s2">"paramValName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"d"</span><span class="p">,</span><span class="w"> </span><span class="s2">"min"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.1</span><span class="p">,</span><span class="w"> </span><span class="s2">"max"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="s2">"step"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.1</span><span class="w"> </span><span class="p">}</span><span class="w">
+</span><span class="p">]}</span><span class="w">
+
+</span></code></pre>
+
+<p>Text FX is an experimental flexible feature that was added to LiveArt HTML5 allowing users to apply a number of effects on the text. Arc effects are vector and will not require ImageMagick. Below goes example of defining certain effect to a script. Please note that this works in conjunction with getText.php script and any effect you add should be implemented in it.</p>
+
+<aside class="warning">
+Please note that the default script requires ImageMagick to be installed on your server. If you don&rsquo;t have it installed or not planning to, remove raster effects from the json definition.
+</aside>
+
+<table><thead>
+<tr>
+<th>Attribute</th>
+<th>Description</th>
+<th>Type</th>
+<th>Required</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>name</td>
+<td>unique identifier of the effect</td>
+<td>string</td>
+<td>yes</td>
+</tr>
+<tr>
+<td>label</td>
+<td>label for the effect as it will appear to the user.</td>
+<td>string</td>
+<td>no</td>
+</tr>
+<tr>
+<td>fxName(optional)</td>
+<td>working name of the effect if different to name or label. Is used in the script</td>
+<td>string</td>
+<td>no</td>
+</tr>
+<tr>
+<td>paramName</td>
+<td>title of the effect parameter as it will appear for user, e.g. &ldquo;Distort&rdquo;, &ldquo;Angle&rdquo;</td>
+<td>string</td>
+<td>yes</td>
+</tr>
+<tr>
+<td>paramValName</td>
+<td>working name of the effect parameter, used if different to paramName.</td>
+<td>string</td>
+<td>yes</td>
+</tr>
+<tr>
+<td>min/max</td>
+<td>numeric values for respective min and max of the effect parameter. The parameter will be rendered to user as slider control.</td>
+<td>number</td>
+<td>yes</td>
+</tr>
+<tr>
+<td>step</td>
+<td>numeric step value for effect parameter control.</td>
+<td>number</td>
+<td>yes</td>
+</tr>
+</tbody></table>
 
           <h1 id="package-structure">Package Structure</h1>
 
