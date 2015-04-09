@@ -99,28 +99,29 @@ colors | list of available colors for the product. See description of color obje
 data | arbitrary object with additional product fields to pass to front-end, e.g. material, cost, etc. | object | no
 description | description of product, visible to the end user. | string | no
 hideEditableAreaBord​er | If false, the printable area border is not rendered. | boolean | no
-id | unique identifier of product object, used for internal needs. string | yes
+id | unique identifier of product object, used for internal needs. | string | yes
 locations | list of available locations for the products (for example, front, back and so forth). See description of location object below. | array | no
+minDPU | overrides general config property for certain product. Refer to config option description for more information | number | no
 multicolor | whether product can be colorizable. This requires special SVG image of product to be prepared in a same way as multicolor artwork and colorizableElements to be indicated | boolean | no
 name | name of product, visible to the end user. | string | yes
-resizable | defines whether the product dimensions can be changed by user. Setting this to true is typical for products like business cards, signs or banners. Default size will be taken from editableAreaUnits of the first location structure and may be overridden by defaultProductSize from main configuration file. | boolean | yes
+resizable | defines whether the product dimensions can be changed by user. Setting this to true is typical for products like business cards, signs or banners. This product type has some peculiar properties:<ul><li>`editableAreaUnits` — is an optional location attribute, but for resizable products becomes required;</li><li>default size will be taken from `editableAreaUnits`;</li><li>one may additionally setup default product size via `defaultProductSize` attribute in main configuration file;</li><li>all product location should have same size;</li><li>if resizable product has more than one `location` object, `editableAreaUnits` are required only for first location in list; other loation's editableAreaUnits will be ignored.</li></ul> | boolean | no
 editableAreaSizes | defines preselected possible sizes for user, works only if resizable attribute is true. Sample definition: `"editableAreaSizes":[{"label":"2x2in", "width":2, "height":2}]` | object | no
 showRuler | indicates whether ruler should be shown. Depends on editableAreaUnits values for each location. Default value: false. | boolean | no
-sizes | list of available sizes for certain product. Type: array. If not indicated, only Quantity field will be rendered on the checkout panel. | array | yes
+sizes | list of available sizes for certain product. Type: array. If not indicated, only Quantity field will be rendered on the checkout panel. | array | no
 template | If this attribute is indicated, LiveArt will attempt to load the design with by indicated Design ID. This is perfect if certain default design is associated with a product. Please note that the design should be previously prepared and saved for this particular product. | string | no
-thumbUrl | url to thumbnail image (allowed file extensions: *.jpg, *.png, *.gif, *.svg, dimensions: 110px x 110px) which will be shown in the products catalog. | string | no
+thumbUrl | url to thumbnail image (allowed file extensions: *.jpg, *.png, *.gif, *.svg, dimensions: 110px x 110px) which will be shown in the products catalog. | string | yes
 
 ### Location
 JSON representation of product location which contains the following properties:
 
 Attribute | Description | Type | Required
 --------- | ----------- | ---- | --------
-name | name of location, visible to the end user. | string | no
-image | url to background image (allowed file extensions: *.jpg, *.png, *.gif, *.svg) of the product for the current location. | string | no
+name | name of location, visible to the end user. | string | yes
+image | url to background image (allowed file extensions: *.jpg, *.png, *.gif, *.svg) of the product for the current location. | string | yes
 mask | url to the mask image, that will be applied to the product background image. If config option includeMaskInDesign is true — included into output design svg file. | string | no
 overlayInfo | url to the image with additional location graphical markup (safe, trim, print areas, additional comments). This image is not included into svg design output. | string | no
 editableArea | list of 4 number that represent coordinates of top left (first two numbers) and bottom right points (last two). On design is rendered as rectangle; if config option includePrintingAreaInDesign is true, editable area is included into output design svg file. Default values: canvas width and height. | array | no
-editableAreaUnits | list of 2 number that represent width and height of editable area in real-life units, e.g. millimeters or inches. | array/numbers | no
+editableAreaUnits | list of 2 number that represent width and height of editable area in real-life units, e.g. millimeters or inches. NOTE: Is required for product with `"resizable": true` attribute. If such product has more than one location, editableAreaUnits of not first location are ignored. | array/numbers | no
 editableAreaUnitsRan​ge | this sets min/max ranges and steps for dimensions of resizable product. Example:`"editableAreaUnitsRan​ge": [[5, 150, 1],[5, 100, 1]]`, where [min, max, step (optional, default = 1)] | array | no
 clipRect | list of 2 coordinates for top left and bottom right corners of clipped area. It is very handy to copy these from editableArea if the design should be cropped at the sides of editableArea. | array | no
 
@@ -133,10 +134,10 @@ JSON representation of product color which contains the following properties:
 
 Attribute | Description | Type | Required
 --------- | ----------- | ---- | --------
-name | name of color, visible to the end user. | string | no
-value | hexadecimal value of color. | string | no
-location | list of locations for which this color is available. | array | no
- | Each object in locations array consist of two properties: |
+name | name of color, visible to the end user. | string | yes
+value | hexadecimal value of color. | string | yes
+location | list of locations for which this color is available. Used only for products with `"multicolor": false` attribute | array | no
+ | Each object in `location` array consist of two properties: |
 name | name of location for which current color is available. | string | yes
 image | url to background image (allowed file extensions: *.jpg, *.png, *.gif, *.svg) for current location and color | string | yes
 
@@ -183,9 +184,8 @@ The JSON object that is returned by this link should have the following properti
 
 Attribute | Description | Type | Required
 --------- | ----------- | ---- | --------
-colors | list of the objects. | array
-name | name of color, visible to the end user. | string
-value — hexadecimal value of color. Type: string.
+name | name of color, visible to the end user. | string | yes
+value | hexadecimal value of color. | string | yes
 
 ## Graphics List
 > Graphics JSON example
@@ -263,7 +263,7 @@ value — hexadecimal value of color. Type: string.
       ]
     }]}
 ```
-The JSON object that is returned by this link should have the following tree-like structure. The root node of this tree is graphicsCategoriesList — the array of graphic category objects. Each category has its graphics list, represented by Graphic Object.
+The JSON object that is returned by this link should have the following tree-like structure. The root node of this tree is `graphicsCategoriesList` — the array of root graphic category objects. Each category has its categories list or graphics list, represented by Graphic Object.
 
 ### Graphic Object
 The artwork can be in the following web formats: JPG, GIF, PNG or SVG. For best vector representation we recommend using SVG format. You can easily export your vector grahics into SVG from Adobe Illustrator or CorelDraw.
@@ -274,7 +274,7 @@ Attribute | Description | Type | Required
 --------- | ----------- | ---- | --------
 id | unique identifier of product object, used for internal needs. | string | yes
 categoryId | unique identifier of category to which belongs the image. | string | yes
-colors | number of colors, present in the image. This will be used for correct get quote request if decoration price depends on number of colors (e.g. screenprinting). Type: string or array of strings. Possible values: "-1" — process colors are required, e.g. if the graphic is photo; "0" — default value (need graphic to be colorize = true and get colors information from selected fill color/outline/multicolor layers); integer (e.g. "5") — number of unique graphic colors; array of hex web colors (e.g. ["#FFFFFF", "#000000"]) — list of colors for accurate counting | string or array/string | yes
+colors | number of colors, present in the image. This will be used for correct get quote request if decoration price depends on number of colors (e.g. screenprinting). Type: string or array of strings. Possible values: <ul><li> `"-1"` — process colors are required, e.g. if the graphic is photo; </li><li> `"0"` — default value (need graphic to be `"colorize": true` and get colors information from selected fill color/outline/multicolor layers); </li><li> integer (e.g. `"5"`) — number of unique graphic colors;</li><li> array of hex web colors (e.g. `["#FFFFFF", "#000000"]`) — list of colors for accurate counting</li></ul> | string or array/string | no
 colorize | acceptable values: true, false. This optional attribute tells designer whether the image can be colorized by user. Please note that this option works with SVG images only. Default value: false. | boolean | no
 colorizableElements | list of colorizable layers inside the SVG image. Please look for applicable samples of such SVG images inside your development package. | array/objects | no
 description | short description of the image, visible to the end user. | string | no
