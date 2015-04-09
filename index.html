@@ -711,6 +711,11 @@ While the LiveArt loads configuration by default out of static JSON files, you c
 <td>type: milliseconds. A delay in events for typing text, before LiveArt will trigger the server script to obtain new image for certain raster effect.</td>
 <td>400</td>
 </tr>
+<tr>
+<td>minDPU</td>
+<td>Set this property to show warning message if user will size raster image more than safe dimensions to meet suggested print quality standarts. Also this feature requires <code class="prettyprint">editableArea</code> and <code class="prettyprint">editableAreaUnits</code> (see Product Location Object) for each product location to use this feature (for correct unit/pixel ratio). Warning message is configured in html (&rsquo;<em>#dpu-exceeded-popup</em>&rsquo;). If user ignores such warning and continues design editing - on Place Order will be fired additional pop-up. Also may be re-defined for certain products (see Product Object).</td>
+<td>0</td>
+</tr>
 </tbody></table>
 
           <h1 id="data-structures">Data Structures</h1>
@@ -889,14 +894,20 @@ While the LiveArt loads configuration by default out of static JSON files, you c
 </tr>
 <tr>
 <td>id</td>
-<td>unique identifier of product object, used for internal needs. string</td>
+<td>unique identifier of product object, used for internal needs.</td>
+<td>string</td>
 <td>yes</td>
-<td></td>
 </tr>
 <tr>
 <td>locations</td>
 <td>list of available locations for the products (for example, front, back and so forth). See description of location object below.</td>
 <td>array</td>
+<td>no</td>
+</tr>
+<tr>
+<td>minDPU</td>
+<td>overrides general config property for certain product. Refer to config option description for more information</td>
+<td>number</td>
 <td>no</td>
 </tr>
 <tr>
@@ -913,9 +924,9 @@ While the LiveArt loads configuration by default out of static JSON files, you c
 </tr>
 <tr>
 <td>resizable</td>
-<td>defines whether the product dimensions can be changed by user. Setting this to true is typical for products like business cards, signs or banners. Default size will be taken from editableAreaUnits of the first location structure and may be overridden by defaultProductSize from main configuration file.</td>
+<td>defines whether the product dimensions can be changed by user. Setting this to true is typical for products like business cards, signs or banners. This product type has some peculiar properties:<ul><li><code class="prettyprint">editableAreaUnits</code> — is an optional location attribute, but for resizable products becomes required;</li><li>default size will be taken from <code class="prettyprint">editableAreaUnits</code>;</li><li>one may additionally setup default product size via <code class="prettyprint">defaultProductSize</code> attribute in main configuration file;</li><li>all product location should have same size;</li><li>if resizable product has more than one <code class="prettyprint">location</code> object, <code class="prettyprint">editableAreaUnits</code> are required only for first location in list; other loation&rsquo;s editableAreaUnits will be ignored.</li></ul></td>
 <td>boolean</td>
-<td>yes</td>
+<td>no</td>
 </tr>
 <tr>
 <td>editableAreaSizes</td>
@@ -933,7 +944,7 @@ While the LiveArt loads configuration by default out of static JSON files, you c
 <td>sizes</td>
 <td>list of available sizes for certain product. Type: array. If not indicated, only Quantity field will be rendered on the checkout panel.</td>
 <td>array</td>
-<td>yes</td>
+<td>no</td>
 </tr>
 <tr>
 <td>template</td>
@@ -945,7 +956,7 @@ While the LiveArt loads configuration by default out of static JSON files, you c
 <td>thumbUrl</td>
 <td>url to thumbnail image (allowed file extensions: *.jpg, *.png, *.gif, *.svg, dimensions: 110px x 110px) which will be shown in the products catalog.</td>
 <td>string</td>
-<td>no</td>
+<td>yes</td>
 </tr>
 </tbody></table>
 
@@ -965,13 +976,13 @@ While the LiveArt loads configuration by default out of static JSON files, you c
 <td>name</td>
 <td>name of location, visible to the end user.</td>
 <td>string</td>
-<td>no</td>
+<td>yes</td>
 </tr>
 <tr>
 <td>image</td>
 <td>url to background image (allowed file extensions: *.jpg, *.png, *.gif, *.svg) of the product for the current location.</td>
 <td>string</td>
-<td>no</td>
+<td>yes</td>
 </tr>
 <tr>
 <td>mask</td>
@@ -993,7 +1004,7 @@ While the LiveArt loads configuration by default out of static JSON files, you c
 </tr>
 <tr>
 <td>editableAreaUnits</td>
-<td>list of 2 number that represent width and height of editable area in real-life units, e.g. millimeters or inches.</td>
+<td>list of 2 number that represent width and height of editable area in real-life units, e.g. millimeters or inches. NOTE: Is required for product with <code class="prettyprint">&quot;resizable&quot;: true</code> attribute. If such product has more than one location, editableAreaUnits of not first location are ignored.</td>
 <td>array/numbers</td>
 <td>no</td>
 </tr>
@@ -1031,23 +1042,23 @@ Please pay attention that all coordinates or measurements should be numbers, not
 <td>name</td>
 <td>name of color, visible to the end user.</td>
 <td>string</td>
-<td>no</td>
+<td>yes</td>
 </tr>
 <tr>
 <td>value</td>
 <td>hexadecimal value of color.</td>
 <td>string</td>
-<td>no</td>
+<td>yes</td>
 </tr>
 <tr>
 <td>location</td>
-<td>list of locations for which this color is available.</td>
+<td>list of locations for which this color is available. Used only for products with <code class="prettyprint">&quot;multicolor&quot;: false</code> attribute</td>
 <td>array</td>
 <td>no</td>
 </tr>
 <tr>
 <td></td>
-<td>Each object in locations array consist of two properties:</td>
+<td>Each object in <code class="prettyprint">location</code> array consist of two properties:</td>
 <td></td>
 <td></td>
 </tr>
@@ -1149,20 +1160,18 @@ Please pay attention that all coordinates or measurements should be numbers, not
 </tr>
 </thead><tbody>
 <tr>
-<td>colors</td>
-<td>list of the objects.</td>
-<td>array</td>
-<td></td>
-</tr>
-<tr>
 <td>name</td>
 <td>name of color, visible to the end user.</td>
 <td>string</td>
-<td></td>
+<td>yes</td>
+</tr>
+<tr>
+<td>value</td>
+<td>hexadecimal value of color.</td>
+<td>string</td>
+<td>yes</td>
 </tr>
 </tbody></table>
-
-<p>value — hexadecimal value of color. Type: string.</p>
 
 <h2 id="graphics-list">Graphics List</h2>
 
@@ -1242,7 +1251,7 @@ Please pay attention that all coordinates or measurements should be numbers, not
     </span><span class="p">}]}</span><span class="w">
 </span></code></pre>
 
-<p>The JSON object that is returned by this link should have the following tree-like structure. The root node of this tree is graphicsCategoriesList — the array of graphic category objects. Each category has its graphics list, represented by Graphic Object.</p>
+<p>The JSON object that is returned by this link should have the following tree-like structure. The root node of this tree is <code class="prettyprint">graphicsCategoriesList</code> — the array of root graphic category objects. Each category has its categories list or graphics list, represented by Graphic Object.</p>
 
 <h3 id="graphic-object">Graphic Object</h3>
 
@@ -1272,9 +1281,9 @@ Please pay attention that all coordinates or measurements should be numbers, not
 </tr>
 <tr>
 <td>colors</td>
-<td>number of colors, present in the image. This will be used for correct get quote request if decoration price depends on number of colors (e.g. screenprinting). Type: string or array of strings. Possible values: &ldquo;-1&rdquo; — process colors are required, e.g. if the graphic is photo; &ldquo;0&rdquo; — default value (need graphic to be colorize = true and get colors information from selected fill color/outline/multicolor layers); integer (e.g. &ldquo;5&rdquo;) — number of unique graphic colors; array of hex web colors (e.g. [&ldquo;#FFFFFF&rdquo;, &ldquo;#000000&rdquo;]) — list of colors for accurate counting</td>
+<td>number of colors, present in the image. This will be used for correct get quote request if decoration price depends on number of colors (e.g. screenprinting). Type: string or array of strings. Possible values: <ul><li> <code class="prettyprint">&quot;-1&quot;</code> — process colors are required, e.g. if the graphic is photo; </li><li> <code class="prettyprint">&quot;0&quot;</code> — default value (need graphic to be <code class="prettyprint">&quot;colorize&quot;: true</code> and get colors information from selected fill color/outline/multicolor layers); </li><li> integer (e.g. <code class="prettyprint">&quot;5&quot;</code>) — number of unique graphic colors;</li><li> array of hex web colors (e.g. <code class="prettyprint">[&quot;#FFFFFF&quot;, &quot;#000000&quot;]</code>) — list of colors for accurate counting</li></ul></td>
 <td>string or array/string</td>
-<td>yes</td>
+<td>no</td>
 </tr>
 <tr>
 <td>colorize</td>
