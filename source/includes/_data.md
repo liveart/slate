@@ -122,7 +122,8 @@ mask | url to the mask image, that will be applied to the product background ima
 overlayInfo | url to the image with additional location graphical markup (safe, trim, print areas, additional comments). This image is not included into svg design output. | string | no
 editableArea | list of 4 number that represent coordinates of top left (first two numbers) and bottom right points (last two). On design is rendered as rectangle; if config option includePrintingAreaInDesign is true, editable area is included into output design svg file. Default values: canvas width and height. | array | no
 editableAreaUnits | list of 2 number that represent width and height of editable area in real-life units, e.g. millimeters or inches. NOTE: Is required for product with `"resizable": true` attribute. If such product has more than one location, editableAreaUnits of not first location are ignored. | array/numbers | no
-editableAreaUnitsRan​ge | this sets min/max ranges and steps for dimensions of resizable product. Example:`"editableAreaUnitsRan​ge": [[5, 150, 1],[5, 100, 1]]`, where [min, max, step (optional, default = 1)] | array | no
+editableAreaUnitsRan​ge | this sets min/max ranges and steps for dimensions of resizable product. Example:`"editableAreaUnitsRan​ge": [[5, 150, 1],[5, 100, 1]]`, where [min, max, step (optional, default = 1)]. Note: By default max value is used for longer side, not width only | array | no
+editableAreaUnitsRestrictRotation | If `true` set product max width value from first array and height — value from second array respectively from `editableAreaUnitsRan​ge`. Default value: false | boolean | no
 clipRect | list of 2 coordinates for top left and bottom right corners of clipped area. It is very handy to copy these from editableArea if the design should be cropped at the sides of editableArea. | array | no
 
 <aside class="notice">
