@@ -519,7 +519,8 @@ The response should be compiled and provided as `Content-Type: application/json`
         </span><span class="s2">"unitConversionMult"</span><span class="p">:</span><span class="w"> </span><span class="mi">12</span><span class="p">,</span><span class="w">
         </span><span class="s2">"showProductSelector"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
         </span><span class="s2">"checkTextFXThrottle"</span><span class="p">:</span><span class="w"> </span><span class="mi">400</span><span class="p">,</span><span class="w">
-        </span><span class="s2">"minDPU"</span><span class="p">:</span><span class="w"> </span><span class="mi">300</span><span class="w">
+        </span><span class="s2">"minDPU"</span><span class="p">:</span><span class="w"> </span><span class="mi">300</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"showUploadedColorsDialog"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
     </span><span class="p">},</span><span class="w">
     </span><span class="s2">"textEffects"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
         </span><span class="s2">"config"</span><span class="p">:</span><span class="w"> </span><span class="s2">"config/textEffects.json"</span><span class="p">,</span><span class="w">
@@ -715,6 +716,11 @@ While the LiveArt loads configuration by default out of static JSON files, you c
 <td>minDPU</td>
 <td>Set this property to show warning message if user will size raster image more than safe dimensions to meet suggested print quality standarts. Also this feature requires <code class="prettyprint">editableArea</code> and <code class="prettyprint">editableAreaUnits</code> (see Product Location Object) for each product location to use this feature (for correct unit/pixel ratio). Warning message is configured in html (&rsquo;<em>#dpu-exceeded-popup</em>&rsquo;). If user ignores such warning and continues design editing - on Place Order will be fired additional pop-up. Also may be re-defined for certain products (see Product Object).</td>
 <td>0</td>
+</tr>
+<tr>
+<td>showUploadedColorsDialog</td>
+<td>Defines whether to show after image upload pop-up with colors choises for uploaded image (default palette and &lsquo;Process Colors&rsquo; checkbox). If value == <code class="prettyprint">false</code> uploaded images are treated as &#39;Process Colors&rsquo;</td>
+<td>true</td>
 </tr>
 </tbody></table>
 
@@ -1010,8 +1016,14 @@ While the LiveArt loads configuration by default out of static JSON files, you c
 </tr>
 <tr>
 <td>editableAreaUnitsRan​ge</td>
-<td>this sets min/max ranges and steps for dimensions of resizable product. Example:<code class="prettyprint">&quot;editableAreaUnitsRan​ge&quot;: [[5, 150, 1],[5, 100, 1]]</code>, where [min, max, step (optional, default = 1)]</td>
+<td>this sets min/max ranges and steps for dimensions of resizable product. Example:<code class="prettyprint">&quot;editableAreaUnitsRan​ge&quot;: [[5, 150, 1],[5, 100, 1]]</code>, where [min, max, step (optional, default = 1)]. Note: By default max value is used for longer side, not width only</td>
 <td>array</td>
+<td>no</td>
+</tr>
+<tr>
+<td>editableAreaUnitsRestrictRotation</td>
+<td>If <code class="prettyprint">true</code> set product max width value from first array and height — value from second array respectively from <code class="prettyprint">editableAreaUnitsRan​ge</code>. Default value: false</td>
+<td>boolean</td>
 <td>no</td>
 </tr>
 <tr>
