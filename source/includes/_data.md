@@ -30,6 +30,7 @@ This section describes JSON data structures of LiveArt resources, such as produc
               "namesNumbersEnabled": true,
               "multicolor": true,
               "minDPU": 150,
+              "minQuantity": 1,
               "locations": [
                 {
                   "name": "Front",
@@ -102,6 +103,7 @@ hideEditableAreaBord​er | If false, the printable area border is not rendered.
 id | unique identifier of product object, used for internal needs. | string | yes
 locations | list of available locations for the products (for example, front, back and so forth). See description of location object below. | array | no
 minDPU | overrides general config property for certain product. Refer to config option description for more information | number | no
+minQuantity | set the minimal order quantity for current product. Default value is 1. If total quantity is less — Order button is blocked with informational tooltip. | number | no
 multicolor | whether product can be colorizable. This requires special SVG image of product to be prepared in a same way as multicolor artwork and colorizableElements to be indicated | boolean | no
 name | name of product, visible to the end user. | string | yes
 resizable | defines whether the product dimensions can be changed by user. Setting this to true is typical for products like business cards, signs or banners. This product type has some peculiar properties:<ul><li>`editableAreaUnits` — is an optional location attribute, but for resizable products becomes required;</li><li>default size will be taken from `editableAreaUnits`;</li><li>one may additionally setup default product size via `defaultProductSize` attribute in main configuration file;</li><li>all product location should have same size;</li><li>if resizable product has more than one `location` object, `editableAreaUnits` are required only for first location in list; other loation's editableAreaUnits will be ignored.</li></ul> | boolean | no
