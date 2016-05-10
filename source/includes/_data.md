@@ -99,7 +99,7 @@ colorizableElements | indicates list of elements of the product that can be colo
 colors | list of available colors for the product. See description of color object below. If the list is not indicated, the product is considered as non-colorizable. | string | no
 data | arbitrary object with additional product fields to pass to front-end, e.g. material, cost, etc. | object | no
 description | description of product, visible to the end user. | string | no
-hideEditableAreaBord​er | If false, the printable area border is not rendered. | boolean | no
+hideEditableAreaBord​er | If true, the printable area border is not rendered. | boolean | no
 id | unique identifier of product object, used for internal needs. | string | yes
 locations | list of available locations for the products (for example, front, back and so forth). See description of location object below. | array | no
 minDPU | overrides general config property for certain product. Refer to config option description for more information | number | no
