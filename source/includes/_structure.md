@@ -17,6 +17,11 @@ The core LiveArt JS code, copyrighted and protected from unauthorised access. Th
 
 The Knockout controlling scripts for the designer page. You can edit these scripts (but not recommended to do so) to amend the logic of specific designer elements or behavior by yourself. Please note that since the code is copyrighted you cannot redistribute it withouth LiveArt consent.
 
+`/LA.config.js`
+
+_version: 0.10.5+<br/>_
+Seperated from LA.js configuration for more easier LA.js support. Used to override canvas dimension, default product/design/graphic parsing from GET vars, place order handler, core translation dictionary.
+
 `/assets`
 
 The folder contains Bootstrap files, required for designer running, images and additional libraries.
@@ -40,3 +45,8 @@ Additional low-level core Javascript libraries handling designer. This folder al
 `/products`
 
 Demo products images and thumbnails.
+
+`/setup`
+
+_version: 0.10.2+<br/>_
+LiveArt setup scripts. Read _README.txt_ inside for more information.

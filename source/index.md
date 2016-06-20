@@ -35,29 +35,93 @@ All endpoint URLs can be both relative or absolute. For correct operation of the
 {
   "product": {
     "id": "21",
+    "productColors": [
+      {
+        "id": ".bg.fill",
+        "name": "Aero",
+        "value": "#9cb8d0"
+      }
+    ],
     "color": "#9cb8d0",
     "colorName": "Aero"
   },
-  "locations": [{
-    "name": "Front",
-    "colors": 1,
-    "colorsList": ["#ee6363"],
-    "designedArea": 154271.6304253942,
-    "designedAreaRect": 237446.57184553126,
-    "objects": [{
-      "type": "txt",
-      "designedArea": 27038.5473910787,
-      "colors": 1,
-      "colorsList": ["#ee6363"]
-    }],
-    "objectCount": 1,
-    "letterings": 1,
-    "images": 1
-  }],
-  "quantities": [{
-    "size": "S",
-    "quantity": 1
-  }]
+  "locations": [
+    {
+      "name": "Front",
+      "colors": 4,
+      "isFullColor": false,
+      "colorsNum": 4,
+      "colorsList": [
+        "#FFFFFF",
+        "#000000",
+        "#F4EB21",
+        "#FAA744"
+      ],
+      "designedArea": "7.64",
+      "designedAreaRect": "9.99",
+      "objects": [
+        {
+          "type": "txt",
+          "text": "text",
+          "designedArea": "0.44",
+          "colorsNum": 1,
+          "colors": 1,
+          "colorsList": [
+            "#ee6363"
+          ]
+        },
+        {
+          "type": "svg",
+          "id": "42",
+          "designedArea": "7.20",
+          "colorsList": [
+            "#000000",
+            "#F4EB21",
+            "#FAA744"
+          ],
+          "colorsNum": 3,
+          "colors": 3,
+          "isFullColor": false
+        }
+      ],
+      "objectCount": 2,
+      "letterings": 1,
+      "images": 1
+    }
+  ],
+  "colorsList": [
+    "#FFFFFF",
+    "#000000",
+    "#F4EB21",
+    "#FAA744"
+  ],
+  "colors": 4,
+  "namesNumbers": [
+    {
+      "name": "forward",
+      "numberText": "07",
+      "size": "L"
+    },
+    {
+      "name": "goalkeeper",
+      "numberText": "02",
+      "size": "L"
+    }
+  ],
+  "quantities": [
+    {
+      "size": "S",
+      "quantity": 1
+    },
+    {
+      "size": "L",
+      "quantity": 2
+    },
+    {
+      "size": "XL",
+      "quantity": 0
+    }
+  ]
 }
 ```
 
@@ -68,10 +132,10 @@ All endpoint URLs can be both relative or absolute. For correct operation of the
   "prices": [{
     "label": "Item Price",
     "price": "$ 94.62"
-  }, {
+   }, {
     "label": "Discount",
     "price": "$ -6.00"
-  }, {
+   }, {
     "label": "Total",
     "price": "$ 904.20",
     "isTotal": true
@@ -92,24 +156,33 @@ If you need to switch off the pricing aspect of your application, simply leave `
 ### Request fields description
 Field | Description | Type
 ----- | ----------- | ----
-id | unique identifier of the product. | string
-color | hexadecimal value of product color. | string
-colorName | name of product color. | string
-name | name of product location | string
-colors | amount of the colors which are used at the current location | number
-colorsList | list of hexadecimal values of the colors which are used at the current location. | array
-designedArea | total area of all decoration objects at the current location (square units). | number
-designedAreaRect | area of rectangle, containing all objects in location (square units). | number
-objectCount | total count of all decoration objects at the current location. | number
-letterings | total count of all text objects at the current location. | number
-images | total count of all graphic objects at the current location. | number
-objects | list of decoration objects which are present at the current location. | array
-type | type of decoration object. | string, possible values: "txt", "svg" and "image"
-designedArea | area occupied by the object (in square units). | number
-colors | amount of colors used to colorize the object. | number
-colorsList | list of RGB colors used to colorize the object. | array
-size | name of the product size. | string
-quantity | quantity of the size. | number
+product.id | unique identifier of the product. | string
+product.productColors | _optional_: product colorizable areas list<br/>(only for multicolor products). | array of colorizable area objects
+product.color | hexadecimal value of product color.<br/>_v0.10.6 change: optional_;<br/><small>Added only if product has colors. In case of multicolor product - added only if product has one colorizable area only.</small>| string
+product.colorName | name of product color.<br/>_v0.10.6 change: optional_;<br/><small>Same  behaviour as product.color.</small>| string
+location.name | name of product location | string
+location.isFullColor | full color print flag<br/>_added in v0.10.4_ | bool
+location.colors | legacy amount of the colors which are used at the current location (number) or string "processColors" in case of full print | mixed
+location.colorsNum | amount of the colors which are used at the current location<br/>_added in v0.10.4_ | number
+location.colorsList | list of hexadecimal values of the colors which are used at the current location. | array of strings
+location.designedArea | total area of all decoration objects at the current location (square units). <br/>_v0.10.6 change: optional_;<br/><small>Added only if location has proper design area sizes configration.</small>| number
+location.designedAreaRect | area of rectangle, containing all objects in location (square units). <br/>_v0.10.6 change: optional_;<br/><small>Same  behaviour as location.designedArea.</small>| number
+location.objectCount | total count of all decoration objects at the current location. | number
+location.letterings | total count of all text objects at the current location. | number
+location.images | total count of all graphic objects at the current location. | number
+location.objects | list of decoration objects which are present at the current location. | array
+location.objects.type | type of decoration object. Possible values: "txt", "svg" and "image" | string
+location.objects.text | _optional_: only for text objects - text value | string
+location.objects.id | _optional_: only for gallery graphic objects - graphics id value | string
+location.objects.designedArea | area occupied by the object (in square units). <br/>_v0.10.6 change: optional_;<br/><small>Same  behaviour as location.designedArea.</small>| number
+location.objects.colors | legacy amount of colors used to colorize the object. See more in location.colors | mix
+location.objects.colorsList | list of RGB colors used to colorize the object. | array of strings
+location.objects.colorsNum | amount of colors used to colorize the object<br/>_added in v0.10.4_ | number
+location.objects.isFullColor | object full color print flag<br/>_added in v0.10.4_ | bool
+colorsList | legacy list of hexadecimal values of the colors which are used on all product locations (array of strings). If any of locations has full color print - "processColors" (string). | mix
+colors | legacy amount of colors used on all locations (number). If any of locations has full color print - "processColors" (string). | mix
+namesNumbers | list of names and numbers. Empty if current product does not support names/numbers.  | array
+quantities | quantity of the sizes. Also includes entered size values from names/numbers list. | number
 
 ### Response fields description
 <aside class="notice">
