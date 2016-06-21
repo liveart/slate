@@ -33,7 +33,8 @@
         "showProductSelector": true,
         "checkTextFXThrottle": 400,
 		"minDPU": 300,
-        "showUploadedColorsDialog": false
+        "showUploadedColorsDialog": false,
+        "fitProductImage" :  false
     },
     "textEffects": {
         "config": "config/textEffects.json",
@@ -98,3 +99,4 @@ showProductSelector | possible values: true/false. Defines whether Select Produc
 checkTextFXThrottle | type: milliseconds. A delay in events for typing text, before LiveArt will trigger the server script to obtain new image for certain raster effect. | 400
 minDPU | Set this property to show warning message if user will size raster image more than safe dimensions to meet suggested print quality standarts. Also this feature requires `editableArea` and `editableAreaUnits` (see Product Location Object) for each product location to use this feature (for correct unit/pixel ratio). Warning message is configured in html ('*#dpu-exceeded-popup*'). If user ignores such warning and continues design editing - on Place Order will be fired additional pop-up. Also may be re-defined for certain products (see Product Object). | 0
 showUploadedColorsDialog | Defines whether to show after image upload pop-up with colors choises for uploaded image (default palette and 'Process Colors' checkbox). If value == `false` uploaded images are treated as 'Process Colors' | true
+fitProductImage | It `true` — product images are fitted and centered in the canvas. Small product images are only centered. Editable Area coordinates are still binded to canvas dimensions (not product image) | false
