@@ -19,6 +19,8 @@ search: true
 ---
 # Introduction
 
+###Current version: 0.10.17
+
 LiveArt HTML5 uses JSON format to transfer data, such as information about design, pricing and order, to backend. In order to prepare server-side application for work in pair with LiveArt component, backend services should be ready to receive and deliver valid data structures via HTTP queries. The detailed description of this queries and datatypes is given in the following article.
 
 <aside class="warning">LiveArt HTML5 integration requires profound coding knowledge of GET/POST requests and JSON processing in your native platform. Regardless of the letter, we recommend constantly using Net Inspector and/or Fiddler tool to debug your requests and responses of the API.</aside>
@@ -33,6 +35,15 @@ All endpoint URLs can be both relative or absolute. For correct operation of the
 
 ```json
 {
+  "colors": 4,
+  "isFullColor": false,
+  "colorsNum": 4,
+  "colorsList": [
+    "#FFFFFF",
+    "#000000",
+    "#F4EB21",
+    "#FAA744"
+  ],
   "product": {
     "id": "21",
     "productColors": [
@@ -89,13 +100,6 @@ All endpoint URLs can be both relative or absolute. For correct operation of the
       "images": 1
     }
   ],
-  "colorsList": [
-    "#FFFFFF",
-    "#000000",
-    "#F4EB21",
-    "#FAA744"
-  ],
-  "colors": 4,
   "namesNumbers": [
     {
       "name": "forward",
@@ -160,29 +164,33 @@ product.id | unique identifier of the product. | string
 product.productColors | _optional_: product colorizable areas list<br/>(only for multicolor products). | array of colorizable area objects
 product.color | hexadecimal value of product color.<br/>_v0.10.6 change: optional_;<br/><small>Added only if product has colors. In case of multicolor product - added only if product has one colorizable area only.</small>| string
 product.colorName | name of product color.<br/>_v0.10.6 change: optional_;<br/><small>Same  behaviour as product.color.</small>| string
+colorsList | legacy list of hexadecimal values of the colors which are used on all product locations (array of strings). If any of locations has full color print - "processColors" (string). | mix
+colors | legacy amount of colors used on all locations (number). If any of locations has full color print - "processColors" (string).<br/>_v0.10.13 change:_ adding to amount not-specified colors from graphics config (i.e. graphic.colors = "7"); | mix
+colorsNum | amount of the colors which are used on all locations<br/>_added in v0.10.13_ | number
+isFullColor | bool to indicate full colors at least on one location<br/>_added in v0.10.13_ | bool
+namesNumbers | list of names and numbers. Empty if current product does not support names/numbers.  | array
+quantities | quantity of the sizes. Also includes entered size values from names/numbers list. | number
 location.name | name of product location | string
 location.isFullColor | full color print flag<br/>_added in v0.10.4_ | bool
 location.colors | legacy amount of the colors which are used at the current location (number) or string "processColors" in case of full print | mixed
 location.colorsNum | amount of the colors which are used at the current location<br/>_added in v0.10.4_ | number
 location.colorsList | list of hexadecimal values of the colors which are used at the current location. | array of strings
-location.designedArea | total area of all decoration objects at the current location (square units). <br/>_v0.10.6 change: optional_;<br/><small>Added only if location has proper design area sizes configration.</small>| number
-location.designedAreaRect | area of rectangle, containing all objects in location (square units). <br/>_v0.10.6 change: optional_;<br/><small>Same  behaviour as location.designedArea.</small>| number
+location.designedArea | total area of all decoration objects at the current location (square units). <br/>_v0.10.6 change: optional_;<br/><small>Added only if location has proper design area sizes configration.</small>| string
+location.designedAreaRect | area of rectangle, containing all objects in location (square units). <br/>_v0.10.6 change: optional_;<br/><small>Same  behaviour as location.designedArea.</small>| string
+location.designedWidth | _v0.10.6 added_ optional attribute (Same  behaviour as location.designedArea.) <br/> designed area width in configured units | string
+location.designedHeight | _v0.10.6 added_ optional attribute (Same  behaviour as location.designedArea.) <br/> designed area height in configured units | string
 location.objectCount | total count of all decoration objects at the current location. | number
 location.letterings | total count of all text objects at the current location. | number
 location.images | total count of all graphic objects at the current location. | number
 location.objects | list of decoration objects which are present at the current location. | array
-location.objects.type | type of decoration object. Possible values: "txt", "svg" and "image" | string
-location.objects.text | _optional_: only for text objects - text value | string
+location.objects.type | type of decoration object. Possible values: ```"txt"```, ```"svg"``` and ```"image"``` | string
+location.objects.text | _optional_: only for ```type="text"``` objects - text value | string
 location.objects.id | _optional_: only for gallery graphic objects - graphics id value | string
 location.objects.designedArea | area occupied by the object (in square units). <br/>_v0.10.6 change: optional_;<br/><small>Same  behaviour as location.designedArea.</small>| number
 location.objects.colors | legacy amount of colors used to colorize the object. See more in location.colors | mix
 location.objects.colorsList | list of RGB colors used to colorize the object. | array of strings
 location.objects.colorsNum | amount of colors used to colorize the object<br/>_added in v0.10.4_ | number
 location.objects.isFullColor | object full color print flag<br/>_added in v0.10.4_ | bool
-colorsList | legacy list of hexadecimal values of the colors which are used on all product locations (array of strings). If any of locations has full color print - "processColors" (string). | mix
-colors | legacy amount of colors used on all locations (number). If any of locations has full color print - "processColors" (string). | mix
-namesNumbers | list of names and numbers. Empty if current product does not support names/numbers.  | array
-quantities | quantity of the sizes. Also includes entered size values from names/numbers list. | number
 
 ### Response fields description
 <aside class="notice">
@@ -249,23 +257,43 @@ SaveDesign service is called in the following cases:
  * User is saving design for later use using Save for Later link;
  * User is sharing design. In this case design is saved anonymously if user is not authenticated;
 
+<br/>
+
 ### SERVICE DEFINITION IN CONFIG.JSON
 `"saveDesignUrl": "services/saveDesign.php"`
 
-### REQUEST FIELDS DESCRIPTION
+### POST REQUEST FIELDS DESCRIPTION
+Request fields
+
+Field | Description | Type
+----- | ----------- | ----
+data | main object — see detailed description below | object
+title | <i>optional:</i> title for saved design (input by user). For shared desgins - empty string. For ordered designs - not included | string
+email | <i>optional:</i> only if user entered email before (e.g. for saving design) | string
+type | `saved` for saved designs (including ordered) and `shared` for shared designs | string
+quote | <i>optional:</i> quote objects. Only for ordered designs | object
+id | <i>optional:</i> only for saved (and ordered) designs, if design was previously saved/loaded | string
+
+<h3>DATA FIELD DESCRIPTION</h3>
 Request contains JSON metadata with enclosed SVG which should be extracted with the parsing script and saved. Developers can additionally process SVG to embed images, prepare for conversion into other formats or add additional elements.
 
 Field | Description | Type
 ----- | ----------- | ----
 product.id | unique identifier of the product. | string
 product.name | name of product. | string
+product.template | based template id | string
+product.productColors | _optional_: product colorizable areas list<br/>(only for multicolor products)<br/>_v0.10.14 change: always presented for  m-color products (previous: only for 1-color m-color products)_ | array of colorizable area objects
+product.color | hexadecimal value of product color.<br/>_v0.10.14 change: also used for m-color products(1st color)_ | string
+product.colorName | name of product color.<br/>_v0.10.14 change:  also used for m-color products(1st color)_ | string
+product.size | _optional_ configured product size in units. Available only if ```product.locations.editableAreaUnits``` is defined or product has property ```resizable = true```<br/>Attributes: <ul><li>```width``` (number)</li><li>```height``` (number)</li><li>```label```(optional, string) — only if ```product.editableAreaSizes``` is defined</li></ul> | object
 locations | list of product locations (sides) for each printable side | array
 location.name | name of location. | string
 location.svg | XML representation of an SVG image which contains the whole design (including product background). | string
+location.editableArea | location editable area;<br/>Not resizable products: same value as configured; <br/>Resizable products: actual value of resized area in coordinate system of canvas<br/>Format: ```"X1 Y1 X2 Y2"``` | string
 quantities | list of selected sizes and their quantities. | array
-size | name of the product size. | string
-quantity | quantity of the size. | number
 prices | list of objects which are related to pricing. The structure is exact to the one you compile for GetQuote service | array
+namesNumbers | list for team names and numbers. Actual only if ```product.namesNumbersEnabled = true```, otherwise — empty array | array of objects
+notes | _deprecated property_ Design notes entered by user | string
 
 ### RESPONSE FIELDS DESCRIPTION
 Field | Description | Type
@@ -294,9 +322,11 @@ This service is used to upload user image from local file or URL. After uploadin
 }
 ```
 
-### SERVICE DEFINITION IN CONFIG.JSON
-To bind LiveArt HTML5 to the server side Upload Image service, you will need to define the uploadImageUrl property in config JSON. The value has to be a link to a backend service. See example below:
-`"uploadImageUrl": "services/uploadImage.php"`
+###<h3>SERVICE DEFINITION IN CONFIG.JSON</h3>
+
+To bind LiveArt HTML5 to the server side Upload Image service, you will need to define the uploadImageUrl property in config JSON. The value has to be a link to a backend service.<br/>
+See example below:
+```"uploadImageUrl": "services/uploadImage.php"```
 
 ## GetDesigns - GET
 > Response Example
@@ -312,12 +342,13 @@ To bind LiveArt HTML5 to the server side Upload Image service, you will need to 
 
 This service is called to get the list of saved designs for certain email. The backend service should use the email from GET parameter as key to filter designs for particular account.
 
-### SERVICE DEFINITION IN CONFIG.JSON
-Please note that using the token is mandatory. It will be replaced in request with actual email, provided by the user.
+### <h3>SERVICE DEFINITION IN CONFIG.JSON</h3>
+ Please note that using the token is mandatory. It will be replaced in request with actual email, provided by the user.
 
 `"getDesignsUrl": "services/loadDesigns.php?email=${email}"`
 
 ### RESPONSE FIELDS DESCRIPTION
+
 Field | Description | Type
 ----- | ----------- | ----
 id | unique design identifier, should be unique per design. | string
@@ -331,9 +362,13 @@ This service is called to load the Design JSON of a previously saved design. The
 * To preload the shared design from a previously saved link;
 * To preload LiveArt with design using a `design_id` in the URL;
 
+<br/><br/>
+
 ### SERVICE DEFINITION IN CONFIG.JSON
 The token will automatically replaced with an associated design_id fetched either from URL `design_id` parameter or selected design from list of designs, after user clicked to load a previously saved design.
 "loadDesignUrl": "services/loadDesign.php?design_id=${design_id}"
+
+<br/><br/>
 
 ### RESPONSE DESCRIPTION
 The provided response should correspond the request example from SaveDesign service.

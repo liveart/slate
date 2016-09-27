@@ -2,7 +2,7 @@
 This section describes JSON data structures of LiveArt resources, such as products, fonts, colors, graphics and text effects.
 
 ## Products List
-> Sample mini Products JSON file
+> Sample mini Products JSON file<br/><small>(product - not resizable, multicolor, with defined limited colors for color area)</small>
 
 ```json 
 {
@@ -21,7 +21,7 @@ This section describes JSON data structures of LiveArt resources, such as produc
               "id": "11",
               "categoryId": "1",
               "name": "T-shirt",
-              "description": "A perfect tee for hipsters, 4.8x8.2 (4.8x8.6), vector multicolor product images, clip-rect, 150DPU",
+              "description": "Sample Colorizable Product with limited colors, and editable area as units values",
               "data": {
                 "price": "29",
                 "material": "Cotton"
@@ -96,19 +96,21 @@ Attribute | Description | Type | Required
 --------- | ----------- | ---- | --------
 categoryId | unique identifier of category to which belongs the product. | string | yes
 colorizableElements | indicates list of elements of the product that can be colorized, e.g. uniform or multiple panel products. Works same as colorizableElements for artwork gallery. | structure | no
-colors | list of available colors for the product. See description of color object below. If the list is not indicated, the product is considered as non-colorizable. | string | no
+colors | list of available colors for the product. See description of color object below. If the list is not indicated, the product is considered as non-colorizable. | array of color objects | no
 data | arbitrary object with additional product fields to pass to front-end, e.g. material, cost, etc. | object | no
 description | description of product, visible to the end user. | string | no
 hideEditableAreaBord​er | If true, the printable area border is not rendered. | boolean | no
 id | unique identifier of product object, used for internal needs. | string | yes
-locations | list of available locations for the products (for example, front, back and so forth). See description of location object below. | array | no
+locations | list of available locations for the products (for example, front, back and so forth). See description of location object below. | array | yes
 minDPU | overrides general config property for certain product. Refer to config option description for more information | number | no
 minQuantity | set the minimal order quantity for current product. Default value is 1. If total quantity is less — Order button is blocked with informational tooltip. | number | no
 multicolor | whether product can be colorizable. This requires special SVG image of product to be prepared in a same way as multicolor artwork and colorizableElements to be indicated | boolean | no
 name | name of product, visible to the end user. | string | yes
+namesNumbersEnabled | enable tab for adding names and/or numbers placeholders to design, and fill appropriate table | boolean | false
+pantones | _added in v0.10.14_<br/>object to override default pantones setting from config.<br/>Sample: ```{ "useForDecoration": false, "useForProduct": false }```<br/>(```useForDecoration``` — enabling/disabling pantones for the art, ```useForProduct``` — enabling/disabling pantones for colorizing ```multicolor``` product )| object | false
 resizable | defines whether the product dimensions can be changed by user. Setting this to true is typical for products like business cards, signs or banners. This product type has some peculiar properties:<ul><li>`editableAreaUnits` — is an optional location attribute, but for resizable products becomes required;</li><li>default size will be taken from `editableAreaUnits`;</li><li>one may additionally setup default product size via `defaultProductSize` attribute in main configuration file;</li><li>all product location should have same size;</li><li>if resizable product has more than one `location` object, `editableAreaUnits` are required only for first location in list; other loation's editableAreaUnits will be ignored.</li></ul> | boolean | no
-editableAreaSizes | defines preselected possible sizes for user, works only if resizable attribute is true. Sample definition: `"editableAreaSizes":[{"label":"2x2in", "width":2, "height":2}]` | object | no
-showRuler | indicates whether ruler should be shown. Depends on editableAreaUnits values for each location. Default value: false. | boolean | no
+editableAreaSizes | defines preselected possible sizes for user, works only if resizable attribute is ```true```.<br/>Sample definition: `"editableAreaSizes":[{"label":"2x2in", "width":2, "height":2}]` | object | no
+showRuler | indicates whether ruler should be shown. Depends on ```editableAreaUnits``` values for each location (becomes obligatory attribute).<br/>Default value: ```false```. | boolean | no
 sizes | list of available sizes for certain product. Type: array. If not indicated, only Quantity field will be rendered on the checkout panel. | array | no
 template | If this attribute is indicated, LiveArt will attempt to load the design with by indicated Design ID. This is perfect if certain default design is associated with a product. Please note that the design should be previously prepared and saved for this particular product. | string | no
 thumbUrl | url to thumbnail image (allowed file extensions: *.jpg, *.png, *.gif, *.svg, dimensions: 110px x 110px) which will be shown in the products catalog. | string | yes
@@ -139,10 +141,12 @@ Attribute | Description | Type | Required
 --------- | ----------- | ---- | --------
 name | name of color, visible to the end user. | string | yes
 value | hexadecimal value of color. | string | yes
-location | list of locations for which this color is available. Used only for products with `"multicolor": false` attribute | array | no
- | Each object in `location` array consist of two properties: |
-name | name of location for which current color is available. | string | yes
-image | url to background image (allowed file extensions: *.jpg, *.png, *.gif, *.svg) for current location and color | string | yes
+location | list of locations for which this color is available. Used only for products with `"multicolor": false` attribute<br/><br/>Each object in `location` array consist of two properties: | array | no
+
+   | | |  |  | 
+---| ---|--------- | ----------- | ---- | --------
+   |name | name of `location` for which current color is available.<br/><small>If name is invalid — image will be used for product location with the same index</small> | string | yes
+   |image | url to background image (allowed file extensions: *.jpg, *.png, *.gif, *.svg) for current location and color | string | yes
 
 ## Fonts List
 > Fonts JSON structure example
@@ -173,12 +177,12 @@ vector | vector representation of the font glyphs for vector text effects. Can b
 
 ```json
 {
-    "colors": [
-    { "name": "Black", "value": "#000000" },
-	{ "name": "Dim Gray", "value": "#696969" },
-    { "name": "Gray", "value": "#808080" },
-	{ "name": "Silver", "value": "#C0C0C0" },
-	{ "name": "White", "value": "#FFFFFF" }
+  "colors": [
+      { "name": "Black", "value": "#000000" },
+      { "name": "Dim Gray", "value": "#696969" },
+      { "name": "Gray", "value": "#808080" },
+      { "name": "Silver", "value": "#C0C0C0" },
+      { "name": "White", "value": "#FFFFFF" }
 	]
 }
 ```
@@ -195,18 +199,15 @@ value | hexadecimal value of color. | string | yes
 
 ```json
 {
-  "graphicsCategoriesList": [
-    {
+  "graphicsCategoriesList": [{
       "id": "r1",
       "name": "Animals",
       "thumb": "gallery/raster/thumbs/crab.png",
-      "categories": [
-        {
+      "categories": [{
           "id": "1",
           "name": "Raster",
 		  "thumb": "gallery/raster/thumbs/crab.png",
-          "graphicsList": [
-            {
+          "graphicsList": [{
               "id": "11",
               "categoryId": "1",
               "name": "Crab",
@@ -214,15 +215,12 @@ value | hexadecimal value of color. | string | yes
               "colors": "-1",
               "thumb": "gallery/raster/thumbs/crab.png",
               "image": "gallery/raster/crab.png"
-            }
-          ]
-        },
-        {
+          }]
+        }, {
           "id": "4",
           "name": "Multicolor",
           "thumb": "gallery/Icons/multicolor/png/butterfly.png",
-          "graphicsList": [
-            {
+          "graphicsList": [{
               "id": "42",
               "categoryId": "4",
               "name": "Lion",
@@ -230,33 +228,20 @@ value | hexadecimal value of color. | string | yes
               "multicolor": true,
               "thumb": "gallery/Icons/multicolor/png/lion.png",
               "image": "gallery/Icons/multicolor/svg/lion.svg",
-              "colorizableElements": [
-                {
+              "colorizableElements": [{
                   "name": "Muzzle",
                   "id": ".muzzle.fill",
                   "colors": [
-                    {
-                      "name": "Yellow",
-                      "value": "#F4EB21"
-                    },
-                    {
-                      "name": "Green",
-                      "value": "#69F946"
-                    }
+                    { "name": "Yellow", "value": "#F4EB21" },
+                    { "name": "Green", "value": "#69F946" }
                   ]
                 },
                 {
                   "name": "Mane",
                   "id": ".mane.fill",
                   "colors": [
-                    {
-                      "name": "Orange",
-                      "value": "#FAA744"
-                    },
-                    {
-                      "name": "Dark Red",
-                      "value": "#600308"
-                    }
+                    { "name": "Orange", "value": "#FAA744" },
+                    { "name": "Dark Red", "value": "#600308" }
                   ]
                 }
               ]
@@ -264,8 +249,11 @@ value | hexadecimal value of color. | string | yes
           ]
         }
       ]
-    }]}
+    }
+  ]
+}
 ```
+
 The JSON object that is returned by this link should have the following tree-like structure. The root node of this tree is `graphicsCategoriesList` — the array of root graphic category objects. Each category has its categories list or graphics list, represented by Graphic Object.
 
 ### Graphic Object
@@ -277,7 +265,7 @@ Attribute | Description | Type | Required
 --------- | ----------- | ---- | --------
 id | unique identifier of product object, used for internal needs. | string | yes
 categoryId | unique identifier of category to which belongs the image. | string | yes
-colors | number of colors, present in the image. This will be used for correct get quote request if decoration price depends on number of colors (e.g. screenprinting). Type: string or array of strings. Possible values: <ul><li> `"-1"` — process colors are required, e.g. if the graphic is photo; </li><li> `"0"` — default value (need graphic to be `"colorize": true` and get colors information from selected fill color/outline/multicolor layers); </li><li> integer (e.g. `"5"`) — number of unique graphic colors;</li><li> array of hex web colors (e.g. `["#FFFFFF", "#000000"]`) — list of colors for accurate counting</li></ul> | string or array/string | no
+colors | number of colors, present in the image. This will be used for correct get quote request if decoration price depends on number of colors (e.g. screenprinting). Type: string or array of strings. Possible values: <ul><li> `"-1"` — process colors is required, e.g. if the graphic is photo; </li><li> `"0"` — default value (need graphic to be `"colorize": true` and get colors information from selected fill color/outline/multicolor layers); </li><li> integer (e.g. `"5"`) — number of unique graphic colors;</li><li> array of hex web colors (e.g. `["#FFFFFF", "#000000"]`) — list of colors for accurate counting <br/>(in case of `"multicolor" : true` - added to colors list)</li></ul> | mixed<br/>(string, array of strings) | no
 colorize | acceptable values: true, false. This optional attribute tells designer whether the image can be colorized by user. Please note that this option works with SVG images only. Default value: false. | boolean | no
 colorizableElements | list of colorizable layers inside the SVG image. Please look for applicable samples of such SVG images inside your development package. | array/objects | no
 description | short description of the image, visible to the end user. | string | no
@@ -290,11 +278,12 @@ image | url to the full size image (allowed file extensions: *.jpg, *.png, *.gif
 
 ```json
 { "textEffects": [
-	{ "name": "arcUp", "label": "Arc Up", "fxName": "arc", "paramName": "Angle", "paramValName": "a", "min": 10, "max": 360, "step": 10 },
-	{ "name": "inflate", "label": "Inflate", "paramName": "Distort", "paramValName": "d", "min": 0.1, "max": 1, "step": 0.1 },
-	{ "name": "perspective", "label": "Perspective", "paramName": "Distort", "paramValName": "d", "min": 0.1, "max": 1, "step": 0.1 },
-	{ "name": "wave", "label": "Wave", "paramName": "Distort", "paramValName": "d", "min": 0.1, "max": 1, "step": 0.1 }
-]}
+    { "name": "arcUp", "label": "Arc Up", "fxName": "arc", "paramName": "Angle", "paramValName": "a", "min": 10, "max": 360, "step": 10 },
+    { "name": "inflate", "label": "Inflate", "paramName": "Distort", "paramValName": "d", "min": 0.1, "max": 1, "step": 0.1 },
+    { "name": "perspective", "label": "Perspective", "paramName": "Distort", "paramValName": "d", "min": 0.1, "max": 1, "step": 0.1 },
+    { "name": "wave", "label": "Wave", "paramName": "Distort", "paramValName": "d", "min": 0.1, "max": 1, "step": 0.1 }
+  ]
+}
 
 ```
 

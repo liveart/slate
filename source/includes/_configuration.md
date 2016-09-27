@@ -12,7 +12,8 @@
         "url": "config/fonts.json"
     },
     "colors": {
-        "url": "config/colors.json"
+        "url": "config/colors.json",
+        "pantones_url": "config/pantones.json"
     },
     "graphicsList": {
         "url": "config/graphics.json"
@@ -69,6 +70,7 @@ defaultProductId | id of a product should be loaded upon start of LiveArt. | str
 defaultProductSize | if default product is resizable, this attribute sets default size (will override editableAreaUnits from product configuration) in units, set by configuration. | array of numbers, optional
 fonts | indicates a URL returning Fonts JSON structure | URL 
 colors | indicates a URL returning Colors JSON structure. These are the colors for fonts and colorizable artwork | URL
+colors.pantones_url | _added in v0.10.4_<br/>Colors JSON with Pantones. Available for fonts and colorizable artwork, and in color picker appears in separate tab. To disable this feature — remove the field.<br/>Note: for colorizing ```multicolor``` products refer to Product List configuration | URL
 graphicsList | indicates a URL returning Gallery JSON structure. | URL
 options | contains the list of options which control visual appearance and behaviour of the designer area. See detailed description below. | object
 textEffects | location for text effects configuration file and URL to service to obtain image of the text effect with certain parameters. See Data Structures section for details on using the text effects. To disable text effects completely, leave both fields empty. | URL
@@ -87,16 +89,17 @@ shareLinkUrl | this parameter defines the template of the shared link url. Shari
 Property | Description | Default
 -------- | ----------- | ------
 deleteOnDoubleClick | boolean value which defines whether user can remove any object from working area by simple double-click or double tap (for mobile devices). | false
-includeProductInDesign | boolean value which defines whether product background image is included into output mockup of the design. | false
+includeProductInDesign | boolean value which defines whether product background image is included into output mockup of the design.<br/>**Warning**: recomended value - ```true```, othervise image will be hidden (```display="none"```), but some software (e.g. ImageMagic) will ignore this fact.<br/> Alternate way — remove manually node with ```id="productImage"``` | false
 includePrintingAreaInDesign | boolean value which defines whether constraints of area available for printing are included in output mockup of design. | false
-includeMaskInDesign | boolean value which defines whether product locations mask are included in output mockup of design. | false
-fontsCSSUrl | URL to the location of fonts CSS definitions that will be available for the user. | "/fonts/fonts.css"
+includeMaskInDesign | boolean value which defines whether product locations mask are included in output mockup of design.<br/>**Warning**: recomended value - ```true```, othervise image will be hidden (```display="none"```), but some software (e.g. ImageMagic) will ignore this fact.<br/> Alternate way — remove manually node with ```id="productMask"``` | false
+fontsCSSUrl | URL to the location of fonts CSS definitions that will be available for the user. In default package URL — ```"/fonts/fonts.css"``` | ""
 zoomEnabled | boolean value, defines whether zoom tool will be enabled inside designer.
-minZoom, maxZoom (optional) | numeric values, defining min and max value for the zoom control respectively, in percents. | 50, 150
-checkeredBackground | If enabled, shows checkered background where no product background is rendered. The asset for background is located in img/bg-fill.png | true
-unit, unit2, unitConversionMult | units, shown for custom sizes products. Possible values are "in" and "ft" or "cm" and "m" and so on. Use unitConversionMult to indicate respective multiplier for proper conversion of unit to unit2. | "in", "ft"
-showProductSelector | possible values: true/false. Defines whether Select Product form is shown. If false, make sure you indicate the defaultProductId to preload the product. | true
+minZoom, maxZoom, zoomStep (optional) | numeric values, defining min, max, and step values for the zoom control respectively, in percents. | 50, 150, 10
+checkeredBackground | If enabled, shows checkered background where no product background is rendered. The asset for background is located in ```assets/img/bg-fill.png``` | true
+unit, unit2, unitConversionMult | units, shown for custom sizes products. Possible values are ```"in"```, ```"ft"```, and ```12``` or ```"cm"```, ```"m"```, and ```10``` and so on. Use ```unitConversionMult``` to indicate respective multiplier for proper conversion of ```unit``` to ```unit2```. | "", "", 10
+showProductSelector | possible values: ```true```/```false```. Defines whether Select Product form is shown. If ```false```, make sure you indicate the ```defaultProductId``` to preload the product. | true
 checkTextFXThrottle | type: milliseconds. A delay in events for typing text, before LiveArt will trigger the server script to obtain new image for certain raster effect. | 400
 minDPU | Set this property to show warning message if user will size raster image more than safe dimensions to meet suggested print quality standarts. Also this feature requires `editableArea` and `editableAreaUnits` (see Product Location Object) for each product location to use this feature (for correct unit/pixel ratio). Warning message is configured in html ('*#dpu-exceeded-popup*'). If user ignores such warning and continues design editing - on Place Order will be fired additional pop-up. Also may be re-defined for certain products (see Product Object). | 0
 showUploadedColorsDialog | Defines whether to show after image upload pop-up with colors choises for uploaded image (default palette and 'Process Colors' checkbox). If value == `false` uploaded images are treated as 'Process Colors' | true
-fitProductImage | It `true` — product images are fitted and centered in the canvas. Small product images are only centered. Editable Area coordinates are still binded to canvas dimensions (not product image) | false
+fitProductImage | If `true` — product images are fitted and centered in the canvas. Small product images are only centered. Editable Area coordinates are still binded to canvas dimensions (not product image)<br>_Added to v0.10.5_ | false
+enableSnapGuides | If `true` — enabling snapping objects while dragging to another objects, editable area center or sides. Also helps to set object's rotation angle to 0°, 90°, 180°, and 270°<br>_Added to v0.10.17_  | true
