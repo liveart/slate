@@ -7,7 +7,6 @@
         "url": "config/products.json"
     },
     "defaultProductId": "11",
-    "defaultProductSize_": [ 32, 16 ],
     "fonts": {
         "url": "config/fonts.json"
     },
@@ -17,6 +16,9 @@
     },
     "graphicsList": {
         "url": "config/graphics.json"
+    },
+    "social": {
+        "url": "config/social.json"
     },
     "options": {
         "deleteOnDoubleClick": false,
@@ -35,7 +37,8 @@
         "checkTextFXThrottle": 400,
 		"minDPU": 300,
         "showUploadedColorsDialog": false,
-        "fitProductImage" :  false
+        "fitProductImage" :  false,
+        "enableSnapGuides": true
     },
     "textEffects": {
         "config": "config/textEffects.json",
@@ -72,6 +75,7 @@ fonts | indicates a URL returning Fonts JSON structure | URL
 colors | indicates a URL returning Colors JSON structure. These are the colors for fonts and colorizable artwork | URL
 colors.pantones_url | _added in v0.10.4_<br/>Colors JSON with Pantones. Available for fonts and colorizable artwork, and in color picker appears in separate tab. To disable this feature — remove the field.<br/>Note: for colorizing ```multicolor``` products refer to Product List configuration | URL
 graphicsList | indicates a URL returning Gallery JSON structure. | URL
+social | indicates a URL returning social networks configuration for uploading photos<br>_Added to v0.10.10_ | URL
 options | contains the list of options which control visual appearance and behaviour of the designer area. See detailed description below. | object
 textEffects | location for text effects configuration file and URL to service to obtain image of the text effect with certain parameters. See Data Structures section for details on using the text effects. To disable text effects completely, leave both fields empty. | URL
 defaultNameObjectText, defaultNumberObjectText | a default text/number text, rendered in placeholder for Names or Numbers list respectively. | string
@@ -84,6 +88,7 @@ loadDesignUrl | a link to a backend service which returns a single design using 
 redirectUrl | a link to a backend service which places order and redirects user to some another page, for example, shopping cart. | URL
 uploadImageUrl | a link to a backend service which uploads user image from local file or URL. After uploading process image is shown on preview area and ready to be moved or resized. Allowed file extensions: *.jpg, *.png, *.gif, *.svg. | URL
 shareLinkUrl | this parameter defines the template of the shared link url. Sharing a design calls a saveDesign service that should return an identifier under which design was saved. This id will be replaced in ${design_id} token and presented to user that may copy it and load the design later. | URL
+redirectWindow | window target whne redirecting to ```redirectUrl```. Used for LiveArt inside the iframe. Possible values: ""(default), "parent", or "top" (same logic as links inside iframe) | string
 
 ### Options Description
 Property | Description | Default
@@ -92,7 +97,7 @@ deleteOnDoubleClick | boolean value which defines whether user can remove any ob
 includeProductInDesign | boolean value which defines whether product background image is included into output mockup of the design.<br/>**Warning**: recomended value - ```true```, othervise image will be hidden (```display="none"```), but some software (e.g. ImageMagic) will ignore this fact.<br/> Alternate way — remove manually node with ```id="productImage"``` | false
 includePrintingAreaInDesign | boolean value which defines whether constraints of area available for printing are included in output mockup of design. | false
 includeMaskInDesign | boolean value which defines whether product locations mask are included in output mockup of design.<br/>**Warning**: recomended value - ```true```, othervise image will be hidden (```display="none"```), but some software (e.g. ImageMagic) will ignore this fact.<br/> Alternate way — remove manually node with ```id="productMask"``` | false
-fontsCSSUrl | URL to the location of fonts CSS definitions that will be available for the user. In default package URL — ```"/fonts/fonts.css"``` | ""
+fontsCSSUrl | URL to the location of fonts CSS definitions that will be available for the user. In default package URL — ```"/fonts/fonts.css"``` Used for stand-alone SVG preview (for proper text fonts rendering in browser)| ""
 zoomEnabled | boolean value, defines whether zoom tool will be enabled inside designer.
 minZoom, maxZoom, zoomStep (optional) | numeric values, defining min, max, and step values for the zoom control respectively, in percents. | 50, 150, 10
 checkeredBackground | If enabled, shows checkered background where no product background is rendered. The asset for background is located in ```assets/img/bg-fill.png``` | true

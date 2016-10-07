@@ -20,7 +20,12 @@ The Knockout controlling scripts for the designer page. You can edit these scrip
 `/LA.config.js`
 
 _version: 0.10.5+<br/>_
-Seperated from LA.js configuration for more easier LA.js support. Used to override canvas dimension, default product/design/graphic parsing from GET vars, place order handler, core translation dictionary.
+Seperated from LA.js configuration for more easier LA.js support. Used to:
+
+* override canvas dimension (see _/setup/README.txt_ for more details)
+* default product/design/graphic parsing from GET vars
+* custom place order handler
+* _added in v0.10.10_ core translation dictionary (see usage manual on [KB: How to add translations to LiveArt](https://liveart.uservoice.com/knowledgebase/articles/917133-how-to-add-translations-to-liveart))
 
 `/assets`
 

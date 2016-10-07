@@ -68,8 +68,13 @@ All endpoint URLs can be both relative or absolute. For correct operation of the
         "#F4EB21",
         "#FAA744"
       ],
+      "objectCount": 2,
+      "letterings": 1,
+      "images": 1
       "designedArea": "7.64",
       "designedAreaRect": "9.99",
+      "designedWidth": "4.80",
+      "designedHeight": "2.88"
       "objects": [
         {
           "type": "txt",
@@ -84,6 +89,7 @@ All endpoint URLs can be both relative or absolute. For correct operation of the
         {
           "type": "svg",
           "id": "42",
+          "isUploaded": false,
           "designedArea": "7.20",
           "colorsList": [
             "#000000",
@@ -94,10 +100,7 @@ All endpoint URLs can be both relative or absolute. For correct operation of the
           "colors": 3,
           "isFullColor": false
         }
-      ],
-      "objectCount": 2,
-      "letterings": 1,
-      "images": 1
+      ]
     }
   ],
   "namesNumbers": [
@@ -191,6 +194,7 @@ location.objects.colors | legacy amount of colors used to colorize the object. S
 location.objects.colorsList | list of RGB colors used to colorize the object. | array of strings
 location.objects.colorsNum | amount of colors used to colorize the object<br/>_added in v0.10.4_ | number
 location.objects.isFullColor | object full color print flag<br/>_added in v0.10.4_ | bool
+location.objects.isUploaded | _optional_: only for objects ```type="svg / image"```. Indicates that object was uploaded by user<br/>_added in v0.10.19_ | bool
 
 ### Response fields description
 <aside class="notice">
@@ -259,10 +263,10 @@ SaveDesign service is called in the following cases:
 
 <br/>
 
-### SERVICE DEFINITION IN CONFIG.JSON
+###<h3>SERVICE DEFINITION IN CONFIG.JSON</h3>
 `"saveDesignUrl": "services/saveDesign.php"`
 
-### POST REQUEST FIELDS DESCRIPTION
+###<h3>POST REQUEST FIELDS DESCRIPTION</h3>
 Request fields
 
 Field | Description | Type
@@ -302,10 +306,6 @@ id | unique design identifier, it is your responsibility to generate it and keep
 title | design title which is given by end user. In cases of placing order or sharing design it is generated automatically by LiveArt | string
 
 ## UploadImage - POST/Multipart
-This service is used to upload user image from local file or URL. After uploading process image is shown on preview area and ready to be moved or resized. Allowed file extensions: *.jpg, *.png, *.gif, *.svg.
-
-<aside class="warning">Make sure to update the rights to your accepting folder as writable for web user. LiveArt will not check this.</aside>
-
 > Response example
 
 ```json
@@ -322,13 +322,22 @@ This service is used to upload user image from local file or URL. After uploadin
 }
 ```
 
+This service is used to upload user image from local file or URL. After uploading process image is shown on preview area and ready to be moved or resized. Allowed file extensions by default: *.jpg, *.png, *.gif, *.svg.
+
+<aside class="warning">Make sure to update the rights to your accepting folder as writable for web user and server is ready to accept large files (e.g. photos). LiveArt will not check this.</aside>
+
 ###<h3>SERVICE DEFINITION IN CONFIG.JSON</h3>
 
-To bind LiveArt HTML5 to the server side Upload Image service, you will need to define the uploadImageUrl property in config JSON. The value has to be a link to a backend service.<br/>
+To bind LiveArt HTML5 to the server side Upload Image service, you will need to define the ```uploadImageUrl``` property in config JSON. The value has to be a link to a backend service.<br/>
 See example below:
 ```"uploadImageUrl": "services/uploadImage.php"```
 
-## GetDesigns - GET
+###<h3>SERVICE FUNCTIONS</h3>
+
+* regular file upload: **POST method (multipart/form-data)**. Variable name: ```image``` - file uploaded by user
+* file upload by URL: **POST method (application/x-www-form-urlencoded)**. Variable name: ```fileurl``` - absolute file URL (entered by user or response from 3rd party API (e.g. Social Networks))
+
+##<h2>GetDesigns - GET</h2>
 > Response Example
 
 ```json
