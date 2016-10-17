@@ -19,7 +19,7 @@ search: true
 ---
 # Introduction
 
-###Current version: 0.10.17
+###Current version: 0.10.19
 
 LiveArt HTML5 uses JSON format to transfer data, such as information about design, pricing and order, to backend. In order to prepare server-side application for work in pair with LiveArt component, backend services should be ready to receive and deliver valid data structures via HTTP queries. The detailed description of this queries and datatypes is given in the following article.
 
@@ -297,7 +297,7 @@ location.editableArea | location editable area;<br/>Not resizable products: same
 quantities | list of selected sizes and their quantities. | array
 prices | list of objects which are related to pricing. The structure is exact to the one you compile for GetQuote service | array
 namesNumbers | list for team names and numbers. Actual only if ```product.namesNumbersEnabled = true```, otherwise — empty array | array of objects
-notes | _deprecated property_ Design notes entered by user | string
+notes | _added v0.10.19+_ Design notes entered by user | string
 
 ### RESPONSE FIELDS DESCRIPTION
 Field | Description | Type
@@ -335,7 +335,7 @@ See example below:
 ###<h3>SERVICE FUNCTIONS</h3>
 
 * regular file upload: **POST method (multipart/form-data)**. Variable name: ```image``` - file uploaded by user
-* file upload by URL: **POST method (application/x-www-form-urlencoded)**. Variable name: ```fileurl``` - absolute file URL (entered by user or response from 3rd party API (e.g. Social Networks))
+* file upload by URL: **POST method (application/x-www-form-urlencoded)**. Variable name: ```fileurl``` - absolute file URL (entered by user or response from 3rd party API (e.g. Social Networks))<br/> Note: _v0.10.19_ changes: ```fileurl``` is encoded string (usage: ```urldecode($POST['fileurl'])```)
 
 ##<h2>GetDesigns - GET</h2>
 > Response Example
