@@ -47,7 +47,7 @@
       <div class="content">
         <h1 id="introduction">Introduction</h1>
 
-<h3 id="current-version:-0.10.17">Current version: 0.10.17</h3>
+<h3 id="current-version:-0.10.19">Current version: 0.10.19</h3>
 
 <p>LiveArt HTML5 uses JSON format to transfer data, such as information about design, pricing and order, to backend. In order to prepare server-side application for work in pair with LiveArt component, backend services should be ready to receive and deliver valid data structures via HTTP queries. The detailed description of this queries and datatypes is given in the following article.</p>
 
@@ -98,9 +98,14 @@
         </span><span class="s2">"#F4EB21"</span><span class="p">,</span><span class="w">
         </span><span class="s2">"#FAA744"</span><span class="w">
       </span><span class="p">],</span><span class="w">
-      </span><span class="s2">"designedArea"</span><span class="p">:</span><span class="w"> </span><span class="s2">"7.64"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"objectCount"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"letterings"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"images"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w">
+      </span><span class="s2">"designedArea"</span><span class="err">:</span><span class="w"> </span><span class="s2">"7.64"</span><span class="p">,</span><span class="w">
       </span><span class="s2">"designedAreaRect"</span><span class="p">:</span><span class="w"> </span><span class="s2">"9.99"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"objects"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="s2">"designedWidth"</span><span class="p">:</span><span class="w"> </span><span class="s2">"4.80"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"designedHeight"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2.88"</span><span class="w">
+      </span><span class="s2">"objects"</span><span class="err">:</span><span class="w"> </span><span class="p">[</span><span class="w">
         </span><span class="p">{</span><span class="w">
           </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"txt"</span><span class="p">,</span><span class="w">
           </span><span class="s2">"text"</span><span class="p">:</span><span class="w"> </span><span class="s2">"text"</span><span class="p">,</span><span class="w">
@@ -114,6 +119,7 @@
         </span><span class="p">{</span><span class="w">
           </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"svg"</span><span class="p">,</span><span class="w">
           </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"42"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"isUploaded"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
           </span><span class="s2">"designedArea"</span><span class="p">:</span><span class="w"> </span><span class="s2">"7.20"</span><span class="p">,</span><span class="w">
           </span><span class="s2">"colorsList"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
             </span><span class="s2">"#000000"</span><span class="p">,</span><span class="w">
@@ -124,10 +130,7 @@
           </span><span class="s2">"colors"</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w">
           </span><span class="s2">"isFullColor"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
         </span><span class="p">}</span><span class="w">
-      </span><span class="p">],</span><span class="w">
-      </span><span class="s2">"objectCount"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"letterings"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"images"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w">
+      </span><span class="p">]</span><span class="w">
     </span><span class="p">}</span><span class="w">
   </span><span class="p">],</span><span class="w">
   </span><span class="s2">"namesNumbers"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
@@ -352,6 +355,11 @@ If you need to switch off the pricing aspect of your application, simply leave <
 <td>object full color print flag<br/><em>added in v0.10.4</em></td>
 <td>bool</td>
 </tr>
+<tr>
+<td>location.objects.isUploaded</td>
+<td><em>optional</em>: only for objects <code class="prettyprint">type=&quot;svg / image&quot;</code>. Indicates that object was uploaded by user<br/><em>added in v0.10.19</em></td>
+<td>bool</td>
+</tr>
 </tbody></table>
 
 <h3 id="response-fields-description">Response fields description</h3>
@@ -443,11 +451,11 @@ The response should be compiled and provided as `Content-Type: application/json`
 
 <p><br/></p>
 
-<h3 id="service-definition-in-config.json">SERVICE DEFINITION IN CONFIG.JSON</h3>
+<h3 id="service-definition-in-config.json"><h3>SERVICE DEFINITION IN CONFIG.JSON</h3></h3>
 
 <p><code class="prettyprint">&quot;saveDesignUrl&quot;: &quot;services/saveDesign.php&quot;</code></p>
 
-<h3 id="post-request-fields-description">POST REQUEST FIELDS DESCRIPTION</h3>
+<h3 id="post-request-fields-description"><h3>POST REQUEST FIELDS DESCRIPTION</h3></h3>
 
 <p>Request fields</p>
 
@@ -573,7 +581,7 @@ The response should be compiled and provided as `Content-Type: application/json`
 </tr>
 <tr>
 <td>notes</td>
-<td><em>deprecated property</em> Design notes entered by user</td>
+<td><em>added v0.10.19+</em> Design notes entered by user</td>
 <td>string</td>
 </tr>
 </tbody></table>
@@ -601,10 +609,6 @@ The response should be compiled and provided as `Content-Type: application/json`
 
 <h2 id="uploadimage---post/multipart">UploadImage - POST/Multipart</h2>
 
-<p>This service is used to upload user image from local file or URL. After uploading process image is shown on preview area and ready to be moved or resized. Allowed file extensions: *.jpg, *.png, *.gif, *.svg.</p>
-
-<aside class="warning">Make sure to update the rights to your accepting folder as writable for web user. LiveArt will not check this.</aside>
-
 <blockquote>
 <p>Response example</p>
 </blockquote>
@@ -621,13 +625,24 @@ The response should be compiled and provided as `Content-Type: application/json`
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 
+<p>This service is used to upload user image from local file or URL. After uploading process image is shown on preview area and ready to be moved or resized. Allowed file extensions by default: *.jpg, *.png, *.gif, *.svg.</p>
+
+<aside class="warning">Make sure to update the rights to your accepting folder as writable for web user and server is ready to accept large files (e.g. photos). LiveArt will not check this.</aside>
+
 <h3 id="service-definition-in-config.json"><h3>SERVICE DEFINITION IN CONFIG.JSON</h3></h3>
 
-<p>To bind LiveArt HTML5 to the server side Upload Image service, you will need to define the uploadImageUrl property in config JSON. The value has to be a link to a backend service.<br/>
+<p>To bind LiveArt HTML5 to the server side Upload Image service, you will need to define the <code class="prettyprint">uploadImageUrl</code> property in config JSON. The value has to be a link to a backend service.<br/>
 See example below:
 <code class="prettyprint">&quot;uploadImageUrl&quot;: &quot;services/uploadImage.php&quot;</code></p>
 
-<h2 id="getdesigns---get">GetDesigns - GET</h2>
+<h3 id="service-functions"><h3>SERVICE FUNCTIONS</h3></h3>
+
+<ul>
+<li>regular file upload: <strong>POST method (multipart/form-data)</strong>. Variable name: <code class="prettyprint">image</code> - file uploaded by user</li>
+<li>file upload by URL: <strong>POST method (application/x-www-form-urlencoded)</strong>. Variable name: <code class="prettyprint">fileurl</code> - absolute file URL (entered by user or response from 3rd party API (e.g. Social Networks))<br/> Note: <em>v0.10.19</em> changes: <code class="prettyprint">fileurl</code> is encoded string (usage: <code class="prettyprint">urldecode($POST[&#39;fileurl&#39;])</code>)</li>
+</ul>
+
+<h2 id="getdesigns---get"><h2>GetDesigns - GET</h2></h2>
 
 <blockquote>
 <p>Response Example</p>
@@ -707,7 +722,6 @@ See example below:
         </span><span class="s2">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"config/products.json"</span><span class="w">
     </span><span class="p">},</span><span class="w">
     </span><span class="s2">"defaultProductId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"11"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"defaultProductSize_"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="mi">32</span><span class="p">,</span><span class="w"> </span><span class="mi">16</span><span class="w"> </span><span class="p">],</span><span class="w">
     </span><span class="s2">"fonts"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
         </span><span class="s2">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"config/fonts.json"</span><span class="w">
     </span><span class="p">},</span><span class="w">
@@ -717,6 +731,9 @@ See example below:
     </span><span class="p">},</span><span class="w">
     </span><span class="s2">"graphicsList"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
         </span><span class="s2">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"config/graphics.json"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="s2">"social"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"config/social.json"</span><span class="w">
     </span><span class="p">},</span><span class="w">
     </span><span class="s2">"options"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
         </span><span class="s2">"deleteOnDoubleClick"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
@@ -735,7 +752,8 @@ See example below:
         </span><span class="s2">"checkTextFXThrottle"</span><span class="p">:</span><span class="w"> </span><span class="mi">400</span><span class="p">,</span><span class="w">
         </span><span class="s2">"minDPU"</span><span class="p">:</span><span class="w"> </span><span class="mi">300</span><span class="p">,</span><span class="w">
         </span><span class="s2">"showUploadedColorsDialog"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
-        </span><span class="s2">"fitProductImage"</span><span class="w"> </span><span class="p">:</span><span class="w">  </span><span class="kc">false</span><span class="w">
+        </span><span class="s2">"fitProductImage"</span><span class="w"> </span><span class="p">:</span><span class="w">  </span><span class="kc">false</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"enableSnapGuides"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
     </span><span class="p">},</span><span class="w">
     </span><span class="s2">"textEffects"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
         </span><span class="s2">"config"</span><span class="p">:</span><span class="w"> </span><span class="s2">"config/textEffects.json"</span><span class="p">,</span><span class="w">
@@ -807,6 +825,11 @@ While the LiveArt loads configuration by default out of static JSON files, you c
 <td>URL</td>
 </tr>
 <tr>
+<td>social</td>
+<td>indicates a URL returning social networks configuration for uploading photos<br><em>Added to v0.10.10</em></td>
+<td>URL</td>
+</tr>
+<tr>
 <td>options</td>
 <td>contains the list of options which control visual appearance and behaviour of the designer area. See detailed description below.</td>
 <td>object</td>
@@ -866,6 +889,11 @@ While the LiveArt loads configuration by default out of static JSON files, you c
 <td>this parameter defines the template of the shared link url. Sharing a design calls a saveDesign service that should return an identifier under which design was saved. This id will be replaced in ${design_id} token and presented to user that may copy it and load the design later.</td>
 <td>URL</td>
 </tr>
+<tr>
+<td>redirectWindow</td>
+<td>window target whne redirecting to <code class="prettyprint">redirectUrl</code>. Used for LiveArt inside the iframe. Possible values: &ldquo;&rdquo;(default), &ldquo;parent&rdquo;, or &ldquo;top&rdquo; (same logic as links inside iframe)</td>
+<td>string</td>
+</tr>
 </tbody></table>
 
 <h3 id="options-description">Options Description</h3>
@@ -899,7 +927,7 @@ While the LiveArt loads configuration by default out of static JSON files, you c
 </tr>
 <tr>
 <td>fontsCSSUrl</td>
-<td>URL to the location of fonts CSS definitions that will be available for the user. In default package URL — <code class="prettyprint">&quot;/fonts/fonts.css&quot;</code></td>
+<td>URL to the location of fonts CSS definitions that will be available for the user. In default package URL — <code class="prettyprint">&quot;/fonts/fonts.css&quot;</code> Used for stand-alone SVG preview (for proper text fonts rendering in browser)</td>
 <td>&ldquo;&rdquo;</td>
 </tr>
 <tr>
@@ -1670,7 +1698,14 @@ Please note that the default script requires ImageMagick to be installed on your
 <p><code class="prettyprint">/LA.config.js</code></p>
 
 <p><em>version: 0.10.5+<br/></em>
-Seperated from LA.js configuration for more easier LA.js support. Used to override canvas dimension, default product/design/graphic parsing from GET vars, place order handler, core translation dictionary.</p>
+Seperated from LA.js configuration for more easier LA.js support. Used to:</p>
+
+<ul>
+<li>override canvas dimension (see <em>/setup/README.txt</em> for more details)</li>
+<li>default product/design/graphic parsing from GET vars</li>
+<li>custom place order handler</li>
+<li><em>added in v0.10.10</em> core translation dictionary (see usage manual on <a href="https://liveart.uservoice.com/knowledgebase/articles/917133-how-to-add-translations-to-liveart">KB: How to add translations to LiveArt</a>)</li>
+</ul>
 
 <p><code class="prettyprint">/assets</code></p>
 
