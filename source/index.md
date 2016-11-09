@@ -70,11 +70,11 @@ All endpoint URLs can be both relative or absolute. For correct operation of the
       ],
       "objectCount": 2,
       "letterings": 1,
-      "images": 1
+      "images": 1,
       "designedArea": "7.64",
       "designedAreaRect": "9.99",
       "designedWidth": "4.80",
-      "designedHeight": "2.88"
+      "designedHeight": "2.88",
       "objects": [
         {
           "type": "txt",

@@ -108,8 +108,8 @@ multicolor | whether product can be colorizable. This requires special SVG image
 name | name of product, visible to the end user. | string | yes
 namesNumbersEnabled | enable tab for adding names and/or numbers placeholders to design, and fill appropriate table | boolean | false
 pantones | _added in v0.10.14_<br/>object to override default pantones setting from config.<br/>Sample: ```{ "useForDecoration": false, "useForProduct": false }```<br/>(```useForDecoration``` — enabling/disabling pantones for the art, ```useForProduct``` — enabling/disabling pantones for colorizing ```multicolor``` product )| object | false
-resizable | defines whether the product dimensions can be changed by user. Setting this to true is typical for products like business cards, signs or banners. This product type has some peculiar properties:<ul><li>`editableAreaUnits` — is an optional location attribute, but for resizable products becomes required;</li><li>default size will be taken from `editableAreaUnits`;</li><li>one may additionally setup default product size via `defaultProductSize` attribute in main configuration file;</li><li>all product location should have same size;</li><li>if resizable product has more than one `location` object, `editableAreaUnits` are required only for first location in list; other loation's editableAreaUnits will be ignored.</li></ul> | boolean | no
-editableAreaSizes | defines preselected possible sizes for user, works only if resizable attribute is ```true```.<br/>Sample definition: `"editableAreaSizes":[{"label":"2x2in", "width":2, "height":2}]` | object | no
+resizable | defines whether the product dimensions can be changed by user. Setting this to true is typical for products like business cards, signs or banners.<br/>Available in 2 modes: <ul><li>User input mode (see details below)</li><li>Predefined values - see option `editableAreaSizes` description </li></ul> User input mode has some peculiar properties:<ul><li>`editableAreaUnits` — is an optional location attribute, but for resizable products becomes required;</li><li>default size will be taken from `editableAreaUnits`;</li><li>one may additionally setup default product size via `defaultProductSize` attribute in main configuration file;</li><li>all product location should have same size;</li><li>if resizable product has more than one `location` object, `editableAreaUnits` are required only for first location in list; other loation's editableAreaUnits will be ignored.</li></ul> | boolean | no
+editableAreaSizes | defines preselected possible sizes for user, works only if resizable attribute is ```true```.<br/>Sample definition: `"editableAreaSizes":[{"label":"2x2in", "width":2, "height":2}]`<br/>_Note_: this option ignores `editableAreaUnits`, `editableAreaUnitsRan​ge`, and `editableAreaUnitsRestrictRotation` options in `product.location`  | object | no
 showRuler | indicates whether ruler should be shown. Depends on ```editableAreaUnits``` values for each location (becomes obligatory attribute).<br/>Default value: ```false```. | boolean | no
 sizes | list of available sizes for certain product. Type: array. If not indicated, only Quantity field will be rendered on the checkout panel. | array | no
 template | If this attribute is indicated, LiveArt will attempt to load the design with by indicated Design ID. This is perfect if certain default design is associated with a product. Please note that the design should be previously prepared and saved for this particular product. | string | no
@@ -141,12 +141,13 @@ Attribute | Description | Type | Required
 --------- | ----------- | ---- | --------
 name | name of color, visible to the end user. | string | yes
 value | hexadecimal value of color. | string | yes
-location | list of locations for which this color is available. Used only for products with `"multicolor": false` attribute<br/><br/>Each object in `location` array consist of two properties: | array | no
+location | list of locations for which this color is available. Used only for products with `"multicolor": false` attribute<br/><br/>Each object in `location` array consist of properties: | array | no
 
    | | |  |  | 
 ---| ---|--------- | ----------- | ---- | --------
    |name | name of `location` for which current color is available.<br/><small>If name is invalid — image will be used for product location with the same index</small> | string | yes
    |image | url to background image (allowed file extensions: *.jpg, *.png, *.gif, *.svg) for current location and color | string | yes
+   |mask | _optional_ url to mask image (allowed file extensions: *.jpg, *.png, *.gif, *.svg) for current location and color | string | no
 
 ## Fonts List
 > Fonts JSON structure example
