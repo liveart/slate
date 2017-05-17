@@ -278,20 +278,23 @@ image | url to the full size image (allowed file extensions: *.jpg, *.png, *.gif
 > Example
 
 ```json
-{ "textEffects": [
-    { "name": "arcUp", "label": "Arc Up", "fxName": "arc", "paramName": "Angle", "paramValName": "a", "min": 10, "max": 360, "step": 10 },
-    { "name": "inflate", "label": "Inflate", "paramName": "Distort", "paramValName": "d", "min": 0.1, "max": 1, "step": 0.1 },
-    { "name": "perspective", "label": "Perspective", "paramName": "Distort", "paramValName": "d", "min": 0.1, "max": 1, "step": 0.1 },
-    { "name": "wave", "label": "Wave", "paramName": "Distort", "paramValName": "d", "min": 0.1, "max": 1, "step": 0.1 }
-  ]
+{
+    "textEffects": [
+		{ "name": "arcUp", "label": "Arc Up", "fxName": "arc", "paramName": "Angle", "paramValName": "a", "min": 10, "max": 360, "step": 10 },
+		{ "name": "arcDown", "label": "Arc Down", "fxName": "arc", "paramName": "Angle", "paramValName": "a", "min": -10, "max": -360, "step": 10 },
+		{ "name": "simpleWave", "label": "Simple Wave", "paramName": "Wave", "paramValName": "d", "min": 0.1, "max": 1, "step": 0.1 }
+    ]
 }
 
 ```
 
-Text FX is an experimental flexible feature that was added to LiveArt HTML5 allowing users to apply a number of effects on the text. Arc effects are vector and will not require ImageMagick. Below goes example of defining certain effect to a script. Please note that this works in conjunction with getText.php script and any effect you add should be implemented in it.
+Text FX is an experimental flexible feature that was added to LiveArt HTML5 allowing users to apply a number of effects on the text. Default effects are vector and will not require ImageMagick. 
 
 <aside class="warning">
-Please note that the default script requires ImageMagick to be installed on your server. If you don't have it installed or not planning to, remove raster effects from the json definition.
+0.10.24 update:
+
+Raster Effects are depricated. To enable them back please refer to changelog (e.g. <a href="https://github.com/liveart/liveartjs/blob/master/README.md#01024-release-notes">README</a>)
+Please note that the default script requires ImageMagick and all fonts to be installed on your server. Also this works in conjunction with getText.php script and any effect you add should be implemented in it.
 </aside>
 
 Attribute | Description | Type | Required
@@ -303,3 +306,14 @@ paramName | title of the effect parameter as it will appear for user, e.g. "Dist
 paramValName | working name of the effect parameter, used if different to paramName. | string | yes
 min/max | numeric values for respective min and max of the effect parameter. The parameter will be rendered to user as slider control. | number | yes
 step | numeric step value for effect parameter control. | number | yes
+
+Effects List:
+
+- Vector effects:
+  - Arc Up/Down
+  - Wave
+- Raster effects (_deprecated in 0.10.24_)
+  - Arch Up/Down
+  - Inflate
+  - Perspective
+  - Wave 

@@ -19,7 +19,7 @@ search: true
 ---
 # Introduction
 
-###Current version: 0.10.19
+###Current version: 0.10.24
 
 LiveArt HTML5 uses JSON format to transfer data, such as information about design, pricing and order, to backend. In order to prepare server-side application for work in pair with LiveArt component, backend services should be ready to receive and deliver valid data structures via HTTP queries. The detailed description of this queries and datatypes is given in the following article.
 
@@ -274,9 +274,10 @@ Field | Description | Type
 data | main object — see detailed description below | object
 title | <i>optional:</i> title for saved design (input by user). For shared desgins - empty string. For ordered designs - not included | string
 email | <i>optional:</i> only if user entered email before (e.g. for saving design) | string
-type | `saved` for saved designs (including ordered) and `shared` for shared designs | string
+type | `saved` for saved designs (including ordered) and `shared` for shared designs<br/>_added 0.10.21_: `ordered` for ordered designs (before - `saved` type was used) | string
 quote | <i>optional:</i> quote objects. Only for ordered designs | object
 id | <i>optional:</i> only for saved (and ordered) designs, if design was previously saved/loaded | string
+design | _optional_, _added 0.10.21_: object for shorthand descrion `{title?: string, type: string (saved|shared|ordered)}`| object
 
 <h3>DATA FIELD DESCRIPTION</h3>
 Request contains JSON metadata with enclosed SVG which should be extracted with the parsing script and saved. Developers can additionally process SVG to embed images, prepare for conversion into other formats or add additional elements.
@@ -349,12 +350,14 @@ See example below:
 }
 ```
 
-This service is called to get the list of saved designs for certain email. The backend service should use the email from GET parameter as key to filter designs for particular account.
+This service is called to get the list of saved designs for certain email. The backend service should use the email (and product as option) from GET parameter as key(s) to filter designs for particular account.
 
 ### <h3>SERVICE DEFINITION IN CONFIG.JSON</h3>
- Please note that using the token is mandatory. It will be replaced in request with actual email, provided by the user.
+Tokens Description:
+- `${email}` - mandatory token. It will be replaced in request with actual email, provided by the user.
+- `${product_id}` (added in _0.10.24_) - optional token for filtering designs list by current product
 
-`"getDesignsUrl": "services/loadDesigns.php?email=${email}"`
+`"getDesignsUrl": "services/loadDesigns.php?email=${email}&product_id=${product_id}"`
 
 ### RESPONSE FIELDS DESCRIPTION
 
