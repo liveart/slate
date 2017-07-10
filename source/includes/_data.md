@@ -303,7 +303,7 @@ Text FX is an experimental flexible feature that was added to LiveArt HTML5 allo
 <aside class="warning">
 0.10.24 update:
 
-Raster Effects are depricated. To enable them back please refer to changelog (e.g. <a href="https://github.com/liveart/liveartjs/blob/master/README.md#01024-release-notes">README</a> or <a href="https://liveart.uservoice.com/knowledgebase/articles/1188664">Migration Text Effects to 0.10.25 Notes</a>)
+Raster Effects are deprecated. To enable them back please refer to changelog (e.g. <a href="https://github.com/liveart/liveartjs/blob/master/README.md#01024-release-notes">README</a> or <a href="https://liveart.uservoice.com/knowledgebase/articles/1188664">Migration Text Effects to 0.10.25 Notes</a>)
 Please note that the default script requires ImageMagick and all fonts to be installed on your server. Also this works in conjunction with getText.php script and any effect you add should be implemented in it.
 </aside>
 

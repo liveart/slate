@@ -48,6 +48,7 @@ LiveArt Configuration has 2 entry points:
     },
     "textEffects": {
         "config": "config/textEffects.json"
+        
     },
     "defaultNameObjectText": "NAMES HERE",
     "defaultNumberObjectText": "00",
@@ -119,8 +120,11 @@ showSuitableProductColorize | If `true` — show only actual Current Locations c
 
 > Sample configuration
 
-```json
-liveArt.init(document.getElementById('canvas-container'), configFile, controlsUpdateHandler, laOptions);
+```js
+liveArt.init(document.getElementById('canvas-container'), 
+    configFile, 
+    controlsUpdateHandler, 
+    laOptions);
 ```
 
 ### Default init values
@@ -135,7 +139,7 @@ laOptions | ```object``` with default init parameters.<br/>See more info below |
 
 > Sample configuration
 
-```
+```js
 var laOptions = {
     dimensions: [587, 543]
 };
@@ -153,20 +157,23 @@ laOptions.translation = laTranslation.dictionary;
 ```
 
 ### ```laOptions``` attributes :
-(all - optional)
+All attributes are optional and provided with their default values
+
 Property | Type | Description
 -------- | ---- | -----------
 dimensions | ```array``` of 2 numbers | default canvas dimensions: ```[width, height]```<br/>Default values: ```[587, 543]```<br/>See ```/setup/README.txt``` in package for information how to change default canvas dimension
 defaultDesignId | ```string``` | Default design to be loaded; usually parsed from GET var
 defaultProductId | ```string``` | Default product ID to be loaded; usually parsed from GET var<br/>Note: recommended to use this value instead of ```config.defaultProductId```
 defaultGraphicId | ```string``` | Default graphics ID to be added after load; usually parsed from GET var
-defaultProductAttributes.sizeUnits | ```array``` of 2 numbers | default dimensions for resizable products (e.g. Sign 5"x4")<br>_Added to v0.10.25_
-defaultProductAttributes.quantities | ```array``` of ```object```s | Set default quantities for Order;<br>Higher priority over ```product.minQuantity```;<br>Syntax:<ol><li>```[{quantity: 30}]``` - default quantity (total for products without sizes OR for first size)</li><li>```[{size: "S", quantity: 5}, {size: "XL", quantity: 12}]``` - default quantities for product with sizes list</li></ol><br>_Added to v0.10.5_
+defaultProductAttributes<br/>.sizeUnits | ```array``` of 2 numbers | default dimensions for resizable products (e.g. Sign 5"x4")<br>_Added to v0.10.25_
+defaultProductAttributes<br/>.quantities | ```array``` of ```object```s | Set default quantities for Order;<br>Higher priority over ```product.minQuantity```;<br>Syntax:<ol><li>```[{quantity: 30}]``` - default quantity (total for products without sizes OR for first size)</li><li>```[{size: "S", quantity: 5}, {size: "XL", quantity: 12}]``` - default quantities for product with sizes list</li></ol><br>_Added to v0.10.5_
 placeOrderHandler | ```function``` | optional for overriding default Place Order process function.<br/>Default value: ```null```<br/>Syntax: ```function (ordered_design_id: string) { /*custom code here*/ }```;<br/>Default behavior: Redirect to ```config.redirectUrl``` using ```config.redirectWindow```;
 translation | ```object``` |  optional translation dictionary; by default - English. See more at <a href="https://liveart.uservoice.com/knowledgebase/articles/917133">How to add translations to LiveArt</a><br>_Added to v0.10.5_
 
-Usually all options named ```defaultNNN``` (e.g. ```defaultProductId```, ```defaultProductAttributes```, etc.) are parsed from GET vars (easiest setup) via build-in helper ```function getQueryParam(param, type)```.<br/>
+All options named ```defaultNNN``` (e.g. ```defaultProductId```, ```defaultProductAttributes```, etc.) could be also obtained from GET vars (easiest setup) via build-in helper ```function getQueryParam(param, type)```.<br/>
+
 Notes:
-- objects/arrays (e.g. ```defaultProductAttributes```) should be stringified and URL-encoded
-  - ```?product_id=41&pa_size_units=%5B30%2C40%5D``` instead of ~~```?product_id=41&pa_size_units=[30,40]```~~
-- browsers may have URI limits (e.g. <a href="https://stackoverflow.com/questions/417142/what-is-the-maximum-length-of-a-url-in-different-browsers ">2k chars limit in most browsers</a>), ensure you not exceeding it
+
+* objects/arrays (e.g. ```defaultProductAttributes```) should be stringified and URL-encoded
+    * ```?product_id=41&pa_size_units=%5B30%2C40%5D``` instead of ```?product_id=41&pa_size_units=[30,40]```
+* browsers may have URI limits (e.g. <a href="https://stackoverflow.com/questions/417142/what-is-the-maximum-length-of-a-url-in-different-browsers ">2k chars limit in most browsers</a>), ensure you not exceeding it

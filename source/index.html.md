@@ -2,7 +2,7 @@
 title: LiveArt HTML5 Documentation
 
 language_tabs:
-  - Sample JSONs
+  - Sample code
 
 toc_footers:
   - <a href='http://liveart.uservoice.com/' target='_blank'>Uservoice Portal</a>
