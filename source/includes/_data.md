@@ -279,21 +279,31 @@ image | url to the full size image (allowed file extensions: *.jpg, *.png, *.gif
 
 ```json
 {
-    "textEffects": [
-		{ "name": "arcUp", "label": "Arc Up", "fxName": "arc", "paramName": "Angle", "paramValName": "a", "min": 10, "max": 360, "step": 10 },
-		{ "name": "arcDown", "label": "Arc Down", "fxName": "arc", "paramName": "Angle", "paramValName": "a", "min": -10, "max": -360, "step": 10 },
-		{ "name": "simpleWave", "label": "Simple Wave", "paramName": "Wave", "paramValName": "d", "min": 0.1, "max": 1, "step": 0.1 }
-    ]
+  "textEffects": [
+    { "name": "curveUp", "label": "Curve Up", "fxName": "arc", "paramName": "Angle", "paramValName": "a", "min": 10, "max": 360, "step": 5},
+    { "name": "curveDown", "label": "Curve Down", "fxName": "arc", "paramName": "Angle", "paramValName": "a", "min": -10, "max": -360, "step": 5},
+    { "name": "archUp", "label": "Arch Up", "fxName": "vectorArchUp", "paramName": "Angle", "paramValName": "a", "min": 0, "max": 1, "step": 0.1},
+    { "name": "archDown", "label": "Arch Down", "fxName": "vectorArchDown", "paramName": "Angle", "paramValName": "a", "min": 0, "max": 1, "step": 0.1},
+    { "name": "simpleWave", "label": "Simple Wave", "paramName": "Wave", "paramValName": "d", "min": 0.1, "max": 1, "step": 0.1},
+    { "name": "widen", "label": "Widen", "paramName": "Distort Level", "paramValName": "d", "min": 0, "max": 1, "step": 0.1},
+    { "name": "wedge", "label": "Wedge", "paramName": "Distort Level", "paramValName": "d", "min": 1, "max": 2, "step": 0.1},
+    { "name": "pinch", "label": "Pinch", "paramName": "Pinch Level", "paramValName": "d", "min": 0, "max": 1, "step": 0.1},
+    { "name": "bulge", "label": "Bulge", "paramName": "Bulge Level", "paramValName": "d", "min": 1, "max": 2, "step": 0.1},
+    { "name": "slantLeft", "label": "Slant Left", "paramName": "Slant Level", "paramValName": "d", "min": 0, "max": 1, "step": 0.1},
+    { "name": "slantRight", "label": "Slant Right", "paramName": "Slant Level", "paramValName": "d", "min": 1, "max": 2, "step": 0.1},
+    { "name": "slantUp", "label": "Slant Up", "paramName": "Slant Level", "paramValName": "d", "min": 1, "max": 2, "step": 0.1},
+    { "name": "slantDown", "label": "Slant Down", "paramName": "Slant Level", "paramValName": "d", "min": 0, "max": 1, "step": 0.1}
+  ]
 }
 
 ```
 
-Text FX is an experimental flexible feature that was added to LiveArt HTML5 allowing users to apply a number of effects on the text. Default effects are vector and will not require ImageMagick. 
+Text FX is an experimental flexible feature that was added to LiveArt HTML5 allowing users to apply a number of effects on the text. Default effects are vector and not require ImageMagick (_starting 0.10.24_). 
 
 <aside class="warning">
 0.10.24 update:
 
-Raster Effects are depricated. To enable them back please refer to changelog (e.g. <a href="https://github.com/liveart/liveartjs/blob/master/README.md#01024-release-notes">README</a>)
+Raster Effects are depricated. To enable them back please refer to changelog (e.g. <a href="https://github.com/liveart/liveartjs/blob/master/README.md#01024-release-notes">README</a> or <a href="https://liveart.uservoice.com/knowledgebase/articles/1188664">Migration Text Effects to 0.10.25 Notes</a>)
 Please note that the default script requires ImageMagick and all fonts to be installed on your server. Also this works in conjunction with getText.php script and any effect you add should be implemented in it.
 </aside>
 
@@ -310,8 +320,12 @@ step | numeric step value for effect parameter control. | number | yes
 Effects List:
 
 - Vector effects:
-  - Arc Up/Down
+  - Curve Up/Down
+  - Arch Up/Down (_added in 0.10.25_)
   - Wave
+  - Widen/Wedge (_added in 0.10.25_)
+  - Pinch/Bulge (_added in 0.10.25_)
+  - Slant Left/Right/Up/Down (_added in 0.10.25_)
 - Raster effects (_deprecated in 0.10.24_)
   - Arch Up/Down
   - Inflate
