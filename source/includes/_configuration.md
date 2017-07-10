@@ -43,7 +43,8 @@ LiveArt Configuration has 2 entry points:
         "minDPU": 300,
         "showUploadedColorsDialog": false,
         "fitProductImage" :  false,
-        "enableSnapGuides": true
+        "enableSnapGuides": true,
+        "showSuitableProductColorize": true
     },
     "textEffects": {
         "config": "config/textEffects.json"
@@ -112,6 +113,7 @@ minDPU | Set this property to show warning message if user will size raster imag
 showUploadedColorsDialog | Defines whether to show after image upload pop-up with colors choises for uploaded image (default palette and 'Process Colors' checkbox). If value == `false` uploaded images are treated as 'Process Colors' | true
 fitProductImage | If `true` — product images are fitted and centered in the canvas. Small product images are only centered. Editable Area coordinates are still binded to canvas dimensions (not product image)<br>_Added to v0.10.5_ | false
 enableSnapGuides | If `true` — enabling snapping objects while dragging to another objects, editable area center or sides. Also helps to set object's rotation angle to 0°, 90°, 180°, and 270°<br>_Added to v0.10.17_  | true
+showSuitableProductColorize | If `true` — show only actual Current Locations colorizable areas.<br> (e.g. on "Back" location - show only colors from this location)<br>If `false` — on each location show all colorizable areas list. Works only with multicolor product<br>_Added to v0.10.25_ | false
 
 ## LA.config.js
 
