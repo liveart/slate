@@ -133,6 +133,24 @@ configFile | ```string``` URL of config.json; usually depends on backend/admin a
 controlsUpdateHandler | js ```function``` for API callbacks to UI.<br/>Strongly recommended to use default value | true
 laOptions | ```object``` with default init parameters.<br/>See more info below | false
 
+> Sample configuration
+
+```
+var laOptions = {
+    dimensions: [587, 543]
+};
+
+laOptions.defaultDesignId = getQueryParam("design_id");
+laOptions.defaultProductId = getQueryParam("product_id");
+laOptions.defaultGraphicId = getQueryParam("graphic_id");
+
+laOptions.defaultProductAttributes = {};
+laOptions.defaultProductAttributes.sizeUnits = getQueryParam("pa_size_units", "json");
+laOptions.defaultProductAttributes.quantities = getQueryParam("pa_quantities", "json");
+
+laOptions.placeOrderHandler = null;
+laOptions.translation = laTranslation.dictionary;
+```
 
 ### ```laOptions``` attributes :
 (all - optional)
