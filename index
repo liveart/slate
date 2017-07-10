@@ -1,0 +1,666 @@
+<h1 id="introduction">Introduction</h1>
+
+<h3 id="current-version-0-10-25">Current version: 0.10.25</h3>
+
+<p>LiveArt HTML5 uses JSON format to transfer data, such as information about design, pricing and order, to backend. In order to prepare server-side application for work in pair with LiveArt component, backend services should be ready to receive and deliver valid data structures via HTTP queries. The detailed description of this queries and datatypes is given in the following article.</p>
+
+<aside class="warning">LiveArt HTML5 integration requires profound coding knowledge of GET/POST requests and JSON processing in your native platform. Regardless of the letter, we recommend constantly using Net Inspector and/or Fiddler tool to debug your requests and responses of the API.</aside>
+
+<p>Each request is normally sent as POST request with the payload, contained in <code class="prettyprint">value</code> parameter. Sometimes additional parameters may include design id or timestamp. Using Inspector properly, you will be able to notice all information that is being sent.</p>
+
+<p>All endpoint URLs can be both relative or absolute. For correct operation of the tool we advise using relative URLs more as you may get into CORS issue if your users will be accessing tool with a different URL than provided in main configuration file. A common example is accessing site with or without the <code class="prettyprint">www</code>.</p>
+
+<h1 id="api-endpoints">API Endpoints</h1>
+
+<h2 id="getquote-post">GetQuote - POST</h2>
+
+<blockquote>
+<p>Request example</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"colors"</span><span class="p">:</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"isFullColor"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"colorsNum"</span><span class="p">:</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"colorsList"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="s2">"#FFFFFF"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"#000000"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"#F4EB21"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"#FAA744"</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="s2">"product"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"21"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"productColors"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">".bg.fill"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Aero"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"value"</span><span class="p">:</span><span class="w"> </span><span class="s2">"#9cb8d0"</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">],</span><span class="w">
+    </span><span class="s2">"color"</span><span class="p">:</span><span class="w"> </span><span class="s2">"#9cb8d0"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"colorName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Aero"</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="s2">"locations"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Front"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"colors"</span><span class="p">:</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"isFullColor"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"colorsNum"</span><span class="p">:</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"colorsList"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="s2">"#FFFFFF"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"#000000"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"#F4EB21"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"#FAA744"</span><span class="w">
+      </span><span class="p">],</span><span class="w">
+      </span><span class="s2">"objectCount"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"letterings"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"images"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"designedArea"</span><span class="p">:</span><span class="w"> </span><span class="s2">"7.64"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"designedAreaRect"</span><span class="p">:</span><span class="w"> </span><span class="s2">"9.99"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"designedWidth"</span><span class="p">:</span><span class="w"> </span><span class="s2">"4.80"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"designedHeight"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2.88"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"objects"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+          </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"txt"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"text"</span><span class="p">:</span><span class="w"> </span><span class="s2">"text"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"designedArea"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.44"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"colorsNum"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"colors"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"colorsList"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+            </span><span class="s2">"#ee6363"</span><span class="w">
+          </span><span class="p">]</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+          </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"svg"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"42"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"isUploaded"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"designedArea"</span><span class="p">:</span><span class="w"> </span><span class="s2">"7.20"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"colorsList"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+            </span><span class="s2">"#000000"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"#F4EB21"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"#FAA744"</span><span class="w">
+          </span><span class="p">],</span><span class="w">
+          </span><span class="s2">"colorsNum"</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"colors"</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"isFullColor"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">]</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="s2">"namesNumbers"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"forward"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"numberText"</span><span class="p">:</span><span class="w"> </span><span class="s2">"07"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"size"</span><span class="p">:</span><span class="w"> </span><span class="s2">"L"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"goalkeeper"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"numberText"</span><span class="p">:</span><span class="w"> </span><span class="s2">"02"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"size"</span><span class="p">:</span><span class="w"> </span><span class="s2">"L"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="s2">"quantities"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"size"</span><span class="p">:</span><span class="w"> </span><span class="s2">"S"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"size"</span><span class="p">:</span><span class="w"> </span><span class="s2">"L"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"size"</span><span class="p">:</span><span class="w"> </span><span class="s2">"XL"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<blockquote>
+<p>Response example</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"prices"</span><span class="p">:</span><span class="w"> </span><span class="p">[{</span><span class="w">
+    </span><span class="s2">"label"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Item Price"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"$ 94.62"</span><span class="w">
+   </span><span class="p">},</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"label"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Discount"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"$ -6.00"</span><span class="w">
+   </span><span class="p">},</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"label"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Total"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"$ 904.20"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"isTotal"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+  </span><span class="p">}]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>This service is used to get the price of a current design. It is called every time when end user is making some changes to the design or product selection.</p>
+
+<p>To bind LiveArt HTML5 to the server side GetQuote service, you will need to define the getQuoteUrl property in config JSON. The value has to be a link to a backend service. See example below:</p>
+
+<h3 id="service-definition-in-config-json">Service definition in config.json</h3>
+
+<p><code class="prettyprint">&quot;getQuoteUrl&quot;: &quot;services/getQuote.php&quot;</code>
+<aside class="success">
+If you need to switch off the pricing aspect of your application, simply leave <code class="prettyprint">getQuoteUrl</code> empty!
+</aside></p>
+
+<h3 id="request-fields-description">Request fields description</h3>
+
+<table><thead>
+<tr>
+<th>Field</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>product.id</td>
+<td>unique identifier of the product.</td>
+<td>string</td>
+</tr>
+<tr>
+<td>product.productColors</td>
+<td><em>optional</em>: product colorizable areas list<br/>(only for multicolor products).</td>
+<td>array of colorizable area objects</td>
+</tr>
+<tr>
+<td>product.color</td>
+<td>hexadecimal value of product color.<br/><em>v0.10.6 change: optional</em>;<br/><small>Added only if product has colors. In case of multicolor product - added only if product has one colorizable area only.</small></td>
+<td>string</td>
+</tr>
+<tr>
+<td>product.colorName</td>
+<td>name of product color.<br/><em>v0.10.6 change: optional</em>;<br/><small>Same  behaviour as product.color.</small></td>
+<td>string</td>
+</tr>
+<tr>
+<td>colorsList</td>
+<td>legacy list of hexadecimal values of the colors which are used on all product locations (array of strings). If any of locations has full color print - &ldquo;processColors&rdquo; (string).</td>
+<td>mix</td>
+</tr>
+<tr>
+<td>colors</td>
+<td>legacy amount of colors used on all locations (number). If any of locations has full color print - &ldquo;processColors&rdquo; (string).<br/><em>v0.10.13 change:</em> adding to amount not-specified colors from graphics config (i.e. graphic.colors = &ldquo;7&rdquo;);</td>
+<td>mix</td>
+</tr>
+<tr>
+<td>colorsNum</td>
+<td>amount of the colors which are used on all locations<br/><em>added in v0.10.13</em></td>
+<td>number</td>
+</tr>
+<tr>
+<td>isFullColor</td>
+<td>bool to indicate full colors at least on one location<br/><em>added in v0.10.13</em></td>
+<td>bool</td>
+</tr>
+<tr>
+<td>namesNumbers</td>
+<td>list of names and numbers. Empty if current product does not support names/numbers.</td>
+<td>array</td>
+</tr>
+<tr>
+<td>quantities</td>
+<td>quantity of the sizes. Also includes entered size values from names/numbers list.</td>
+<td>number</td>
+</tr>
+<tr>
+<td>location.name</td>
+<td>name of product location</td>
+<td>string</td>
+</tr>
+<tr>
+<td>location.isFullColor</td>
+<td>full color print flag<br/><em>added in v0.10.4</em></td>
+<td>bool</td>
+</tr>
+<tr>
+<td>location.colors</td>
+<td>legacy amount of the colors which are used at the current location (number) or string &ldquo;processColors&rdquo; in case of full print</td>
+<td>mixed</td>
+</tr>
+<tr>
+<td>location.colorsNum</td>
+<td>amount of the colors which are used at the current location<br/><em>added in v0.10.4</em></td>
+<td>number</td>
+</tr>
+<tr>
+<td>location.colorsList</td>
+<td>list of hexadecimal values of the colors which are used at the current location.</td>
+<td>array of strings</td>
+</tr>
+<tr>
+<td>location.designedArea</td>
+<td>total area of all decoration objects at the current location (square units). <br/><em>v0.10.6 change: optional</em>;<br/><small>Added only if location has proper design area sizes configration.</small></td>
+<td>string</td>
+</tr>
+<tr>
+<td>location.designedAreaRect</td>
+<td>area of rectangle, containing all objects in location (square units). <br/><em>v0.10.6 change: optional</em>;<br/><small>Same  behaviour as location.designedArea.</small></td>
+<td>string</td>
+</tr>
+<tr>
+<td>location.designedWidth</td>
+<td><em>v0.10.6 added</em> optional attribute (Same  behaviour as location.designedArea.) <br/> designed area width in configured units</td>
+<td>string</td>
+</tr>
+<tr>
+<td>location.designedHeight</td>
+<td><em>v0.10.6 added</em> optional attribute (Same  behaviour as location.designedArea.) <br/> designed area height in configured units</td>
+<td>string</td>
+</tr>
+<tr>
+<td>location.objectCount</td>
+<td>total count of all decoration objects at the current location.</td>
+<td>number</td>
+</tr>
+<tr>
+<td>location.letterings</td>
+<td>total count of all text objects at the current location.</td>
+<td>number</td>
+</tr>
+<tr>
+<td>location.images</td>
+<td>total count of all graphic objects at the current location.</td>
+<td>number</td>
+</tr>
+<tr>
+<td>location.objects</td>
+<td>list of decoration objects which are present at the current location.</td>
+<td>array</td>
+</tr>
+<tr>
+<td>location.objects.type</td>
+<td>type of decoration object. Possible values: <code class="prettyprint">&quot;txt&quot;</code>, <code class="prettyprint">&quot;svg&quot;</code> and <code class="prettyprint">&quot;image&quot;</code></td>
+<td>string</td>
+</tr>
+<tr>
+<td>location.objects.text</td>
+<td><em>optional</em>: only for <code class="prettyprint">type=&quot;text&quot;</code> objects - text value</td>
+<td>string</td>
+</tr>
+<tr>
+<td>location.objects.id</td>
+<td><em>optional</em>: only for gallery graphic objects - graphics id value</td>
+<td>string</td>
+</tr>
+<tr>
+<td>location.objects.designedArea</td>
+<td>area occupied by the object (in square units). <br/><em>v0.10.6 change: optional</em>;<br/><small>Same  behaviour as location.designedArea.</small></td>
+<td>number</td>
+</tr>
+<tr>
+<td>location.objects.colors</td>
+<td>legacy amount of colors used to colorize the object. See more in location.colors</td>
+<td>mix</td>
+</tr>
+<tr>
+<td>location.objects.colorsList</td>
+<td>list of RGB colors used to colorize the object.</td>
+<td>array of strings</td>
+</tr>
+<tr>
+<td>location.objects.colorsNum</td>
+<td>amount of colors used to colorize the object<br/><em>added in v0.10.4</em></td>
+<td>number</td>
+</tr>
+<tr>
+<td>location.objects.isFullColor</td>
+<td>object full color print flag<br/><em>added in v0.10.4</em></td>
+<td>bool</td>
+</tr>
+<tr>
+<td>location.objects.isUploaded</td>
+<td><em>optional</em>: only for objects <code class="prettyprint">type=&quot;svg / image&quot;</code>. Indicates that object was uploaded by user<br/><em>added in v0.10.19</em></td>
+<td>bool</td>
+</tr>
+</tbody></table>
+
+<h3 id="response-fields-description">Response fields description</h3>
+
+<aside class="notice">
+The response should be compiled and provided as `Content-Type: application/json`, with no extra content. This is important as otherwise LiveArt may not parse your response and update prices respectively.
+</aside>
+
+<p>The only expected node is designated as <code class="prettyprint">prices</code>, type array each elements of which may contain the following fields.</p>
+
+<table><thead>
+<tr>
+<th>Field</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>label</td>
+<td>title of price line, e.g. Item Price, Discount, etc.</td>
+<td>string</td>
+</tr>
+<tr>
+<td>price</td>
+<td>the actual price of the price line</td>
+<td>string</td>
+</tr>
+<tr>
+<td>isTotal</td>
+<td>defines whether this price line designates total and will be bolded in LiveArt</td>
+<td>boolean, optional</td>
+</tr>
+</tbody></table>
+
+<h2 id="savedesign-post">SaveDesign - POST</h2>
+
+<blockquote>
+<p>Request Example</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"product"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"11"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Cool Tee 1"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="s2">"locations"</span><span class="p">:</span><span class="w"> </span><span class="p">[{</span><span class="w">
+      </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Front"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"svg"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;svg&gt;&lt;!-- svg content is omitted here due to its large size --&gt;&lt;/svg&gt;"</span><span class="w">
+    </span><span class="p">},</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Back"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"svg"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;svg&gt;&lt;!-- svg content is omitted here due to its large size --&gt;&lt;/svg&gt;"</span><span class="w">
+    </span><span class="p">}],</span><span class="w">
+    </span><span class="s2">"quantities"</span><span class="p">:</span><span class="w"> </span><span class="p">[{</span><span class="w">
+      </span><span class="s2">"size"</span><span class="p">:</span><span class="w"> </span><span class="s2">"XS"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w">
+    </span><span class="p">}],</span><span class="w">
+    </span><span class="s2">"prices"</span><span class="p">:</span><span class="w"> </span><span class="p">[{</span><span class="w">
+      </span><span class="s2">"label"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Item Price"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"$ 12.01"</span><span class="w">
+    </span><span class="p">},</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"label"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Discount"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"$ -3.00"</span><span class="w">
+    </span><span class="p">},</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"label"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Total"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"$ 324.30"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"isTotal"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+    </span><span class="p">}]</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<blockquote>
+<p>Response Example</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"design"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"20130514-131710-50632"</span><span class="p">,</span><span class="w"> </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Lorem Ipsum"</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>SaveDesign service is called in the following cases:</p>
+
+<ul>
+<li>User is placing order;</li>
+<li>User is saving design for later use using Save for Later link;</li>
+<li>User is sharing design. In this case design is saved anonymously if user is not authenticated;</li>
+</ul>
+
+<p><br/></p>
+
+<h3 id="service-definition-in-config-json"><h3>SERVICE DEFINITION IN CONFIG.JSON</h3></h3>
+
+<p><code class="prettyprint">&quot;saveDesignUrl&quot;: &quot;services/saveDesign.php&quot;</code></p>
+
+<h3 id="post-request-fields-description"><h3>POST REQUEST FIELDS DESCRIPTION</h3></h3>
+
+<p>Request fields</p>
+
+<table><thead>
+<tr>
+<th>Field</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>data</td>
+<td>main object — see detailed description below</td>
+<td>object</td>
+</tr>
+<tr>
+<td>title</td>
+<td><i>optional:</i> title for saved design (input by user). For shared desgins - empty string. For ordered designs - not included</td>
+<td>string</td>
+</tr>
+<tr>
+<td>email</td>
+<td><i>optional:</i> only if user entered email before (e.g. for saving design)</td>
+<td>string</td>
+</tr>
+<tr>
+<td>type</td>
+<td><code class="prettyprint">saved</code> for saved designs (including ordered) and <code class="prettyprint">shared</code> for shared designs<br/><em>added 0.10.21</em>: <code class="prettyprint">ordered</code> for ordered designs (before - <code class="prettyprint">saved</code> type was used)</td>
+<td>string</td>
+</tr>
+<tr>
+<td>quote</td>
+<td><i>optional:</i> quote objects. Only for ordered designs</td>
+<td>object</td>
+</tr>
+<tr>
+<td>id</td>
+<td><i>optional:</i> only for saved (and ordered) designs, if design was previously saved/loaded</td>
+<td>string</td>
+</tr>
+<tr>
+<td>design</td>
+<td><em>optional</em>, <em>added 0.10.21</em>: object for shorthand descrion `{title?: string, type: string (saved</td>
+<td>shared</td>
+</tr>
+</tbody></table>
+
+<h3>DATA FIELD DESCRIPTION</h3>
+
+<p>Request contains JSON metadata with enclosed SVG which should be extracted with the parsing script and saved. Developers can additionally process SVG to embed images, prepare for conversion into other formats or add additional elements.</p>
+
+<table><thead>
+<tr>
+<th>Field</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>product.id</td>
+<td>unique identifier of the product.</td>
+<td>string</td>
+</tr>
+<tr>
+<td>product.name</td>
+<td>name of product.</td>
+<td>string</td>
+</tr>
+<tr>
+<td>product.template</td>
+<td>based template id</td>
+<td>string</td>
+</tr>
+<tr>
+<td>product.productColors</td>
+<td><em>optional</em>: product colorizable areas list<br/>(only for multicolor products)<br/><em>v0.10.14 change: always presented for  m-color products (previous: only for 1-color m-color products)</em></td>
+<td>array of colorizable area objects</td>
+</tr>
+<tr>
+<td>product.color</td>
+<td>hexadecimal value of product color.<br/><em>v0.10.14 change: also used for m-color products(1st color)</em></td>
+<td>string</td>
+</tr>
+<tr>
+<td>product.colorName</td>
+<td>name of product color.<br/><em>v0.10.14 change:  also used for m-color products(1st color)</em></td>
+<td>string</td>
+</tr>
+<tr>
+<td>product.size</td>
+<td><em>optional</em> configured product size in units. Available only if <code class="prettyprint">product.locations.editableAreaUnits</code> is defined or product has property <code class="prettyprint">resizable = true</code><br/>Attributes: <ul><li><code class="prettyprint">width</code> (number)</li><li><code class="prettyprint">height</code> (number)</li><li><code class="prettyprint">label</code>(optional, string) — only if <code class="prettyprint">product.editableAreaSizes</code> is defined</li></ul></td>
+<td>object</td>
+</tr>
+<tr>
+<td>locations</td>
+<td>list of product locations (sides) for each printable side</td>
+<td>array</td>
+</tr>
+<tr>
+<td>location.name</td>
+<td>name of location.</td>
+<td>string</td>
+</tr>
+<tr>
+<td>location.svg</td>
+<td>XML representation of an SVG image which contains the whole design (including product background).</td>
+<td>string</td>
+</tr>
+<tr>
+<td>location.editableArea</td>
+<td>location editable area;<br/>Not resizable products: same value as configured; <br/>Resizable products: actual value of resized area in coordinate system of canvas<br/>Format: <code class="prettyprint">&quot;X1 Y1 X2 Y2&quot;</code></td>
+<td>string</td>
+</tr>
+<tr>
+<td>quantities</td>
+<td>list of selected sizes and their quantities.</td>
+<td>array</td>
+</tr>
+<tr>
+<td>prices</td>
+<td>list of objects which are related to pricing. The structure is exact to the one you compile for GetQuote service</td>
+<td>array</td>
+</tr>
+<tr>
+<td>namesNumbers</td>
+<td>list for team names and numbers. Actual only if <code class="prettyprint">product.namesNumbersEnabled = true</code>, otherwise — empty array</td>
+<td>array of objects</td>
+</tr>
+<tr>
+<td>notes</td>
+<td><em>added v0.10.19+</em> Design notes entered by user</td>
+<td>string</td>
+</tr>
+</tbody></table>
+
+<h3 id="response-fields-description">RESPONSE FIELDS DESCRIPTION</h3>
+
+<table><thead>
+<tr>
+<th>Field</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>id</td>
+<td>unique design identifier, it is your responsibility to generate it and keep it&rsquo;s consistency.</td>
+<td>string</td>
+</tr>
+<tr>
+<td>title</td>
+<td>design title which is given by end user. In cases of placing order or sharing design it is generated automatically by LiveArt</td>
+<td>string</td>
+</tr>
+</tbody></table>
+
+<h2 id="uploadimage-post-multipart">UploadImage - POST/Multipart</h2>
+
+<blockquote>
+<p>Response example</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"url"</span><span class="p">:</span><span class="s2">"files</span><span class="se">\/</span><span class="s2">uploads</span><span class="se">\/</span><span class="s2">some_image.jpg"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<blockquote>
+<p>In case of error</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"error"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="s2">"message"</span><span class="p">:</span><span class="s2">"Incorrect image type!"</span><span class="w"> </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>This service is used to upload user image from local file or URL. After uploading process image is shown on preview area and ready to be moved or resized. Allowed file extensions by default: *.jpg, *.png, *.gif, *.svg.</p>
+
+<aside class="warning">Make sure to update the rights to your accepting folder as writable for web user and server is ready to accept large files (e.g. photos). LiveArt will not check this.</aside>
+
+<h3 id="service-definition-in-config-json"><h3>SERVICE DEFINITION IN CONFIG.JSON</h3></h3>
+
+<p>To bind LiveArt HTML5 to the server side Upload Image service, you will need to define the <code class="prettyprint">uploadImageUrl</code> property in config JSON. The value has to be a link to a backend service.<br/>
+See example below:
+<code class="prettyprint">&quot;uploadImageUrl&quot;: &quot;services/uploadImage.php&quot;</code></p>
+
+<h3 id="service-functions"><h3>SERVICE FUNCTIONS</h3></h3>
+
+<ul>
+<li>regular file upload: <strong>POST method (multipart/form-data)</strong>. Variable name: <code class="prettyprint">image</code> - file uploaded by user</li>
+<li>file upload by URL: <strong>POST method (application/x-www-form-urlencoded)</strong>. Variable name: <code class="prettyprint">fileurl</code> - absolute file URL (entered by user or response from 3rd party API (e.g. Social Networks))<br/> Note: <em>v0.10.19</em> changes: <code class="prettyprint">fileurl</code> is encoded string (usage: <code class="prettyprint">urldecode($POST[&#39;fileurl&#39;])</code>)</li>
+</ul>
+
+<h2 id="getdesigns-get"><h2>GetDesigns - GET</h2></h2>
+
+<blockquote>
+<p>Response Example</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"designs"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"20130419-175034-29813"</span><span class="p">,</span><span class="w"> </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"My First Design"</span><span class="p">,</span><span class="w"> </span><span class="s2">"date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2013.04.19 17:50"</span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"20130419-175828-96476"</span><span class="p">,</span><span class="w"> </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"My Second Design"</span><span class="p">,</span><span class="w"> </span><span class="s2">"date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2013.04.19 17:58"</span><span class="p">}</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>This service is called to get the list of saved designs for certain email. The backend service should use the email (and product as option) from GET parameter as key(s) to filter designs for particular account.</p>
+
+<h3 id="service-definition-in-config-json"><h3>SERVICE DEFINITION IN CONFIG.JSON</h3></h3>
+
+<p>Tokens Description:
+- <code class="prettyprint">${email}</code> - mandatory token. It will be replaced in request with actual email, provided by the user.
+- <code class="prettyprint">${product_id}</code> (added in <em>0.10.24</em>) - optional token for filtering designs list by current product</p>
+
+<p><code class="prettyprint">&quot;getDesignsUrl&quot;: &quot;services/loadDesigns.php?email=${email}&amp;product_id=${product_id}&quot;</code></p>
+
+<h3 id="response-fields-description">RESPONSE FIELDS DESCRIPTION</h3>
+
+<table><thead>
+<tr>
+<th>Field</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>id</td>
+<td>unique design identifier, should be unique per design.</td>
+<td>string</td>
+</tr>
+<tr>
+<td>title</td>
+<td>design title which is given by end user.</td>
+<td>string</td>
+</tr>
+<tr>
+<td>date</td>
+<td>date when design was saved.</td>
+<td>string</td>
+</tr>
+</tbody></table>
+
+<h2 id="loaddesign-get">LoadDesign - GET</h2>
+
+<p>This service is called to load the Design JSON of a previously saved design. The service is called in the following cases:</p>
+
+<ul>
+<li>To load the previously saved design for certain email;</li>
+<li>To preload the shared design from a previously saved link;</li>
+<li>To preload LiveArt with design using a <code class="prettyprint">design_id</code> in the URL;</li>
+</ul>
+
+<p><br/><br/></p>
+
+<h3 id="service-definition-in-config-json">SERVICE DEFINITION IN CONFIG.JSON</h3>
+
+<p>The token will automatically replaced with an associated design_id fetched either from URL <code class="prettyprint">design_id</code> parameter or selected design from list of designs, after user clicked to load a previously saved design.
+&ldquo;loadDesignUrl&rdquo;: &ldquo;services/loadDesign.php?design_id=${design_id}&rdquo;</p>
+
+<p><br/><br/></p>
+
+<h3 id="response-description">RESPONSE DESCRIPTION</h3>
+
+<p>The provided response should correspond the request example from SaveDesign service.</p>
