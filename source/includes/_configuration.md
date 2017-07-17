@@ -76,7 +76,7 @@ Property | Description | Type
 -------- | ----------- | ----
 productsList | indicates a URL returning a Product JSON structure | URL
 defaultProductId | id of a product should be loaded upon start of LiveArt. | string, optional
-defaultProductSize | if default product is resizable, this attribute sets default size (will override editableAreaUnits from product configuration) in units, set by configuration. | array of numbers, optional
+defaultProductSize | _deprecated in v0.10.24_ Highly recommended to use [```laOptions.defaultProductAttributes.sizeUnits```](#default-prod-attr-size)<br/>if default product is resizable, this attribute sets default size (Note: has lower priority to ```product.locations.editableAreaUnits```) in units, set by configuration. | array of numbers, optional
 fonts | indicates a URL returning Fonts JSON structure | URL 
 colors | indicates a URL returning Colors JSON structure. These are the colors for fonts and colorizable artwork | URL
 colors.pantones_url | _added in v0.10.4_<br/>Colors JSON with Pantones. Available for fonts and colorizable artwork, and in color picker appears in separate tab. To disable this feature — remove the field.<br/>Note: for colorizing ```multicolor``` products refer to Product List configuration | URL
@@ -144,13 +144,13 @@ var laOptions = {
     dimensions: [587, 543]
 };
 
-laOptions.defaultDesignId = getQueryParam("design_id");
-laOptions.defaultProductId = getQueryParam("product_id");
-laOptions.defaultGraphicId = getQueryParam("graphic_id");
+laOptions.defaultDesignId = "design_id_1";
+laOptions.defaultProductId = "product_id_1";
+laOptions.defaultGraphicId = "graphics_id_1";
 
 laOptions.defaultProductAttributes = {};
-laOptions.defaultProductAttributes.sizeUnits = getQueryParam("pa_size_units", "json");
-laOptions.defaultProductAttributes.quantities = getQueryParam("pa_quantities", "json");
+laOptions.defaultProductAttributes.sizeUnits = [5, 4];
+laOptions.defaultProductAttributes.quantities = [ {size: "XL", quantity: 10} ];
 
 laOptions.placeOrderHandler = null;
 laOptions.translation = laTranslation.dictionary;
@@ -165,7 +165,7 @@ dimensions | ```array``` of 2 numbers | default canvas dimensions: ```[width, he
 defaultDesignId | ```string``` | Default design to be loaded; usually parsed from GET var
 defaultProductId | ```string``` | Default product ID to be loaded; usually parsed from GET var<br/>Note: recommended to use this value instead of ```config.defaultProductId```
 defaultGraphicId | ```string``` | Default graphics ID to be added after load; usually parsed from GET var
-defaultProductAttributes<br/>.sizeUnits | ```array``` of 2 numbers | default dimensions for resizable products (e.g. Sign 5"x4")<br>_Added to v0.10.25_
+<a name="default-prod-attr-size"></a>defaultProductAttributes<br/>.sizeUnits | ```array``` of 2 numbers | default dimensions for resizable products (e.g. Sign 5"x4")<br>_Added to v0.10.25_
 defaultProductAttributes<br/>.quantities | ```array``` of ```object```s | Set default quantities for Order;<br>Higher priority over ```product.minQuantity```;<br>Syntax:<ol><li>```[{quantity: 30}]``` - default quantity (total for products without sizes OR for first size)</li><li>```[{size: "S", quantity: 5}, {size: "XL", quantity: 12}]``` - default quantities for product with sizes list</li></ol><br>_Added to v0.10.5_
 placeOrderHandler | ```function``` | optional for overriding default Place Order process function.<br/>Default value: ```null```<br/>Syntax: ```function (ordered_design_id: string) { /*custom code here*/ }```;<br/>Default behavior: Redirect to ```config.redirectUrl``` using ```config.redirectWindow```;
 translation | ```object``` |  optional translation dictionary; by default - English. See more at <a href="https://liveart.uservoice.com/knowledgebase/articles/917133">How to add translations to LiveArt</a><br>_Added to v0.10.5_
