@@ -229,7 +229,7 @@
       <div class="content">
         <h1 id="introduction">Introduction</h1>
 
-<h3 id="current-version-0-10-25">Current version: 0.10.25</h3>
+<h3 id="current-version-0-10-26">Current version: 0.10.26</h3>
 
 <p>LiveArt HTML5 uses JSON format to transfer data, such as information about design, pricing and order, to backend. In order to prepare server-side application for work in pair with LiveArt component, backend services should be ready to receive and deliver valid data structures via HTTP queries. The detailed description of this queries and datatypes is given in the following article.</p>
 
@@ -989,7 +989,7 @@ While the LiveArt loads configuration by default out of static JSON files, you c
 </tr>
 <tr>
 <td>defaultProductSize</td>
-<td>if default product is resizable, this attribute sets default size (will override editableAreaUnits from product configuration) in units, set by configuration.</td>
+<td><em>deprecated in v0.10.24</em> Highly recommended to use <a href="#default-prod-attr-size"><code class="prettyprint">laOptions.defaultProductAttributes.sizeUnits</code></a><br/>if default product is resizable, this attribute sets default size (Note: has lower priority to <code class="prettyprint">product.locations.editableAreaUnits</code>) in units, set by configuration.</td>
 <td>array of numbers, optional</td>
 </tr>
 <tr>
@@ -1225,13 +1225,13 @@ While the LiveArt loads configuration by default out of static JSON files, you c
     <span class="na">dimensions</span><span class="p">:</span> <span class="p">[</span><span class="mi">587</span><span class="p">,</span> <span class="mi">543</span><span class="p">]</span>
 <span class="p">};</span>
 
-<span class="nx">laOptions</span><span class="p">.</span><span class="nx">defaultDesignId</span> <span class="o">=</span> <span class="nx">getQueryParam</span><span class="p">(</span><span class="s2">"design_id"</span><span class="p">);</span>
-<span class="nx">laOptions</span><span class="p">.</span><span class="nx">defaultProductId</span> <span class="o">=</span> <span class="nx">getQueryParam</span><span class="p">(</span><span class="s2">"product_id"</span><span class="p">);</span>
-<span class="nx">laOptions</span><span class="p">.</span><span class="nx">defaultGraphicId</span> <span class="o">=</span> <span class="nx">getQueryParam</span><span class="p">(</span><span class="s2">"graphic_id"</span><span class="p">);</span>
+<span class="nx">laOptions</span><span class="p">.</span><span class="nx">defaultDesignId</span> <span class="o">=</span> <span class="s2">"design_id_1"</span><span class="p">;</span>
+<span class="nx">laOptions</span><span class="p">.</span><span class="nx">defaultProductId</span> <span class="o">=</span> <span class="s2">"product_id_1"</span><span class="p">;</span>
+<span class="nx">laOptions</span><span class="p">.</span><span class="nx">defaultGraphicId</span> <span class="o">=</span> <span class="s2">"graphics_id_1"</span><span class="p">;</span>
 
 <span class="nx">laOptions</span><span class="p">.</span><span class="nx">defaultProductAttributes</span> <span class="o">=</span> <span class="p">{};</span>
-<span class="nx">laOptions</span><span class="p">.</span><span class="nx">defaultProductAttributes</span><span class="p">.</span><span class="nx">sizeUnits</span> <span class="o">=</span> <span class="nx">getQueryParam</span><span class="p">(</span><span class="s2">"pa_size_units"</span><span class="p">,</span> <span class="s2">"json"</span><span class="p">);</span>
-<span class="nx">laOptions</span><span class="p">.</span><span class="nx">defaultProductAttributes</span><span class="p">.</span><span class="nx">quantities</span> <span class="o">=</span> <span class="nx">getQueryParam</span><span class="p">(</span><span class="s2">"pa_quantities"</span><span class="p">,</span> <span class="s2">"json"</span><span class="p">);</span>
+<span class="nx">laOptions</span><span class="p">.</span><span class="nx">defaultProductAttributes</span><span class="p">.</span><span class="nx">sizeUnits</span> <span class="o">=</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">4</span><span class="p">];</span>
+<span class="nx">laOptions</span><span class="p">.</span><span class="nx">defaultProductAttributes</span><span class="p">.</span><span class="nx">quantities</span> <span class="o">=</span> <span class="p">[</span> <span class="p">{</span><span class="na">size</span><span class="p">:</span> <span class="s2">"XL"</span><span class="p">,</span> <span class="na">quantity</span><span class="p">:</span> <span class="mi">10</span><span class="p">}</span> <span class="p">];</span>
 
 <span class="nx">laOptions</span><span class="p">.</span><span class="nx">placeOrderHandler</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
 <span class="nx">laOptions</span><span class="p">.</span><span class="nx">translation</span> <span class="o">=</span> <span class="nx">laTranslation</span><span class="p">.</span><span class="nx">dictionary</span><span class="p">;</span>
@@ -1268,7 +1268,7 @@ While the LiveArt loads configuration by default out of static JSON files, you c
 <td>Default graphics ID to be added after load; usually parsed from GET var</td>
 </tr>
 <tr>
-<td>defaultProductAttributes<br/>.sizeUnits</td>
+<td><a name="default-prod-attr-size"></a>defaultProductAttributes<br/>.sizeUnits</td>
 <td><code class="prettyprint">array</code> of 2 numbers</td>
 <td>default dimensions for resizable products (e.g. Sign 5&quot;x4&quot;)<br><em>Added to v0.10.25</em></td>
 </tr>
