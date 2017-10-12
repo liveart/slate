@@ -41,8 +41,9 @@ LiveArt Configuration has 2 entry points:
         "showProductSelector": true,
         "checkTextFXThrottle": 400,
         "minDPU": 300,
-        "showUploadedColorsDialog": false,
-        "fitProductImage" :  false,
+        "showUploadedColorsDialog": true,
+        "fitProductImage" : true,
+        "fitEditableArea": true,
         "enableSnapGuides": true,
         "showSuitableProductColorize": true
     },
@@ -61,6 +62,8 @@ LiveArt Configuration has 2 entry points:
     "redirectUrl": "services/order.php?design_id=${design_id}",
     "uploadImageUrl": "services/uploadImage.php",
     "shareLinkUrl": "index.html?design_id=${design_id}",
+    "saveTemplateUrl": "services/saveTemplate.php",
+    "getTemplatesUrl": "services/getTemplates.php?product_id=${product_id}",
     "redirectWindow": "parent"
 }
 ```
@@ -94,6 +97,8 @@ loadDesignUrl | a link to a backend service which returns a single design using 
 redirectUrl | a link to a backend service which places order and redirects user to some another page, for example, shopping cart. | URL
 uploadImageUrl | a link to a backend service which uploads user image from local file or URL. After uploading process image is shown on preview area and ready to be moved or resized. Allowed file extensions: *.jpg, *.png, *.gif, *.svg. | URL
 shareLinkUrl | this parameter defines the template of the shared link url. Sharing a design calls a saveDesign service that should return an identifier under which design was saved. This id will be replaced in ${design_id} token and presented to user that may copy it and load the design later. | URL
+saveTemplateUrl | _added in v0.10.27_<br/>a link to a backend service which gets the description of template design in JSON format, saves it and returns its unique identifier, url, etc. Used only in "Admin Mode". | URL
+getTemplatesUrl | _added in v0.10.27_<br/>a link to a backend service which returns the list of available templates (global OR if setuped - for current product only) in JSON format. All templates are preparing in "Admin Mode". | URL
 redirectWindow | window target whne redirecting to ```redirectUrl```. Used for LiveArt inside the iframe. Possible values: ""(default), "parent", or "top" (same logic as links inside iframe) | string
 
 ### Options Description
@@ -112,7 +117,8 @@ showProductSelector | possible values: ```true```/```false```. Defines whether S
 checkTextFXThrottle | type: milliseconds. A delay in events for typing text, before LiveArt will trigger the server script to obtain new image for certain raster effect. | 400
 minDPU | Set this property to show warning message if user will size raster image more than safe dimensions to meet suggested print quality standarts. Also this feature requires `editableArea` and `editableAreaUnits` (see Product Location Object) for each product location to use this feature (for correct unit/pixel ratio). Warning message is configured in html ('*#dpu-exceeded-popup*'). If user ignores such warning and continues design editing - on Place Order will be fired additional pop-up. Also may be re-defined for certain products (see Product Object). | 0
 showUploadedColorsDialog | Defines whether to show after image upload pop-up with colors choises for uploaded image (default palette and 'Process Colors' checkbox). If value == `false` uploaded images are treated as 'Process Colors' | true
-fitProductImage | If `true` — product images are fitted and centered in the canvas. Small product images are only centered. Editable Area coordinates are still binded to canvas dimensions (not product image)<br>_Added to v0.10.5_ | false
+fitProductImage | If `true` — product images are fitted and centered in the canvas. Small product images are only centered.<br>Note: also please take into account  _fitEditableArea_ property.<br>_Added to v0.10.5_ | false
+fitEditableArea | If `true` —  process *product.location.editableArea* and *product.location.clipRect* in coordinate system of product image<br>Before _v0.10.27_: Editable Area coordinates were always binded to canvas dimensions (not product image).<br>_Added to v0.10.27_ | false
 enableSnapGuides | If `true` — enabling snapping objects while dragging to another objects, editable area center or sides. Also helps to set object's rotation angle to 0°, 90°, 180°, and 270°<br>_Added to v0.10.17_  | true
 showSuitableProductColorize | If `true` — show only actual Current Locations colorizable areas.<br> (e.g. on "Back" location - show only colors from this location)<br>If `false` — on each location show all colorizable areas list. Works only with multicolor product<br>_Added to v0.10.25_ | false
 
@@ -144,6 +150,7 @@ var laOptions = {
     dimensions: [587, 543]
 };
 
+laOptions.adminMode = true;
 laOptions.defaultDesignId = "design_id_1";
 laOptions.defaultProductId = "product_id_1";
 laOptions.defaultGraphicId = "graphics_id_1";
@@ -162,6 +169,7 @@ All attributes are optional and provided with their default values
 Property | Type | Description
 -------- | ---- | -----------
 dimensions | ```array``` of 2 numbers | default canvas dimensions: ```[width, height]```<br/>Default values: ```[587, 543]```<br/>See ```/setup/README.txt``` in package for information how to change default canvas dimension
+adminMode | ```boolean``` | Enable "Admin Mode" for preparing templates (both global and product-based)
 defaultDesignId | ```string``` | Default design to be loaded; usually parsed from GET var
 defaultProductId | ```string``` | Default product ID to be loaded; usually parsed from GET var<br/>Note: recommended to use this value instead of ```config.defaultProductId```
 defaultGraphicId | ```string``` | Default graphics ID to be added after load; usually parsed from GET var

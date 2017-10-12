@@ -39,6 +39,11 @@ Main LiveArt JS configuration files. The format of the files is JSON.
 
 The folder with fonts, which you can add to designer along with fonts.css fonts declaration file.
 
+`/files`
+
+_version: 0.10.27+<br/>_
+Default folder for saving designs. Package contains sample design templates (global and product-related) — also called "Design Ideas".
+
 `/gallery`
 
 Artwork graphics gallery. Please note that graphics added here should be also referred in respective JSON configuration file.

@@ -10,12 +10,12 @@ This section describes JSON data structures of LiveArt resources, such as produc
     {
       "id": "r1",
       "name": "Clothing",
-      "thumbUrl": "products/cool-t-shirt/thumbs/t-shirt-blue.png",
+      "thumb": "products/cool-t-shirt/thumbs/t-shirt-blue.png",
       "categories": [
         {
           "id": "1",
           "name": "Apparel",
-          "thumbUrl": "products/cool-t-shirt/thumbs/apparel_cat.jpg",
+          "thumb": "products/cool-t-shirt/thumbs/apparel_cat.jpg",
           "products": [
             {
               "id": "11",
@@ -26,7 +26,7 @@ This section describes JSON data structures of LiveArt resources, such as produc
                 "price": "29",
                 "material": "Cotton"
               },
-              "thumbUrl": "products/cool-t-shirt/thumbs/t-shirt-blue.png",
+              "thumb": "products/cool-t-shirt/thumbs/t-shirt-blue.png",
               "namesNumbersEnabled": true,
               "multicolor": true,
               "minDPU": 150,
@@ -85,7 +85,8 @@ Attribute | Description | Type | Required
 --------- | ----------- | ---- | --------
 id | unique identifier of category object, used for internal needs. | string | yes
 name | name of category, visible to the end user. | string | yes
-thumbUrl | path or URL of the category thumbnail | string | no
+thumbUrl | _deprecated in 0.10.27_ | string | no
+thumb | _added in 0.10.27_ path or URL of the category thumbnail | string | no
 categories | a nested list of categories, if present | string | no
 products | list of product objects (see description below). | array | no
 
@@ -113,7 +114,8 @@ editableAreaSizes | defines preselected possible sizes for user, works only if r
 showRuler | indicates whether ruler should be shown. Depends on ```editableAreaUnits``` values for each location (becomes obligatory attribute).<br/>Default value: ```false```. | boolean | no
 sizes | list of available sizes for certain product. Type: array. If not indicated, only Quantity field will be rendered on the checkout panel. | array | no
 template | If this attribute is indicated, LiveArt will attempt to load the design with by indicated Design ID. This is perfect if certain default design is associated with a product. Please note that the design should be previously prepared and saved for this particular product. | string | no
-thumbUrl | url to thumbnail image (allowed file extensions: *.jpg, *.png, *.gif, *.svg, dimensions: 110px x 110px) which will be shown in the products catalog. | string | yes
+thumbUrl | _deprecated in 0.10.27_ | string | no
+thumb | _added in 0.10.27_ url to thumbnail image (allowed file extensions: *.jpg, *.png, *.gif, *.svg, dimensions: 110px x 110px) which will be shown in the products catalog. | string | yes
 
 ### Location
 JSON representation of product location which contains the following properties:
