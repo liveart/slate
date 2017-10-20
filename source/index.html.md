@@ -384,3 +384,133 @@ The token will automatically replaced with an associated design_id fetched eithe
 
 ### RESPONSE DESCRIPTION
 The provided response should correspond the request example from SaveDesign service.
+
+## SaveTemplate - POST
+> Request Example
+
+```json
+{
+  "data": {
+    "product": {
+      "id": "11",
+      "name": "Cool Tee 1"
+    },
+    "locations": [{
+      "name": "Front",
+      "svg": "<svg><!-- svg content is omitted here due to its large size --></svg>"
+    }, {
+      "name": "Back",
+      "svg": "<svg><!-- svg content is omitted here due to its large size --></svg>"
+    }],
+    "quantities": [{
+      "size": "XS",
+      "quantity": 1
+    }],
+    "prices": [{
+      "label": "Item Price",
+      "price": "$ 12.01"
+    }, {
+      "label": "Total",
+      "price": "$ 324.30",
+      "isTotal": true
+    }]
+  },
+  "name": "Simple Template",
+  "type": "template",
+  "productId": "11"
+}
+```
+
+> Response Example
+
+```json
+{
+  "template": {
+    "id": "template-20171020-120454-10506", "name": "Simple Template"
+  }
+}
+```
+
+<br/>
+
+###<h3>SERVICE DEFINITION IN CONFIG.JSON</h3>
+`"saveTemplateUrl": "services/saveTemplate.php"`
+
+###<h3>POST REQUEST FIELDS DESCRIPTION</h3>
+Request fields
+
+Field | Description | Type
+----- | ----------- | ----
+data | main object — see detailed description in `SaveDesign - POST` data field description  | object
+name | title for saved template (input by user) | string
+type | `template` for design which is set upped by admin. Objects in such design can contains additional restrictions. If product contains at least one template - template is opened instead of clear product. <br/> `design idea` for design which has no product, can be added to products which have no templates <br/> | string
+productId | <i>optional:</i> for `template` type only | string
+
+### RESPONSE FIELDS DESCRIPTION
+Field | Description | Type
+----- | ----------- | ----
+id | unique design identifier, should be unique per template. | string
+name | template title | string
+
+##GetTemplates - GET
+> Response Example
+
+```json
+{
+  "templatesCategoriesList": [
+    {
+      "id": "hipster",
+      "name": "Hipster Logos",
+      "thumb": "files/template-20170928-152458-17800/design_preview.png",
+      "templatesList": [
+        {
+          "id": "template-20170928-152458-17800",
+          "type": "design idea",
+          "date": "2017.09.28 15:24",
+          "thumb": "files/template-20170928-152458-17800/design_preview.png",
+          "name": "Thinking"
+        }
+      ],
+      "categories": []
+    },
+    {
+      "id": "simple",
+      "name": "Simple",
+      "thumb": "files/template-20170928-160709-77090/design_preview.png",
+      "templatesList": [
+        {
+          "id": "template-20170921-141139-10609",
+          "type": "design idea",
+          "date": "2017.09.21 14:11",
+          "thumb": "files/template-20170921-141139-10609/design_preview.png",
+          "name": "LiveArt"
+        }
+      ],
+      "categories": []
+    }
+  ]
+}
+```
+
+### <h3>SERVICE DEFINITION IN CONFIG.JSON</h3>
+Tokens Description:
+- `${product_id}` - </br> If `product_id` is empty - service should return complex art design ideas </br> if `product_id` is not empty - service should return templates for provided product. If there is no templates - return empty object
+
+`"getTemplatesUrl": "services/getTemplates.php?product_id=${product_id}"`
+
+### REQUEST FIELDS DESCRIPTION
+
+Field | Description | Type
+----- | ----------- | ----
+product_id | <i>optional:</i> will be provided as replaced ${product_id} token in getTemplatesUrl | string
+
+### RESPONSE FIELDS DESCRIPTION
+Field | Description | Type
+----- | ----------- | ----
+id | unique template/template category identifier, should be unique. | string
+name | template/template category title | string
+type | `template` for design which is set upped by admin. Objects in such design can contains additional restrictions. If product contains at least one template - template is opened instead of clear product. <br/> `design idea` for design which has no product, can be added to products which have no templates <br/> | string
+date | create/update date | string
+thumb | url to thumbnail image (allowed file extensions: *.jpg, *.png, *.gif, *.svg, dimensions: 110px x 110px) which will be shown in the templates catalog. | string
+productId | <i>optional:</i> for type `template` only | string
+categories | <i>optional:</i> can not exists with templatesList on the same level | Object[]
