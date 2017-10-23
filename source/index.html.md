@@ -513,4 +513,4 @@ type | `template` for design which is set upped by admin. Objects in such design
 date | create/update date | string
 thumb | url to thumbnail image (allowed file extensions: *.jpg, *.png, *.gif, *.svg, dimensions: 110px x 110px) which will be shown in the templates catalog. | string
 productId | <i>optional:</i> for type `template` only | string
-categories | <i>optional:</i> can not exists with templatesList on the same level | Object[]
+categories | <i>optional:</i> can not exists with templatesList on the same level | array/objects
