@@ -19,7 +19,7 @@ search: true
 ---
 # Introduction
 
-###Current version: 0.10.27
+###Current version: 0.10.28
 
 LiveArt HTML5 uses JSON format to transfer data, such as information about design, pricing and order, to backend. In order to prepare server-side application for work in pair with LiveArt component, backend services should be ready to receive and deliver valid data structures via HTTP queries. The detailed description of this queries and datatypes is given in the following article.
 
