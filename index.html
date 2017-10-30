@@ -229,7 +229,7 @@
       <div class="content">
         <h1 id="introduction">Introduction</h1>
 
-<h3 id="current-version-0-10-26">Current version: 0.10.26</h3>
+<h3 id="current-version-0-10-28">Current version: 0.10.28</h3>
 
 <p>LiveArt HTML5 uses JSON format to transfer data, such as information about design, pricing and order, to backend. In order to prepare server-side application for work in pair with LiveArt component, backend services should be ready to receive and deliver valid data structures via HTTP queries. The detailed description of this queries and datatypes is given in the following article.</p>
 
@@ -894,6 +894,220 @@ See example below:
 
 <p>The provided response should correspond the request example from SaveDesign service.</p>
 
+<h2 id="savetemplate-post">SaveTemplate - POST</h2>
+
+<blockquote>
+<p>Request Example</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"product"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"11"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Cool Tee 1"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="s2">"locations"</span><span class="p">:</span><span class="w"> </span><span class="p">[{</span><span class="w">
+      </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Front"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"svg"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;svg&gt;&lt;!-- svg content is omitted here due to its large size --&gt;&lt;/svg&gt;"</span><span class="w">
+    </span><span class="p">},</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Back"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"svg"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;svg&gt;&lt;!-- svg content is omitted here due to its large size --&gt;&lt;/svg&gt;"</span><span class="w">
+    </span><span class="p">}],</span><span class="w">
+    </span><span class="s2">"quantities"</span><span class="p">:</span><span class="w"> </span><span class="p">[{</span><span class="w">
+      </span><span class="s2">"size"</span><span class="p">:</span><span class="w"> </span><span class="s2">"XS"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w">
+    </span><span class="p">}],</span><span class="w">
+    </span><span class="s2">"prices"</span><span class="p">:</span><span class="w"> </span><span class="p">[{</span><span class="w">
+      </span><span class="s2">"label"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Item Price"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"$ 12.01"</span><span class="w">
+    </span><span class="p">},</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"label"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Total"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"$ 324.30"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"isTotal"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+    </span><span class="p">}]</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Simple Template"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"template"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"productId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"11"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<blockquote>
+<p>Response Example</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"template"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"template-20171020-120454-10506"</span><span class="p">,</span><span class="w"> </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Simple Template"</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p><br/></p>
+
+<h3 id="service-definition-in-config-json"><h3>SERVICE DEFINITION IN CONFIG.JSON</h3></h3>
+
+<p><code class="prettyprint">&quot;saveTemplateUrl&quot;: &quot;services/saveTemplate.php&quot;</code></p>
+
+<h3 id="post-request-fields-description"><h3>POST REQUEST FIELDS DESCRIPTION</h3></h3>
+
+<p>Request fields</p>
+
+<table><thead>
+<tr>
+<th>Field</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>data</td>
+<td>main object — see detailed description in <code class="prettyprint">SaveDesign - POST</code> data field description</td>
+<td>object</td>
+</tr>
+<tr>
+<td>name</td>
+<td>title for saved template (input by user)</td>
+<td>string</td>
+</tr>
+<tr>
+<td>type</td>
+<td><code class="prettyprint">template</code> for design which is set upped by admin. Objects in such design can contains additional restrictions. If product contains at least one template - template is opened instead of clear product. <br/> <code class="prettyprint">design idea</code> for design which has no product, can be added to products which have no templates <br/></td>
+<td>string</td>
+</tr>
+<tr>
+<td>productId</td>
+<td><i>optional:</i> for <code class="prettyprint">template</code> type only</td>
+<td>string</td>
+</tr>
+</tbody></table>
+
+<h3 id="response-fields-description">RESPONSE FIELDS DESCRIPTION</h3>
+
+<table><thead>
+<tr>
+<th>Field</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>id</td>
+<td>unique design identifier, should be unique per template.</td>
+<td>string</td>
+</tr>
+<tr>
+<td>name</td>
+<td>template title</td>
+<td>string</td>
+</tr>
+</tbody></table>
+
+<h2 id="gettemplates-get">GetTemplates - GET</h2>
+
+<blockquote>
+<p>Response Example</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"templatesCategoriesList"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"hipster"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Hipster Logos"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"thumb"</span><span class="p">:</span><span class="w"> </span><span class="s2">"files/template-20170928-152458-17800/design_preview.png"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"templatesList"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+          </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"template-20170928-152458-17800"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"design idea"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2017.09.28 15:24"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"thumb"</span><span class="p">:</span><span class="w"> </span><span class="s2">"files/template-20170928-152458-17800/design_preview.png"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Thinking"</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">],</span><span class="w">
+      </span><span class="s2">"categories"</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"simple"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Simple"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"thumb"</span><span class="p">:</span><span class="w"> </span><span class="s2">"files/template-20170928-160709-77090/design_preview.png"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"templatesList"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+          </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"template-20170921-141139-10609"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"design idea"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2017.09.21 14:11"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"thumb"</span><span class="p">:</span><span class="w"> </span><span class="s2">"files/template-20170921-141139-10609/design_preview.png"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"LiveArt"</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">],</span><span class="w">
+      </span><span class="s2">"categories"</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<h3 id="service-definition-in-config-json"><h3>SERVICE DEFINITION IN CONFIG.JSON</h3></h3>
+
+<p>Tokens Description:
+- <code class="prettyprint">${product_id}</code> - </br> If <code class="prettyprint">product_id</code> is empty - service should return complex art design ideas </br> if <code class="prettyprint">product_id</code> is not empty - service should return templates for provided product. If there is no templates - return empty object</p>
+
+<p><code class="prettyprint">&quot;getTemplatesUrl&quot;: &quot;services/getTemplates.php?product_id=${product_id}&quot;</code></p>
+
+<h3 id="request-fields-description">REQUEST FIELDS DESCRIPTION</h3>
+
+<table><thead>
+<tr>
+<th>Field</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>product_id</td>
+<td><i>optional:</i> will be provided as replaced ${product_id} token in getTemplatesUrl</td>
+<td>string</td>
+</tr>
+</tbody></table>
+
+<h3 id="response-fields-description">RESPONSE FIELDS DESCRIPTION</h3>
+
+<table><thead>
+<tr>
+<th>Field</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>id</td>
+<td>unique template/template category identifier, should be unique.</td>
+<td>string</td>
+</tr>
+<tr>
+<td>name</td>
+<td>template/template category title</td>
+<td>string</td>
+</tr>
+<tr>
+<td>type</td>
+<td><code class="prettyprint">template</code> for design which is set upped by admin. Objects in such design can contains additional restrictions. If product contains at least one template - template is opened instead of clear product. <br/> <code class="prettyprint">design idea</code> for design which has no product, can be added to products which have no templates <br/></td>
+<td>string</td>
+</tr>
+<tr>
+<td>date</td>
+<td>create/update date</td>
+<td>string</td>
+</tr>
+<tr>
+<td>thumb</td>
+<td>url to thumbnail image (allowed file extensions: *.jpg, *.png, *.gif, *.svg, dimensions: 110px x 110px) which will be shown in the templates catalog.</td>
+<td>string</td>
+</tr>
+<tr>
+<td>productId</td>
+<td><i>optional:</i> for type <code class="prettyprint">template</code> only</td>
+<td>string</td>
+</tr>
+<tr>
+<td>categories</td>
+<td><i>optional:</i> can not exists with templatesList on the same level</td>
+<td>array/objects</td>
+</tr>
+</tbody></table>
+
           <h1 id="configuration">Configuration</h1>
 
 <p>LiveArt Configuration has 2 entry points:
@@ -939,8 +1153,9 @@ See example below:
         </span><span class="s2">"showProductSelector"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
         </span><span class="s2">"checkTextFXThrottle"</span><span class="p">:</span><span class="w"> </span><span class="mi">400</span><span class="p">,</span><span class="w">
         </span><span class="s2">"minDPU"</span><span class="p">:</span><span class="w"> </span><span class="mi">300</span><span class="p">,</span><span class="w">
-        </span><span class="s2">"showUploadedColorsDialog"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
-        </span><span class="s2">"fitProductImage"</span><span class="w"> </span><span class="p">:</span><span class="w">  </span><span class="kc">false</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"showUploadedColorsDialog"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"fitProductImage"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"fitEditableArea"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
         </span><span class="s2">"enableSnapGuides"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
         </span><span class="s2">"showSuitableProductColorize"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
     </span><span class="p">},</span><span class="w">
@@ -959,6 +1174,8 @@ See example below:
     </span><span class="s2">"redirectUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"services/order.php?design_id=${design_id}"</span><span class="p">,</span><span class="w">
     </span><span class="s2">"uploadImageUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"services/uploadImage.php"</span><span class="p">,</span><span class="w">
     </span><span class="s2">"shareLinkUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"index.html?design_id=${design_id}"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"saveTemplateUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"services/saveTemplate.php"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"getTemplatesUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"services/getTemplates.php?product_id=${product_id}"</span><span class="p">,</span><span class="w">
     </span><span class="s2">"redirectWindow"</span><span class="p">:</span><span class="w"> </span><span class="s2">"parent"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
@@ -1078,6 +1295,16 @@ While the LiveArt loads configuration by default out of static JSON files, you c
 <td>URL</td>
 </tr>
 <tr>
+<td>saveTemplateUrl</td>
+<td><em>added in v0.10.27</em><br/>a link to a backend service which gets the description of template design in JSON format, saves it and returns its unique identifier, url, etc. Used only in &ldquo;Admin Mode&rdquo;.</td>
+<td>URL</td>
+</tr>
+<tr>
+<td>getTemplatesUrl</td>
+<td><em>added in v0.10.27</em><br/>a link to a backend service which returns the list of available templates (global OR if setuped - for current product only) in JSON format. All templates are preparing in &ldquo;Admin Mode&rdquo;.</td>
+<td>URL</td>
+</tr>
+<tr>
 <td>redirectWindow</td>
 <td>window target whne redirecting to <code class="prettyprint">redirectUrl</code>. Used for LiveArt inside the iframe. Possible values: &ldquo;&rdquo;(default), &ldquo;parent&rdquo;, or &ldquo;top&rdquo; (same logic as links inside iframe)</td>
 <td>string</td>
@@ -1160,7 +1387,12 @@ While the LiveArt loads configuration by default out of static JSON files, you c
 </tr>
 <tr>
 <td>fitProductImage</td>
-<td>If <code class="prettyprint">true</code> — product images are fitted and centered in the canvas. Small product images are only centered. Editable Area coordinates are still binded to canvas dimensions (not product image)<br><em>Added to v0.10.5</em></td>
+<td>If <code class="prettyprint">true</code> — product images are fitted and centered in the canvas. Small product images are only centered.<br>Note: also please take into account  <em>fitEditableArea</em> property.<br><em>Added to v0.10.5</em></td>
+<td>false</td>
+</tr>
+<tr>
+<td>fitEditableArea</td>
+<td>If <code class="prettyprint">true</code> —  process <em>product.location.editableArea</em> and <em>product.location.clipRect</em> in coordinate system of product image<br>Before <em>v0.10.27</em>: Editable Area coordinates were always binded to canvas dimensions (not product image).<br><em>Added to v0.10.27</em></td>
 <td>false</td>
 </tr>
 <tr>
@@ -1225,6 +1457,7 @@ While the LiveArt loads configuration by default out of static JSON files, you c
     <span class="na">dimensions</span><span class="p">:</span> <span class="p">[</span><span class="mi">587</span><span class="p">,</span> <span class="mi">543</span><span class="p">]</span>
 <span class="p">};</span>
 
+<span class="nx">laOptions</span><span class="p">.</span><span class="nx">adminMode</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
 <span class="nx">laOptions</span><span class="p">.</span><span class="nx">defaultDesignId</span> <span class="o">=</span> <span class="s2">"design_id_1"</span><span class="p">;</span>
 <span class="nx">laOptions</span><span class="p">.</span><span class="nx">defaultProductId</span> <span class="o">=</span> <span class="s2">"product_id_1"</span><span class="p">;</span>
 <span class="nx">laOptions</span><span class="p">.</span><span class="nx">defaultGraphicId</span> <span class="o">=</span> <span class="s2">"graphics_id_1"</span><span class="p">;</span>
@@ -1251,6 +1484,11 @@ While the LiveArt loads configuration by default out of static JSON files, you c
 <td>dimensions</td>
 <td><code class="prettyprint">array</code> of 2 numbers</td>
 <td>default canvas dimensions: <code class="prettyprint">[width, height]</code><br/>Default values: <code class="prettyprint">[587, 543]</code><br/>See <code class="prettyprint">/setup/README.txt</code> in package for information how to change default canvas dimension</td>
+</tr>
+<tr>
+<td>adminMode</td>
+<td><code class="prettyprint">boolean</code></td>
+<td>Enable &ldquo;Admin Mode&rdquo; for preparing templates (both global and product-based)</td>
 </tr>
 <tr>
 <td>defaultDesignId</td>
@@ -1316,12 +1554,12 @@ While the LiveArt loads configuration by default out of static JSON files, you c
     </span><span class="p">{</span><span class="w">
       </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"r1"</span><span class="p">,</span><span class="w">
       </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Clothing"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"thumbUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"products/cool-t-shirt/thumbs/t-shirt-blue.png"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"thumb"</span><span class="p">:</span><span class="w"> </span><span class="s2">"products/cool-t-shirt/thumbs/t-shirt-blue.png"</span><span class="p">,</span><span class="w">
       </span><span class="s2">"categories"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
         </span><span class="p">{</span><span class="w">
           </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span><span class="w">
           </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Apparel"</span><span class="p">,</span><span class="w">
-          </span><span class="s2">"thumbUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"products/cool-t-shirt/thumbs/apparel_cat.jpg"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"thumb"</span><span class="p">:</span><span class="w"> </span><span class="s2">"products/cool-t-shirt/thumbs/apparel_cat.jpg"</span><span class="p">,</span><span class="w">
           </span><span class="s2">"products"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
             </span><span class="p">{</span><span class="w">
               </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"11"</span><span class="p">,</span><span class="w">
@@ -1332,7 +1570,7 @@ While the LiveArt loads configuration by default out of static JSON files, you c
                 </span><span class="s2">"price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"29"</span><span class="p">,</span><span class="w">
                 </span><span class="s2">"material"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Cotton"</span><span class="w">
               </span><span class="p">},</span><span class="w">
-              </span><span class="s2">"thumbUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"products/cool-t-shirt/thumbs/t-shirt-blue.png"</span><span class="p">,</span><span class="w">
+              </span><span class="s2">"thumb"</span><span class="p">:</span><span class="w"> </span><span class="s2">"products/cool-t-shirt/thumbs/t-shirt-blue.png"</span><span class="p">,</span><span class="w">
               </span><span class="s2">"namesNumbersEnabled"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
               </span><span class="s2">"multicolor"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
               </span><span class="s2">"minDPU"</span><span class="p">:</span><span class="w"> </span><span class="mi">150</span><span class="p">,</span><span class="w">
@@ -1410,7 +1648,13 @@ While the LiveArt loads configuration by default out of static JSON files, you c
 </tr>
 <tr>
 <td>thumbUrl</td>
-<td>path or URL of the category thumbnail</td>
+<td><em>deprecated in 0.10.27</em></td>
+<td>string</td>
+<td>no</td>
+</tr>
+<tr>
+<td>thumb</td>
+<td><em>added in 0.10.27</em> path or URL of the category thumbnail</td>
 <td>string</td>
 <td>no</td>
 </tr>
@@ -1556,7 +1800,13 @@ While the LiveArt loads configuration by default out of static JSON files, you c
 </tr>
 <tr>
 <td>thumbUrl</td>
-<td>url to thumbnail image (allowed file extensions: *.jpg, *.png, *.gif, *.svg, dimensions: 110px x 110px) which will be shown in the products catalog.</td>
+<td><em>deprecated in 0.10.27</em></td>
+<td>string</td>
+<td>no</td>
+</tr>
+<tr>
+<td>thumb</td>
+<td><em>added in 0.10.27</em> url to thumbnail image (allowed file extensions: *.jpg, *.png, *.gif, *.svg, dimensions: 110px x 110px) which will be shown in the products catalog.</td>
 <td>string</td>
 <td>yes</td>
 </tr>
@@ -2076,6 +2326,11 @@ Seperated from LA.js configuration for more easier LA.js support. Used to:</p>
 <p><code class="prettyprint">/fonts</code></p>
 
 <p>The folder with fonts, which you can add to designer along with fonts.css fonts declaration file.</p>
+
+<p><code class="prettyprint">/files</code></p>
+
+<p><em>version: 0.10.27+<br/></em>
+Default folder for saving designs. Package contains sample design templates (global and product-related) — also called &ldquo;Design Ideas&rdquo;.</p>
 
 <p><code class="prettyprint">/gallery</code></p>
 
