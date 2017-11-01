@@ -54,7 +54,12 @@ All endpoint URLs can be both relative or absolute. For correct operation of the
       }
     ],
     "color": "#9cb8d0",
-    "colorName": "Aero"
+    "colorName": "Aero",
+    "size": {
+      "width": 3,
+      "height": 10,
+      "label": "3x10in"
+    }
   },
   "locations": [
     {
@@ -71,10 +76,10 @@ All endpoint URLs can be both relative or absolute. For correct operation of the
       "objectCount": 2,
       "letterings": 1,
       "images": 1,
-      "designedArea": "7.64",
-      "designedAreaRect": "9.99",
-      "designedWidth": "4.80",
-      "designedHeight": "2.88",
+      "designedArea": "9",
+      "designedAreaRect": "9",
+      "designedWidth": "3",
+      "designedHeight": "3",
       "objects": [
         {
           "type": "txt",
@@ -167,6 +172,7 @@ product.id | unique identifier of the product. | string
 product.productColors | _optional_: product colorizable areas list<br/>(only for multicolor products). | array of colorizable area objects
 product.color | hexadecimal value of product color.<br/>_v0.10.6 change: optional_;<br/><small>Added only if product has colors. In case of multicolor product - added only if product has one colorizable area only.</small>| string
 product.colorName | name of product color.<br/>_v0.10.6 change: optional_;<br/><small>Same  behaviour as product.color.</small>| string
+product.size | _optional_ configured product size in units. Available only if ```product.locations.editableAreaUnits``` is defined or product has property ```resizable = true```<br/>Attributes: <ul><li>```width``` (number)</li><li>```height``` (number)</li><li>```label```(optional, string) — only if ```product.editableAreaSizes``` is defined</li></ul> | object
 colorsList | legacy list of hexadecimal values of the colors which are used on all product locations (array of strings). If any of locations has full color print - "processColors" (string). | mix
 colors | legacy amount of colors used on all locations (number). If any of locations has full color print - "processColors" (string).<br/>_v0.10.13 change:_ adding to amount not-specified colors from graphics config (i.e. graphic.colors = "7"); | mix
 colorsNum | amount of the colors which are used on all locations<br/>_added in v0.10.13_ | number
@@ -180,8 +186,8 @@ location.colorsNum | amount of the colors which are used at the current location
 location.colorsList | list of hexadecimal values of the colors which are used at the current location. | array of strings
 location.designedArea | total area of all decoration objects at the current location (square units). <br/>_v0.10.6 change: optional_;<br/><small>Added only if location has proper design area sizes configration.</small>| string
 location.designedAreaRect | area of rectangle, containing all objects in location (square units). <br/>_v0.10.6 change: optional_;<br/><small>Same  behaviour as location.designedArea.</small>| string
-location.designedWidth | _v0.10.6 added_ optional attribute (Same  behaviour as location.designedArea.) <br/> designed area width in configured units | string
-location.designedHeight | _v0.10.6 added_ optional attribute (Same  behaviour as location.designedArea.) <br/> designed area height in configured units | string
+location.designedWidth | _v0.10.6 added_ optional attribute <br/> Width of designed area rect in units | string
+location.designedHeight | _v0.10.6 added_ optional attribute <br/> Height of designed area rect in units | string
 location.objectCount | total count of all decoration objects at the current location. | number
 location.letterings | total count of all text objects at the current location. | number
 location.images | total count of all graphic objects at the current location. | number
