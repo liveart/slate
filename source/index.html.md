@@ -397,10 +397,14 @@ The provided response should correspond the request example from SaveDesign serv
     },
     "locations": [{
       "name": "Front",
-      "svg": "<svg><!-- svg content is omitted here due to its large size --></svg>"
+      "svg": "<svg><!--
+      svg content is omitted here due to its large size
+      --></svg>"
     }, {
       "name": "Back",
-      "svg": "<svg><!-- svg content is omitted here due to its large size --></svg>"
+      "svg": "<svg><!--
+      svg content is omitted here due to its large size
+      --></svg>"
     }],
     "quantities": [{
       "size": "XS",
@@ -426,10 +430,13 @@ The provided response should correspond the request example from SaveDesign serv
 ```json
 {
   "template": {
-    "id": "template-20171020-120454-10506", "name": "Simple Template"
+    "id": "template-20171020-120454-10506",
+    "name": "Simple Template"
   }
 }
 ```
+
+SaveTemplate service is added in `version: 0.10.27`. Called to save or update <i>temaplates</i> / <i>design ideas</i>.
 
 <br/>
 
@@ -461,13 +468,13 @@ name | template title | string
     {
       "id": "hipster",
       "name": "Hipster Logos",
-      "thumb": "files/template-20170928-152458-17800/design_preview.png",
+      "thumb": "files/template-id/design_preview.png",
       "templatesList": [
         {
           "id": "template-20170928-152458-17800",
           "type": "design idea",
           "date": "2017.09.28 15:24",
-          "thumb": "files/template-20170928-152458-17800/design_preview.png",
+          "thumb": "files/template-id/design_preview.png",
           "name": "Thinking"
         }
       ],
@@ -476,13 +483,13 @@ name | template title | string
     {
       "id": "simple",
       "name": "Simple",
-      "thumb": "files/template-20170928-160709-77090/design_preview.png",
+      "thumb": "files/template-id/design_preview.png",
       "templatesList": [
         {
           "id": "template-20170921-141139-10609",
           "type": "design idea",
           "date": "2017.09.21 14:11",
-          "thumb": "files/template-20170921-141139-10609/design_preview.png",
+          "thumb": "files/template-id/design_preview.png",
           "name": "LiveArt"
         }
       ],
@@ -491,12 +498,14 @@ name | template title | string
   ]
 }
 ```
+GetTemplates service is added in `version: 0.10.27`. Called to get list of <i>templates or design ideas</i>. Response structure similar to graphics or products list.
 
 ### <h3>SERVICE DEFINITION IN CONFIG.JSON</h3>
-Tokens Description:
-- `${product_id}` - </br> If `product_id` is empty - service should return complex art design ideas </br> if `product_id` is not empty - service should return templates for provided product. If there is no templates - return empty object
-
 `"getTemplatesUrl": "services/getTemplates.php?product_id=${product_id}"`
+
+Tokens Description:
+- `${product_id}` - </br> If `product_id` is empty - service should return complex art design ideas </br> if `product_id` is not empty - service should return templates for provided product.
+
 
 ### REQUEST FIELDS DESCRIPTION
 
