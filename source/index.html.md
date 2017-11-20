@@ -84,7 +84,7 @@ All endpoint URLs can be both relative or absolute. For correct operation of the
         {
           "type": "txt",
           "text": "text",
-          "designedArea": "0.44",
+          "designedArea": "1.80",
           "colorsNum": 1,
           "colors": 1,
           "colorsList": [
@@ -184,10 +184,10 @@ location.isFullColor | full color print flag<br/>_added in v0.10.4_ | bool
 location.colors | legacy amount of the colors which are used at the current location (number) or string "processColors" in case of full print | mixed
 location.colorsNum | amount of the colors which are used at the current location<br/>_added in v0.10.4_ | number
 location.colorsList | list of hexadecimal values of the colors which are used at the current location. | array of strings
-location.designedArea | total area of all decoration objects at the current location (square units). <br/>_v0.10.6 change: optional_;<br/><small>Added only if location has proper design area sizes configration.</small>| string
-location.designedAreaRect | area of rectangle, containing all objects in location (square units). <br/>_v0.10.6 change: optional_;<br/><small>Same  behaviour as location.designedArea.</small>| string
-location.designedWidth | _v0.10.6 added_ optional attribute <br/> Width of designed area rect in units | string
-location.designedHeight | _v0.10.6 added_ optional attribute <br/> Height of designed area rect in units | string
+location.designedArea | total area of all decoration objects at the current location (square units). <br/>_v0.10.6 change: optional_;<br/><small>Present only if location has proper design area sizes configration.</small>| string
+location.designedAreaRect | area of rectangle, containing all objects in location (square units). <br/>_v0.10.6 change: optional_;<br/><small>Present only if location has proper design area sizes configration.</small>| string
+location.designedWidth | _v0.10.6 added_ optional attribute <br/> Width of designed area rect in units<br/><small>Present only if location has proper design area sizes configration.</small> | string
+location.designedHeight | _v0.10.6 added_ optional attribute <br/> Height of designed area rect in units<br/><small>Present only if location has proper design area sizes configration.</small> | string
 location.objectCount | total count of all decoration objects at the current location. | number
 location.letterings | total count of all text objects at the current location. | number
 location.images | total count of all graphic objects at the current location. | number
@@ -442,7 +442,10 @@ The provided response should correspond the request example from SaveDesign serv
 }
 ```
 
-SaveTemplate service is added in `version: 0.10.27`. Called to save or update <i>temaplates</i> / <i>design ideas</i>.
+_Added in `version: 0.10.27`_.<br/>
+Save Template is service to save (or update) "Design Ideas" templates list.
+Used only in "Admin mode".<br/>
+Read more on <a href="https://liveart.uservoice.com/knowledgebase/articles/1814230-templates">Templates KB</a>
 
 <br/>
 
@@ -504,7 +507,10 @@ name | template title | string
   ]
 }
 ```
-GetTemplates service is added in `version: 0.10.27`. Called to get list of <i>templates or design ideas</i>. Response structure similar to graphics or products list.
+
+_Added in `version: 0.10.27`_.<br/>
+Called to get list of "Design Ideas". Response structure similar to graphics or products list.<br/>
+Read more on <a href="https://liveart.uservoice.com/knowledgebase/articles/1814230-templates">Templates KB</a>
 
 ### <h3>SERVICE DEFINITION IN CONFIG.JSON</h3>
 `"getTemplatesUrl": "services/getTemplates.php?product_id=${product_id}"`
