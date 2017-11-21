@@ -266,7 +266,12 @@
       </span><span class="p">}</span><span class="w">
     </span><span class="p">],</span><span class="w">
     </span><span class="s2">"color"</span><span class="p">:</span><span class="w"> </span><span class="s2">"#9cb8d0"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"colorName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Aero"</span><span class="w">
+    </span><span class="s2">"colorName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Aero"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"size"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"width"</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"height"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"label"</span><span class="p">:</span><span class="w"> </span><span class="s2">"3x10in"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
   </span><span class="p">},</span><span class="w">
   </span><span class="s2">"locations"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
     </span><span class="p">{</span><span class="w">
@@ -283,15 +288,15 @@
       </span><span class="s2">"objectCount"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
       </span><span class="s2">"letterings"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
       </span><span class="s2">"images"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"designedArea"</span><span class="p">:</span><span class="w"> </span><span class="s2">"7.64"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"designedAreaRect"</span><span class="p">:</span><span class="w"> </span><span class="s2">"9.99"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"designedWidth"</span><span class="p">:</span><span class="w"> </span><span class="s2">"4.80"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"designedHeight"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2.88"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"designedArea"</span><span class="p">:</span><span class="w"> </span><span class="s2">"9"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"designedAreaRect"</span><span class="p">:</span><span class="w"> </span><span class="s2">"9"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"designedWidth"</span><span class="p">:</span><span class="w"> </span><span class="s2">"3"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"designedHeight"</span><span class="p">:</span><span class="w"> </span><span class="s2">"3"</span><span class="p">,</span><span class="w">
       </span><span class="s2">"objects"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
         </span><span class="p">{</span><span class="w">
           </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"txt"</span><span class="p">,</span><span class="w">
           </span><span class="s2">"text"</span><span class="p">:</span><span class="w"> </span><span class="s2">"text"</span><span class="p">,</span><span class="w">
-          </span><span class="s2">"designedArea"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.44"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"designedArea"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1.80"</span><span class="p">,</span><span class="w">
           </span><span class="s2">"colorsNum"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
           </span><span class="s2">"colors"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
           </span><span class="s2">"colorsList"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
@@ -401,6 +406,11 @@ If you need to switch off the pricing aspect of your application, simply leave <
 <td>string</td>
 </tr>
 <tr>
+<td>product.size</td>
+<td><em>optional</em> configured product size in units. Available only if <code class="prettyprint">product.locations.editableAreaUnits</code> is defined or product has property <code class="prettyprint">resizable = true</code><br/>Attributes: <ul><li><code class="prettyprint">width</code> (number)</li><li><code class="prettyprint">height</code> (number)</li><li><code class="prettyprint">label</code>(optional, string) — only if <code class="prettyprint">product.editableAreaSizes</code> is defined</li></ul></td>
+<td>object</td>
+</tr>
+<tr>
 <td>colorsList</td>
 <td>legacy list of hexadecimal values of the colors which are used on all product locations (array of strings). If any of locations has full color print - &ldquo;processColors&rdquo; (string).</td>
 <td>mix</td>
@@ -457,22 +467,22 @@ If you need to switch off the pricing aspect of your application, simply leave <
 </tr>
 <tr>
 <td>location.designedArea</td>
-<td>total area of all decoration objects at the current location (square units). <br/><em>v0.10.6 change: optional</em>;<br/><small>Added only if location has proper design area sizes configration.</small></td>
+<td>total area of all decoration objects at the current location (square units). <br/><em>v0.10.6 change: optional</em>;<br/><small>Present only if location has proper design area sizes configration.</small></td>
 <td>string</td>
 </tr>
 <tr>
 <td>location.designedAreaRect</td>
-<td>area of rectangle, containing all objects in location (square units). <br/><em>v0.10.6 change: optional</em>;<br/><small>Same  behaviour as location.designedArea.</small></td>
+<td>area of rectangle, containing all objects in location (square units). <br/><em>v0.10.6 change: optional</em>;<br/><small>Present only if location has proper design area sizes configration.</small></td>
 <td>string</td>
 </tr>
 <tr>
 <td>location.designedWidth</td>
-<td><em>v0.10.6 added</em> optional attribute (Same  behaviour as location.designedArea.) <br/> designed area width in configured units</td>
+<td><em>v0.10.6 added</em> optional attribute <br/> Width of designed area rect in units<br/><small>Present only if location has proper design area sizes configration.</small></td>
 <td>string</td>
 </tr>
 <tr>
 <td>location.designedHeight</td>
-<td><em>v0.10.6 added</em> optional attribute (Same  behaviour as location.designedArea.) <br/> designed area height in configured units</td>
+<td><em>v0.10.6 added</em> optional attribute <br/> Height of designed area rect in units<br/><small>Present only if location has proper design area sizes configration.</small></td>
 <td>string</td>
 </tr>
 <tr>
@@ -907,10 +917,14 @@ See example below:
     </span><span class="p">},</span><span class="w">
     </span><span class="s2">"locations"</span><span class="p">:</span><span class="w"> </span><span class="p">[{</span><span class="w">
       </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Front"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"svg"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;svg&gt;&lt;!-- svg content is omitted here due to its large size --&gt;&lt;/svg&gt;"</span><span class="w">
+      </span><span class="s2">"svg"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;svg&gt;&lt;!--
+      svg content is omitted here due to its large size
+      --&gt;&lt;/svg&gt;"</span><span class="w">
     </span><span class="p">},</span><span class="w"> </span><span class="p">{</span><span class="w">
       </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Back"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"svg"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;svg&gt;&lt;!-- svg content is omitted here due to its large size --&gt;&lt;/svg&gt;"</span><span class="w">
+      </span><span class="s2">"svg"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;svg&gt;&lt;!--
+      svg content is omitted here due to its large size
+      --&gt;&lt;/svg&gt;"</span><span class="w">
     </span><span class="p">}],</span><span class="w">
     </span><span class="s2">"quantities"</span><span class="p">:</span><span class="w"> </span><span class="p">[{</span><span class="w">
       </span><span class="s2">"size"</span><span class="p">:</span><span class="w"> </span><span class="s2">"XS"</span><span class="p">,</span><span class="w">
@@ -935,10 +949,16 @@ See example below:
 </blockquote>
 <pre class="highlight json"><code><span class="p">{</span><span class="w">
   </span><span class="s2">"template"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"template-20171020-120454-10506"</span><span class="p">,</span><span class="w"> </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Simple Template"</span><span class="w">
+    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"template-20171020-120454-10506"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Simple Template"</span><span class="w">
   </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
+<p><em>Added in <code class="prettyprint">version: 0.10.27</code></em>.<br/>
+Save Template is service to save (or update) &ldquo;Design Ideas&rdquo; templates list.
+Used only in &ldquo;Admin mode&rdquo;.<br/>
+Read more on <a href="https://liveart.uservoice.com/knowledgebase/articles/1814230-templates">Templates KB</a></p>
+
 <p><br/></p>
 
 <h3 id="service-definition-in-config-json"><h3>SERVICE DEFINITION IN CONFIG.JSON</h3></h3>
@@ -1009,13 +1029,13 @@ See example below:
     </span><span class="p">{</span><span class="w">
       </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"hipster"</span><span class="p">,</span><span class="w">
       </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Hipster Logos"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"thumb"</span><span class="p">:</span><span class="w"> </span><span class="s2">"files/template-20170928-152458-17800/design_preview.png"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"thumb"</span><span class="p">:</span><span class="w"> </span><span class="s2">"files/template-id/design_preview.png"</span><span class="p">,</span><span class="w">
       </span><span class="s2">"templatesList"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
         </span><span class="p">{</span><span class="w">
           </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"template-20170928-152458-17800"</span><span class="p">,</span><span class="w">
           </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"design idea"</span><span class="p">,</span><span class="w">
           </span><span class="s2">"date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2017.09.28 15:24"</span><span class="p">,</span><span class="w">
-          </span><span class="s2">"thumb"</span><span class="p">:</span><span class="w"> </span><span class="s2">"files/template-20170928-152458-17800/design_preview.png"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"thumb"</span><span class="p">:</span><span class="w"> </span><span class="s2">"files/template-id/design_preview.png"</span><span class="p">,</span><span class="w">
           </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Thinking"</span><span class="w">
         </span><span class="p">}</span><span class="w">
       </span><span class="p">],</span><span class="w">
@@ -1024,13 +1044,13 @@ See example below:
     </span><span class="p">{</span><span class="w">
       </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"simple"</span><span class="p">,</span><span class="w">
       </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Simple"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"thumb"</span><span class="p">:</span><span class="w"> </span><span class="s2">"files/template-20170928-160709-77090/design_preview.png"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"thumb"</span><span class="p">:</span><span class="w"> </span><span class="s2">"files/template-id/design_preview.png"</span><span class="p">,</span><span class="w">
       </span><span class="s2">"templatesList"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
         </span><span class="p">{</span><span class="w">
           </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"template-20170921-141139-10609"</span><span class="p">,</span><span class="w">
           </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"design idea"</span><span class="p">,</span><span class="w">
           </span><span class="s2">"date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2017.09.21 14:11"</span><span class="p">,</span><span class="w">
-          </span><span class="s2">"thumb"</span><span class="p">:</span><span class="w"> </span><span class="s2">"files/template-20170921-141139-10609/design_preview.png"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"thumb"</span><span class="p">:</span><span class="w"> </span><span class="s2">"files/template-id/design_preview.png"</span><span class="p">,</span><span class="w">
           </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"LiveArt"</span><span class="w">
         </span><span class="p">}</span><span class="w">
       </span><span class="p">],</span><span class="w">
@@ -1039,12 +1059,16 @@ See example below:
   </span><span class="p">]</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
+<p><em>Added in <code class="prettyprint">version: 0.10.27</code></em>.<br/>
+Called to get list of &ldquo;Design Ideas&rdquo;. Response structure similar to graphics or products list.<br/>
+Read more on <a href="https://liveart.uservoice.com/knowledgebase/articles/1814230-templates">Templates KB</a></p>
+
 <h3 id="service-definition-in-config-json"><h3>SERVICE DEFINITION IN CONFIG.JSON</h3></h3>
 
-<p>Tokens Description:
-- <code class="prettyprint">${product_id}</code> - </br> If <code class="prettyprint">product_id</code> is empty - service should return complex art design ideas </br> if <code class="prettyprint">product_id</code> is not empty - service should return templates for provided product. If there is no templates - return empty object</p>
-
 <p><code class="prettyprint">&quot;getTemplatesUrl&quot;: &quot;services/getTemplates.php?product_id=${product_id}&quot;</code></p>
+
+<p>Tokens Description:
+- <code class="prettyprint">${product_id}</code> - </br> If <code class="prettyprint">product_id</code> is empty - service should return complex art design ideas </br> if <code class="prettyprint">product_id</code> is not empty - service should return templates for provided product.</p>
 
 <h3 id="request-fields-description">REQUEST FIELDS DESCRIPTION</h3>
 
