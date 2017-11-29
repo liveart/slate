@@ -469,7 +469,7 @@ id | unique design identifier, should be unique per template. | string
 name | template title | string
 
 ##GetTemplates - GET
-> Response Example
+> Response Example ( If template list contains categories/subcategories )
 
 ```json
 {
@@ -505,6 +505,21 @@ name | template title | string
       "categories": []
     }
   ]
+}
+```
+> Response Example ( If template list has no categories/subcategories (plain template list) )
+
+```json
+{
+ "templatesList": [
+   {
+     "id": "template-20170921-141139-10609",
+     "type": "design idea",
+     "date": "2017.09.21 14:11",
+     "thumb": "files/template-id/design_preview.png",
+     "name": "LiveArt"
+   }
+ ]
 }
 ```
 
