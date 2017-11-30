@@ -494,12 +494,13 @@ name | template title | string
       "name": "Simple",
       "thumb": "files/template-id/design_preview.png",
       "templatesList": [
-        {
-          "id": "template-20170921-141139-10609",
-          "type": "design idea",
-          "date": "2017.09.21 14:11",
-          "thumb": "files/template-id/design_preview.png",
-          "name": "LiveArt"
+        {  
+          "id":"template-20171002-162505-89535",
+          "type":"template",
+          "date":"2017.10.02 16:25",
+          "thumb":"files/template-20171002-162505-89535/design_preview.png",
+          "productId":"11t",
+          "name":"Gentleman"
         }
       ],
       "categories": []
@@ -547,6 +548,8 @@ id | unique template/template category identifier, should be unique. | string
 name | template/template category title | string
 type | `template` for design which is set upped by admin. Objects in such design can contains additional restrictions. If product contains at least one template - template is opened instead of clear product. <br/> `design idea` for design which has no product, can be added to products which have no templates <br/> | string
 date | create/update date | string
+templatesCategoriesList | list of templates categories objects | array/objects
+templatesList | list of templates objects | array/objects
 thumb | url to thumbnail image (allowed file extensions: *.jpg, *.png, *.gif, *.svg, dimensions: 110px x 110px) which will be shown in the templates catalog. | string
 productId | <i>optional:</i> for type `template` only | string
 categories | <i>optional:</i> can not exists with templatesList on the same level | array/objects
