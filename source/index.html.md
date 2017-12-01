@@ -283,7 +283,7 @@ email | <i>optional:</i> only if user entered email before (e.g. for saving desi
 type | `saved` for saved designs (including ordered) and `shared` for shared designs<br/>_added 0.10.21_: `ordered` for ordered designs (before - `saved` type was used) | string
 quote | <i>optional:</i> quote objects. Only for ordered designs | object
 id | <i>optional:</i> only for saved (and ordered) designs, if design was previously saved/loaded | string
-design | _optional_, _added 0.10.21_: object for shorthand descrion `{title?: string, type: string (saved|shared|ordered)}`| object
+design | _optional_, _added 0.10.21_: object for shorthand descrion `{title?: string, type: string (saved/shared/ordered)}` | object
 
 <h3>DATA FIELD DESCRIPTION</h3>
 Request contains JSON metadata with enclosed SVG which should be extracted with the parsing script and saved. Developers can additionally process SVG to embed images, prepare for conversion into other formats or add additional elements.
@@ -544,12 +544,24 @@ product_id | <i>optional:</i> will be provided as replaced ${product_id} token i
 ### RESPONSE FIELDS DESCRIPTION
 Field | Description | Type
 ----- | ----------- | ----
-id | unique template/template category identifier, should be unique. | string
-name | template/template category title | string
+templatesCategoriesList | <i>optional:</i> list of templates categories objects(see description below). Can not exists with templatesList on the same level| array/objects
+templatesList | list of templates objects(see description below). Can not exists with templatesCategoriesList on the same level | array/objects
+
+### TEMPLATE CATEGORIES FIELDS DESCRIPTION
+Field | Description | Type
+----- | ----------- | ----
+id | unique template category identifier, should be unique. | string
+name | template category title | string
+templatesList | list of templates objects(see description below) | array/objects
+thumb | url to thumbnail image (allowed file extensions: *.jpg, *.png, *.gif, *.svg, dimensions: 110px x 110px) which will be shown in the templates catalog. | string
+categories | <i>optional:</i> can not exists with templatesList on the same level | array/objects
+
+### TEMPLATE FIELDS DESCRIPTION
+Field | Description | Type
+----- | ----------- | ----
+id | unique template identifier, should be unique. | string
 type | `template` for design which is set upped by admin. Objects in such design can contains additional restrictions. If product contains at least one template - template is opened instead of clear product. <br/> `design idea` for design which has no product, can be added to products which have no templates <br/> | string
 date | create/update date | string
-templatesCategoriesList | list of templates categories objects | array/objects
-templatesList | list of templates objects | array/objects
 thumb | url to thumbnail image (allowed file extensions: *.jpg, *.png, *.gif, *.svg, dimensions: 110px x 110px) which will be shown in the templates catalog. | string
 productId | <i>optional:</i> for type `template` only | string
-categories | <i>optional:</i> can not exists with templatesList on the same level | array/objects
+name | template title | string
