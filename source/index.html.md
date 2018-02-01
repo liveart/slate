@@ -305,7 +305,7 @@ quantities | list of selected sizes and their quantities. | array
 prices | list of objects which are related to pricing. The structure is exact to the one you compile for GetQuote service | array
 namesNumbers | list for team names and numbers. Actual only if ```product.namesNumbersEnabled = true```, otherwise — empty array | array of objects
 notes | _added v0.10.19+_ Design notes entered by user | string
-selectedUnit | _added in v0.10.30_ <br/> _optional_: Possible values are ```in```, ```ft```, ```cm```, ```mm```, ```m```. Equals ```config.options.defaultUnit``` value. | string
+selectedUnit | _added in v0.10.30_ <br/> _optional_: Possible value: defaultUnit or secondatyUnit. See more details <a href="http://liveart.github.io/slate/#config-json">here</a>.| string
 
 ### RESPONSE FIELDS DESCRIPTION
 Field | Description | Type
