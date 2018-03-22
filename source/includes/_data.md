@@ -86,7 +86,7 @@ Attribute | Description | Type | Required
 id | unique identifier of category object, used for internal needs. | string | yes
 name | name of category, visible to the end user. | string | yes
 thumbUrl | _deprecated in 0.10.27_ | string | no
-thumb | _added in 0.10.27_ path or URL of the category thumbnail | string | no
+thumb | _added in 0.10.27_<br/> path or URL of the category thumbnail | string | no
 categories | a nested list of categories, if present | string | no
 products | list of product objects (see description below). | array | no
 
@@ -108,15 +108,15 @@ minQuantity | set the minimal order quantity for current product. Default value 
 multicolor | whether product can be colorizable. This requires special SVG image of product to be prepared in a same way as multicolor artwork and colorizableElements to be indicated | boolean | no
 name | name of product, visible to the end user. | string | yes
 namesNumbersEnabled | enable tab for adding names and/or numbers placeholders to design, and fill appropriate table | boolean | false
-pantones | _added in v0.10.14_<br/>object to override default pantones setting from config.<br/>Sample: ```{ "useForDecoration": false, "useForProduct": false }```<br/>(```useForDecoration``` — enabling/disabling pantones for the art, ```useForProduct``` — enabling/disabling pantones for colorizing ```multicolor``` product )| object | false
+pantones | _added in v0.10.14_<br/> object to override default pantones setting from config.<br/>Sample: ```{ "useForDecoration": false, "useForProduct": false }```<br/>(```useForDecoration``` — enabling/disabling pantones for the art, ```useForProduct``` — enabling/disabling pantones for colorizing ```multicolor``` product )| object | false
 resizable | defines whether the product dimensions can be changed by user. Setting this to true is typical for products like business cards, signs or banners.<br/>Available in 2 modes: <ul><li>User input mode (see details below)</li><li>Predefined values - see option `editableAreaSizes` description </li></ul> User input mode has some peculiar properties:<ul><li>`editableAreaUnits` — is an optional location attribute, but for resizable products becomes required;</li><li>default size will be taken from `editableAreaUnits`;</li><li>one may additionally setup default product size via `defaultProductSize` attribute in main configuration file;</li><li>all product location should have same size;</li><li>if resizable product has more than one `location` object, `editableAreaUnits` are required only for first location in list; other loation's editableAreaUnits will be ignored.</li></ul> | boolean | no
 editableAreaSizes | defines preselected possible sizes for user, works only if resizable attribute is ```true```.<br/>Sample definition: `"editableAreaSizes":[{"label":"2x2in", "width":2, "height":2}]`<br/>_Note_: this option ignores `editableAreaUnits`, `editableAreaUnitsRan​ge`, and `editableAreaUnitsRestrictRotation` options in `product.location`  | object | no
 showRuler | indicates whether ruler should be shown. Depends on ```editableAreaUnits``` values for each location (becomes obligatory attribute).<br/>Default value: ```false```. | boolean | no
 sizes | list of available sizes for certain product. Type: array. If not indicated, only Quantity field will be rendered on the checkout panel. | array | no
-template | _deprecated in 0.10.30_  See more details [here](https://liveart.uservoice.com/knowledgebase/articles/1814230). | string | no
+template | _deprecated in 0.10.30_<br/>  See more details [here](https://liveart.uservoice.com/knowledgebase/articles/1814230). | string | no
 thumbUrl | _deprecated in 0.10.27_ | string | no
-thumb | _added in 0.10.27_ url to thumbnail image (allowed file extensions: *.jpg, *.png, *.gif, *.svg, dimensions: 110px x 110px) which will be shown in the products catalog. | string | yes
-defaultTemplateId  | _added in 0.10.30_  ID of the template to be loaded by default | string | no
+thumb | _added in 0.10.27_<br/> URL to thumbnail image (allowed file extensions: *.jpg, *.png, *.gif, *.svg, dimensions: 110px x 110px) which will be shown in the products catalog. | string | yes
+defaultTemplateId  | _added in 0.10.30_<br/>  ID of the template to be loaded by default | string | no
 
 ### Location
 JSON representation of product location which contains the following properties:

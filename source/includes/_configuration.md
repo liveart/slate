@@ -79,7 +79,7 @@ Property | Description | Type
 -------- | ----------- | ----
 productsList | indicates a URL returning a Product JSON structure | URL
 defaultProductId | id of a product should be loaded upon start of LiveArt. | string, optional
-defaultProductSize | _deprecated in v0.10.24_ Highly recommended to use [```laOptions.defaultProductAttributes.sizeUnits```](#default-prod-attr-size)<br/>if default product is resizable, this attribute sets default size (Note: has lower priority to ```product.locations.editableAreaUnits```) in units, set by configuration. | array of numbers, optional
+defaultProductSize | _deprecated in v0.10.24_<br/> Highly recommended to use [```laOptions.defaultProductAttributes.sizeUnits```](#default-prod-attr-size)<br/>if default product is resizable, this attribute sets default size (Note: has lower priority to ```product.locations.editableAreaUnits```) in units, set by configuration. | array of numbers, optional
 fonts | indicates a URL returning Fonts JSON structure | URL 
 colors | indicates a URL returning Colors JSON structure. These are the colors for fonts and colorizable artwork | URL
 colors.pantones_url | _added in v0.10.4_<br/>Colors JSON with Pantones. Available for fonts and colorizable artwork, and in color picker appears in separate tab. To disable this feature — remove the field.<br/>Note: for colorizing ```multicolor``` products refer to Product List configuration | URL
@@ -97,8 +97,8 @@ loadDesignUrl | a link to a backend service which returns a single design using 
 redirectUrl | a link to a backend service which places order and redirects user to some another page, for example, shopping cart. | URL
 uploadImageUrl | a link to a backend service which uploads user image from local file or URL. After uploading process image is shown on preview area and ready to be moved or resized. Allowed file extensions: *.jpg, *.png, *.gif, *.svg. | URL
 shareLinkUrl | this parameter defines the template of the shared link url. Sharing a design calls a saveDesign service that should return an identifier under which design was saved. This id will be replaced in ${design_id} token and presented to user that may copy it and load the design later. | URL
-saveTemplateUrl | _added in v0.10.27_<br/>a link to a backend service which gets the description of template design in JSON format, saves it and returns its unique identifier, url, etc. Used only in "Admin Mode". | URL
-getTemplatesUrl | _added in v0.10.27_<br/>a link to a backend service which returns the list of available templates (global OR if setuped - for current product only) in JSON format. All templates are preparing in "Admin Mode". | URL
+saveTemplateUrl | _added in v0.10.27_<br/> a link to a backend service which gets the description of template design in JSON format, saves it and returns its unique identifier, url, etc. Used only in "Admin Mode". | URL
+getTemplatesUrl | _added in v0.10.27_<br/> a link to a backend service which returns the list of available templates (global OR if setuped - for current product only) in JSON format. All templates are preparing in "Admin Mode". | URL
 redirectWindow | window target whne redirecting to ```redirectUrl```. Used for LiveArt inside the iframe. Possible values: ""(default), "parent", or "top" (same logic as links inside iframe) | string
 
 ### Options Description
