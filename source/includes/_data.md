@@ -113,9 +113,10 @@ resizable | defines whether the product dimensions can be changed by user. Setti
 editableAreaSizes | defines preselected possible sizes for user, works only if resizable attribute is ```true```.<br/>Sample definition: `"editableAreaSizes":[{"label":"2x2in", "width":2, "height":2}]`<br/>_Note_: this option ignores `editableAreaUnits`, `editableAreaUnitsRan​ge`, and `editableAreaUnitsRestrictRotation` options in `product.location`  | object | no
 showRuler | indicates whether ruler should be shown. Depends on ```editableAreaUnits``` values for each location (becomes obligatory attribute).<br/>Default value: ```false```. | boolean | no
 sizes | list of available sizes for certain product. Type: array. If not indicated, only Quantity field will be rendered on the checkout panel. | array | no
-template | If this attribute is indicated, LiveArt will attempt to load the design with by indicated Design ID. This is perfect if certain default design is associated with a product. Please note that the design should be previously prepared and saved for this particular product. | string | no
+template | _deprecated in 0.10.30_  See more details [here](https://liveart.uservoice.com/knowledgebase/articles/1814230). | string | no
 thumbUrl | _deprecated in 0.10.27_ | string | no
 thumb | _added in 0.10.27_ url to thumbnail image (allowed file extensions: *.jpg, *.png, *.gif, *.svg, dimensions: 110px x 110px) which will be shown in the products catalog. | string | yes
+defaultTemplateId  | _added in 0.10.30_  ID of the template to be loaded by default | string | no
 
 ### Location
 JSON representation of product location which contains the following properties:

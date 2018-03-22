@@ -305,7 +305,9 @@ quantities | list of selected sizes and their quantities. | array
 prices | list of objects which are related to pricing. The structure is exact to the one you compile for GetQuote service | array
 namesNumbers | list for team names and numbers. Actual only if ```product.namesNumbersEnabled = true```, otherwise — empty array | array of objects
 notes | _added v0.10.19+_ Design notes entered by user | string
-selectedUnit | _added in v0.10.30_ <br/> _optional_: Possible value: defaultUnit or secondatyUnit. See more details <a href="/#config-json">here</a>.| string
+selectedUnit | _added in v0.10.30_ <br/> _optional_: Possible value: defaultUnit or secondatyUnit. See more details [here](/#config-json).| string
+templateId | _added in v0.10.30_ <br/> _optional_: ID of the base template (product template/ the latest added complex artwork) | string
+strict |  _added in v0.10.30_ True - if there is at least one object with constrains. | boolean
 
 ### RESPONSE FIELDS DESCRIPTION
 Field | Description | Type
