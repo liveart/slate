@@ -304,8 +304,8 @@ location.editableArea | location editable area;<br/>Not resizable products: same
 quantities | list of selected sizes and their quantities. | array
 prices | list of objects which are related to pricing. The structure is exact to the one you compile for GetQuote service | array
 namesNumbers | list for team names and numbers. Actual only if ```product.namesNumbersEnabled = true```, otherwise — empty array | array of objects
-notes | _added v0.10.19+_<br/> Design notes entered by user | string
-selectedUnit | _added in v0.10.30_ <br/> _optional_: Possible value: defaultUnit or secondatyUnit. See more details [here](/#config-json).| string
+notes | _added in v0.10.19_<br/> Design notes entered by user | string
+selectedUnit | _added in v0.10.30_ <br/> _optional_: Possible value: ```defaultUnit``` or ```secondaryUnit```. See more details [```config.option.defaultUnit```](/#config-json).| string
 templateId | _added in v0.10.30_ <br/> _optional_: ID of the base template (product template/ the latest added complex artwork) | string
 strict |  _added in v0.10.30_<br/> True - if there is at least one object with constrains. | boolean
 
