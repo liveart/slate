@@ -686,8 +686,8 @@ The response should be compiled and provided as `Content-Type: application/json`
 </tr>
 <tr>
 <td>design</td>
-<td><em>optional</em>, <em>added 0.10.21</em>: object for shorthand descrion `{title?: string, type: string (saved</td>
-<td>shared</td>
+<td><em>optional</em>, <em>added 0.10.21</em>: object for shorthand descrion <code class="prettyprint">{title?: string, type: string (saved/shared/ordered)}</code></td>
+<td>object</td>
 </tr>
 </tbody></table>
 
@@ -774,8 +774,23 @@ The response should be compiled and provided as `Content-Type: application/json`
 </tr>
 <tr>
 <td>notes</td>
-<td><em>added v0.10.19+</em> Design notes entered by user</td>
+<td><em>added in v0.10.19</em><br/> Design notes entered by user</td>
 <td>string</td>
+</tr>
+<tr>
+<td>selectedUnit</td>
+<td><em>added in v0.10.30</em> <br/> <em>optional</em>: Possible value: <code class="prettyprint">defaultUnit</code> or <code class="prettyprint">secondaryUnit</code>. See more details <a href="/#config-json"><code class="prettyprint">config.option.defaultUnit</code></a>.</td>
+<td>string</td>
+</tr>
+<tr>
+<td>templateId</td>
+<td><em>added in v0.10.30</em> <br/> <em>optional</em>: ID of the base template (product template/ the latest added complex artwork)</td>
+<td>string</td>
+</tr>
+<tr>
+<td>strict</td>
+<td><em>added in v0.10.30</em><br/> True - if there is at least one object with constrains.</td>
+<td>boolean</td>
 </tr>
 </tbody></table>
 
@@ -1022,7 +1037,7 @@ Read more on <a href="https://liveart.uservoice.com/knowledgebase/articles/18142
 <h2 id="gettemplates-get">GetTemplates - GET</h2>
 
 <blockquote>
-<p>Response Example</p>
+<p>Response Example ( If template list contains categories/subcategories )</p>
 </blockquote>
 <pre class="highlight json"><code><span class="p">{</span><span class="w">
   </span><span class="s2">"templatesCategoriesList"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
@@ -1046,17 +1061,33 @@ Read more on <a href="https://liveart.uservoice.com/knowledgebase/articles/18142
       </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Simple"</span><span class="p">,</span><span class="w">
       </span><span class="s2">"thumb"</span><span class="p">:</span><span class="w"> </span><span class="s2">"files/template-id/design_preview.png"</span><span class="p">,</span><span class="w">
       </span><span class="s2">"templatesList"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-        </span><span class="p">{</span><span class="w">
-          </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"template-20170921-141139-10609"</span><span class="p">,</span><span class="w">
-          </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"design idea"</span><span class="p">,</span><span class="w">
-          </span><span class="s2">"date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2017.09.21 14:11"</span><span class="p">,</span><span class="w">
-          </span><span class="s2">"thumb"</span><span class="p">:</span><span class="w"> </span><span class="s2">"files/template-id/design_preview.png"</span><span class="p">,</span><span class="w">
-          </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"LiveArt"</span><span class="w">
+        </span><span class="p">{</span><span class="w">  
+          </span><span class="s2">"id"</span><span class="p">:</span><span class="s2">"template-20171002-162505-89535"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"type"</span><span class="p">:</span><span class="s2">"template"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"date"</span><span class="p">:</span><span class="s2">"2017.10.02 16:25"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"thumb"</span><span class="p">:</span><span class="s2">"files/template-20171002-162505-89535/design_preview.png"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"productId"</span><span class="p">:</span><span class="s2">"11t"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"name"</span><span class="p">:</span><span class="s2">"Gentleman"</span><span class="w">
         </span><span class="p">}</span><span class="w">
       </span><span class="p">],</span><span class="w">
       </span><span class="s2">"categories"</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="w">
     </span><span class="p">}</span><span class="w">
   </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<blockquote>
+<p>Response Example ( If template list has no categories/subcategories (plain template list) )</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+ </span><span class="s2">"templatesList"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+   </span><span class="p">{</span><span class="w">
+     </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"template-20170921-141139-10609"</span><span class="p">,</span><span class="w">
+     </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"design idea"</span><span class="p">,</span><span class="w">
+     </span><span class="s2">"date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2017.09.21 14:11"</span><span class="p">,</span><span class="w">
+     </span><span class="s2">"thumb"</span><span class="p">:</span><span class="w"> </span><span class="s2">"files/template-id/design_preview.png"</span><span class="p">,</span><span class="w">
+     </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"LiveArt"</span><span class="w">
+   </span><span class="p">}</span><span class="w">
+ </span><span class="p">]</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 <p><em>Added in <code class="prettyprint">version: 0.10.27</code></em>.<br/>
@@ -1096,13 +1127,65 @@ Read more on <a href="https://liveart.uservoice.com/knowledgebase/articles/18142
 </tr>
 </thead><tbody>
 <tr>
+<td>templatesCategoriesList</td>
+<td><i>optional:</i> list of templates categories objects(see description below). Can not exists with templatesList on the same level</td>
+<td>array/objects</td>
+</tr>
+<tr>
+<td>templatesList</td>
+<td>list of templates objects(see description below). Can not exists with templatesCategoriesList on the same level</td>
+<td>array/objects</td>
+</tr>
+</tbody></table>
+
+<h3 id="template-categories-fields-description">TEMPLATE CATEGORIES FIELDS DESCRIPTION</h3>
+
+<table><thead>
+<tr>
+<th>Field</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead><tbody>
+<tr>
 <td>id</td>
-<td>unique template/template category identifier, should be unique.</td>
+<td>unique template category identifier, should be unique.</td>
 <td>string</td>
 </tr>
 <tr>
 <td>name</td>
-<td>template/template category title</td>
+<td>template category title</td>
+<td>string</td>
+</tr>
+<tr>
+<td>templatesList</td>
+<td>list of templates objects(see description below)</td>
+<td>array/objects</td>
+</tr>
+<tr>
+<td>thumb</td>
+<td>url to thumbnail image (allowed file extensions: *.jpg, *.png, *.gif, *.svg, dimensions: 110px x 110px) which will be shown in the templates catalog.</td>
+<td>string</td>
+</tr>
+<tr>
+<td>categories</td>
+<td><i>optional:</i> can not exists with templatesList on the same level</td>
+<td>array/objects</td>
+</tr>
+</tbody></table>
+
+<h3 id="template-fields-description">TEMPLATE FIELDS DESCRIPTION</h3>
+
+<table><thead>
+<tr>
+<th>Field</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>id</td>
+<td>unique template identifier, should be unique.</td>
 <td>string</td>
 </tr>
 <tr>
@@ -1126,9 +1209,9 @@ Read more on <a href="https://liveart.uservoice.com/knowledgebase/articles/18142
 <td>string</td>
 </tr>
 <tr>
-<td>categories</td>
-<td><i>optional:</i> can not exists with templatesList on the same level</td>
-<td>array/objects</td>
+<td>name</td>
+<td>template title</td>
+<td>string</td>
 </tr>
 </tbody></table>
 
@@ -1230,7 +1313,7 @@ While the LiveArt loads configuration by default out of static JSON files, you c
 </tr>
 <tr>
 <td>defaultProductSize</td>
-<td><em>deprecated in v0.10.24</em> Highly recommended to use <a href="#default-prod-attr-size"><code class="prettyprint">laOptions.defaultProductAttributes.sizeUnits</code></a><br/>if default product is resizable, this attribute sets default size (Note: has lower priority to <code class="prettyprint">product.locations.editableAreaUnits</code>) in units, set by configuration.</td>
+<td><em>deprecated in v0.10.24</em><br/> Highly recommended to use <a href="#default-prod-attr-size"><code class="prettyprint">laOptions.defaultProductAttributes.sizeUnits</code></a><br/>if default product is resizable, this attribute sets default size (Note: has lower priority to <code class="prettyprint">product.locations.editableAreaUnits</code>) in units, set by configuration.</td>
 <td>array of numbers, optional</td>
 </tr>
 <tr>
@@ -1320,12 +1403,12 @@ While the LiveArt loads configuration by default out of static JSON files, you c
 </tr>
 <tr>
 <td>saveTemplateUrl</td>
-<td><em>added in v0.10.27</em><br/>a link to a backend service which gets the description of template design in JSON format, saves it and returns its unique identifier, url, etc. Used only in &ldquo;Admin Mode&rdquo;.</td>
+<td><em>added in v0.10.27</em><br/> a link to a backend service which gets the description of template design in JSON format, saves it and returns its unique identifier, url, etc. Used only in &ldquo;Admin Mode&rdquo;.</td>
 <td>URL</td>
 </tr>
 <tr>
 <td>getTemplatesUrl</td>
-<td><em>added in v0.10.27</em><br/>a link to a backend service which returns the list of available templates (global OR if setuped - for current product only) in JSON format. All templates are preparing in &ldquo;Admin Mode&rdquo;.</td>
+<td><em>added in v0.10.27</em><br/> a link to a backend service which returns the list of available templates (global OR if setuped - for current product only) in JSON format. All templates are preparing in &ldquo;Admin Mode&rdquo;.</td>
 <td>URL</td>
 </tr>
 <tr>
@@ -1386,8 +1469,18 @@ While the LiveArt loads configuration by default out of static JSON files, you c
 </tr>
 <tr>
 <td>unit, unit2, unitConversionMult</td>
-<td>units, shown for custom sizes products. Possible values are <code class="prettyprint">&quot;in&quot;</code>, <code class="prettyprint">&quot;ft&quot;</code>, and <code class="prettyprint">12</code> or <code class="prettyprint">&quot;cm&quot;</code>, <code class="prettyprint">&quot;m&quot;</code>, and <code class="prettyprint">10</code> and so on. Use <code class="prettyprint">unitConversionMult</code> to indicate respective multiplier for proper conversion of <code class="prettyprint">unit</code> to <code class="prettyprint">unit2</code>.</td>
+<td><em>deprecated in v0.10.30 (but still working solution)</em><br/>Prease refer to Units switcher <a href="https://liveart.uservoice.com/knowledgebase/articles/1836322-how-to-configure-units-switcher#migration_guide">migration guide</a><br/> units, shown for custom sizes products. Possible values are <code class="prettyprint">&quot;in&quot;</code>, <code class="prettyprint">&quot;ft&quot;</code>, and <code class="prettyprint">12</code> or <code class="prettyprint">&quot;cm&quot;</code>, <code class="prettyprint">&quot;m&quot;</code>, and <code class="prettyprint">10</code> and so on. Use <code class="prettyprint">unitConversionMult</code> to indicate respective multiplier for proper conversion of <code class="prettyprint">unit</code> to <code class="prettyprint">unit2</code>.</td>
 <td>&ldquo;&rdquo;, &ldquo;&rdquo;, 10</td>
+</tr>
+<tr>
+<td>defaultUnit <code class="prettyprint">optional</code></td>
+<td><em>added in v0.10.30</em><br/> units, shown for custom sizes products. Possible values are <code class="prettyprint">in</code>, <code class="prettyprint">ft</code>, <code class="prettyprint">cm</code>, <code class="prettyprint">mm</code>, <code class="prettyprint">m</code>. All calculations and requests will be in selected units, if not specified in <code class="prettyprint">px</code>. Read more on <a href="https://liveart.uservoice.com/knowledgebase/articles/1836322">How to configure units switcher?</a></td>
+<td></td>
+</tr>
+<tr>
+<td>secondaryUnit <code class="prettyprint">optional</code></td>
+<td><em>added in v0.10.30</em><br/> possible second units, show only if defaultUnit are set. Possible values are similar to defaultUnit. Read more on <a href="https://liveart.uservoice.com/knowledgebase/articles/1836322">How to configure units switcher?</a></td>
+<td></td>
 </tr>
 <tr>
 <td>showProductSelector</td>
@@ -1489,6 +1582,7 @@ While the LiveArt loads configuration by default out of static JSON files, you c
 <span class="nx">laOptions</span><span class="p">.</span><span class="nx">defaultProductAttributes</span> <span class="o">=</span> <span class="p">{};</span>
 <span class="nx">laOptions</span><span class="p">.</span><span class="nx">defaultProductAttributes</span><span class="p">.</span><span class="nx">sizeUnits</span> <span class="o">=</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">4</span><span class="p">];</span>
 <span class="nx">laOptions</span><span class="p">.</span><span class="nx">defaultProductAttributes</span><span class="p">.</span><span class="nx">quantities</span> <span class="o">=</span> <span class="p">[</span> <span class="p">{</span><span class="na">size</span><span class="p">:</span> <span class="s2">"XL"</span><span class="p">,</span> <span class="na">quantity</span><span class="p">:</span> <span class="mi">10</span><span class="p">}</span> <span class="p">];</span>
+<span class="nx">laOptions</span><span class="p">.</span><span class="nx">defaultProductAttributes</span><span class="p">.</span><span class="nx">selectedUnit</span> <span class="o">=</span> <span class="s2">"in"</span><span class="p">;</span>
 
 <span class="nx">laOptions</span><span class="p">.</span><span class="nx">placeOrderHandler</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
 <span class="nx">laOptions</span><span class="p">.</span><span class="nx">translation</span> <span class="o">=</span> <span class="nx">laTranslation</span><span class="p">.</span><span class="nx">dictionary</span><span class="p">;</span>
@@ -1532,12 +1626,17 @@ While the LiveArt loads configuration by default out of static JSON files, you c
 <tr>
 <td><a name="default-prod-attr-size"></a>defaultProductAttributes<br/>.sizeUnits</td>
 <td><code class="prettyprint">array</code> of 2 numbers</td>
-<td>default dimensions for resizable products (e.g. Sign 5&quot;x4&quot;)<br><em>Added to v0.10.25</em></td>
+<td>default dimensions for resizable products (e.g. Sign 5&quot;x4&quot;) in default units. <br><em>Added to v0.10.25</em></td>
 </tr>
 <tr>
 <td>defaultProductAttributes<br/>.quantities</td>
 <td><code class="prettyprint">array</code> of <code class="prettyprint">object</code>s</td>
 <td>Set default quantities for Order;<br>Higher priority over <code class="prettyprint">product.minQuantity</code>;<br>Syntax:<ol><li><code class="prettyprint">[{quantity: 30}]</code> - default quantity (total for products without sizes OR for first size)</li><li><code class="prettyprint">[{size: &quot;S&quot;, quantity: 5}, {size: &quot;XL&quot;, quantity: 12}]</code> - default quantities for product with sizes list</li></ol><br><em>Added to v0.10.5</em></td>
+</tr>
+<tr>
+<td>defaultProductAttributes<br/>.selectedUnit</td>
+<td><code class="prettyprint">string</code></td>
+<td>Select current unit for resizable products. <br> See <code class="prettyprint">defaultUnit</code> and <code class="prettyprint">secondaryUnit</code> in <a href="/#config-json">config.options</a> <br><em>Added to v0.10.31</em></td>
 </tr>
 <tr>
 <td>placeOrderHandler</td>
@@ -1678,7 +1777,7 @@ While the LiveArt loads configuration by default out of static JSON files, you c
 </tr>
 <tr>
 <td>thumb</td>
-<td><em>added in 0.10.27</em> path or URL of the category thumbnail</td>
+<td><em>added in 0.10.27</em><br/> path or URL of the category thumbnail</td>
 <td>string</td>
 <td>no</td>
 </tr>
@@ -1788,7 +1887,7 @@ While the LiveArt loads configuration by default out of static JSON files, you c
 </tr>
 <tr>
 <td>pantones</td>
-<td><em>added in v0.10.14</em><br/>object to override default pantones setting from config.<br/>Sample: <code class="prettyprint">{ &quot;useForDecoration&quot;: false, &quot;useForProduct&quot;: false }</code><br/>(<code class="prettyprint">useForDecoration</code> — enabling/disabling pantones for the art, <code class="prettyprint">useForProduct</code> — enabling/disabling pantones for colorizing <code class="prettyprint">multicolor</code> product )</td>
+<td><em>added in v0.10.14</em><br/> object to override default pantones setting from config.<br/>Sample: <code class="prettyprint">{ &quot;useForDecoration&quot;: false, &quot;useForProduct&quot;: false }</code><br/>(<code class="prettyprint">useForDecoration</code> — enabling/disabling pantones for the art, <code class="prettyprint">useForProduct</code> — enabling/disabling pantones for colorizing <code class="prettyprint">multicolor</code> product )</td>
 <td>object</td>
 <td>false</td>
 </tr>
@@ -1818,21 +1917,27 @@ While the LiveArt loads configuration by default out of static JSON files, you c
 </tr>
 <tr>
 <td>template</td>
-<td>If this attribute is indicated, LiveArt will attempt to load the design with by indicated Design ID. This is perfect if certain default design is associated with a product. Please note that the design should be previously prepared and saved for this particular product.</td>
+<td><em>deprecated in v0.10.30</em><br/>  See migration guide in <a href="https://liveart.uservoice.com/knowledgebase/articles/1814230#migration_notes">Product Templates KB article</a>.</td>
 <td>string</td>
 <td>no</td>
 </tr>
 <tr>
 <td>thumbUrl</td>
-<td><em>deprecated in 0.10.27</em></td>
+<td><em>deprecated in v0.10.27</em><br/>Use <code class="prettyprint">thumb</code> instead.</td>
 <td>string</td>
 <td>no</td>
 </tr>
 <tr>
 <td>thumb</td>
-<td><em>added in 0.10.27</em> url to thumbnail image (allowed file extensions: *.jpg, *.png, *.gif, *.svg, dimensions: 110px x 110px) which will be shown in the products catalog.</td>
+<td><em>added in 0.10.27</em><br/> URL to thumbnail image (allowed file extensions: *.jpg, *.png, *.gif, *.svg, dimensions: 110px x 110px) which will be shown in the products catalog.</td>
 <td>string</td>
 <td>yes</td>
+</tr>
+<tr>
+<td>defaultTemplateId </td>
+<td><em>added in v0.10.30</em><br/>  ID of the template to be loaded by default</td>
+<td>string</td>
+<td>no</td>
 </tr>
 </tbody></table>
 
