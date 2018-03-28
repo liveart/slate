@@ -153,6 +153,7 @@ var laOptions = {
 };
 
 laOptions.adminMode = true;
+laOptions.caaMode = true;
 laOptions.defaultDesignId = "design_id_1";
 laOptions.defaultProductId = "product_id_1";
 laOptions.defaultGraphicId = "graphics_id_1";
@@ -181,6 +182,7 @@ defaultProductAttributes<br/>.quantities | ```array``` of ```object```s | Set de
 defaultProductAttributes<br/>.selectedUnit | ```string``` | Select current unit for resizable products. <br> See ```defaultUnit``` and ```secondaryUnit``` in [config.options](/#config-json) <br>_Added to v0.10.31_
 placeOrderHandler | ```function``` | optional for overriding default Place Order process function.<br/>Default value: ```null```<br/>Syntax: ```function (ordered_design_id: string) { /*custom code here*/ }```;<br/>Default behavior: Redirect to ```config.redirectUrl``` using ```config.redirectWindow```;
 translation | ```object``` |  optional translation dictionary; by default - English. See more at <a href="https://liveart.uservoice.com/knowledgebase/articles/917133">How to add translations to LiveArt</a><br>_Added to v0.10.5_
+caaMode | ```boolean``` | If true - forces Complex Artwork Mode. This attribute is processed only if laOptions.adminMode  === true <br>Syntax: ```?admin=true&caa_mode=true```<br>_Added to v0.10.28_
 
 All options named ```defaultNNN``` (e.g. ```defaultProductId```, ```defaultProductAttributes```, etc.) could be also obtained from GET vars (easiest setup) via build-in helper ```function getQueryParam(param, type)```.<br/>
 
