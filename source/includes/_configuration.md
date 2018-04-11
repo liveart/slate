@@ -45,11 +45,12 @@ LiveArt Configuration has 2 entry points:
         "fitProductImage" : true,
         "fitEditableArea": true,
         "enableSnapGuides": true,
-        "showSuitableProductColorize": true
+        "showSuitableProductColorize": true,
+        "mergeDesignIdeas": false
     },
     "textEffects": {
         "config": "config/textEffects.json"
-        
+
     },
     "defaultNameObjectText": "NAMES HERE",
     "defaultNumberObjectText": "00",
@@ -80,7 +81,7 @@ Property | Description | Type
 productsList | indicates a URL returning a Product JSON structure | URL
 defaultProductId | id of a product should be loaded upon start of LiveArt. | string, optional
 defaultProductSize | _deprecated in v0.10.24_<br/> Highly recommended to use [```laOptions.defaultProductAttributes.sizeUnits```](#default-prod-attr-size)<br/>if default product is resizable, this attribute sets default size (Note: has lower priority to ```product.locations.editableAreaUnits```) in units, set by configuration. | array of numbers, optional
-fonts | indicates a URL returning Fonts JSON structure | URL 
+fonts | indicates a URL returning Fonts JSON structure | URL
 colors | indicates a URL returning Colors JSON structure. These are the colors for fonts and colorizable artwork | URL
 colors.pantones_url | _added in v0.10.4_<br/>Colors JSON with Pantones. Available for fonts and colorizable artwork, and in color picker appears in separate tab. To disable this feature — remove the field.<br/>Note: for colorizing ```multicolor``` products refer to Product List configuration | URL
 graphicsList | indicates a URL returning Gallery JSON structure. | URL
@@ -114,7 +115,7 @@ minZoom, maxZoom, zoomStep (optional) | numeric values, defining min, max, and s
 checkeredBackground | If enabled, shows checkered background where no product background is rendered. The asset for background is located in ```assets/img/bg-fill.png``` | true
 unit, unit2, unitConversionMult | _deprecated in v0.10.30 (but still working solution)_<br/>Prease refer to Units switcher [migration guide](https://liveart.uservoice.com/knowledgebase/articles/1836322-how-to-configure-units-switcher#migration_guide)<br/> units, shown for custom sizes products. Possible values are ```"in"```, ```"ft"```, and ```12``` or ```"cm"```, ```"m"```, and ```10``` and so on. Use ```unitConversionMult``` to indicate respective multiplier for proper conversion of ```unit``` to ```unit2```. | "", "", 10
 defaultUnit ```optional``` | _added in v0.10.30_<br/> units, shown for custom sizes products. Possible values are ```in```, ```ft```, ```cm```, ```mm```, ```m```. All calculations and requests will be in selected units, if not specified in ```px```. Read more on <a href="https://liveart.uservoice.com/knowledgebase/articles/1836322">How to configure units switcher?</a> |
-secondaryUnit ```optional``` | _added in v0.10.30_<br/> possible second units, show only if defaultUnit are set. Possible values are similar to defaultUnit. Read more on <a href="https://liveart.uservoice.com/knowledgebase/articles/1836322">How to configure units switcher?</a> | 
+secondaryUnit ```optional``` | _added in v0.10.30_<br/> possible second units, show only if defaultUnit are set. Possible values are similar to defaultUnit. Read more on <a href="https://liveart.uservoice.com/knowledgebase/articles/1836322">How to configure units switcher?</a> |
 showProductSelector | possible values: ```true```/```false```. Defines whether Select Product form is shown. If ```false```, make sure you indicate the ```defaultProductId``` to preload the product. | true
 checkTextFXThrottle | type: milliseconds. A delay in events for typing text, before LiveArt will trigger the server script to obtain new image for certain raster effect. | 400
 minDPU | Set this property to show warning message if user will size raster image more than safe dimensions to meet suggested print quality standarts. Also this feature requires `editableArea` and `editableAreaUnits` (see Product Location Object) for each product location to use this feature (for correct unit/pixel ratio). Warning message is configured in html ('*#dpu-exceeded-popup*'). If user ignores such warning and continues design editing - on Place Order will be fired additional pop-up. Also may be re-defined for certain products (see Product Object). | 0
@@ -123,15 +124,16 @@ fitProductImage | If `true` — product images are fitted and centered in the ca
 fitEditableArea | If `true` —  process *product.location.editableArea* and *product.location.clipRect* in coordinate system of product image<br>Before _v0.10.27_: Editable Area coordinates were always binded to canvas dimensions (not product image).<br>_Added to v0.10.27_ | false
 enableSnapGuides | If `true` — enabling snapping objects while dragging to another objects, editable area center or sides. Also helps to set object's rotation angle to 0°, 90°, 180°, and 270°<br>_Added to v0.10.17_  | true
 showSuitableProductColorize | If `true` — show only actual Current Locations colorizable areas.<br> (e.g. on "Back" location - show only colors from this location)<br>If `false` — on each location show all colorizable areas list. Works only with multicolor product<br>_Added to v0.10.25_ | false
+mergeDesignIdeas | If `true` — the complex artwork and product templates will be merged and all shown under Design Ideas tab for a product<br>If `false` — the complex artwork and product templates will not be merged (same logic as before)<br>_Added to v0.10.32_ | false
 
 ## LA.config.js
 
 > Sample configuration
 
 ```js
-liveArt.init(document.getElementById('canvas-container'), 
-    configFile, 
-    controlsUpdateHandler, 
+liveArt.init(document.getElementById('canvas-container'),
+    configFile,
+    controlsUpdateHandler,
     laOptions);
 ```
 
@@ -140,7 +142,7 @@ Main purpose of this file - initialization of LiveArt with parameters:
 
 Property | Description | Required
 -------- | ----------- | --------
-canvas | ```HTMLElement``` as placeholder for designer canvases.<br/>Strongly recommended to use default value | true 
+canvas | ```HTMLElement``` as placeholder for designer canvases.<br/>Strongly recommended to use default value | true
 configFile | ```string``` URL of config.json; usually depends on backend/admin area configuration  | true
 controlsUpdateHandler | js ```function``` for API callbacks to UI.<br/>Strongly recommended to use default value | true
 laOptions | ```object``` with default init parameters.<br/>See more info below | false
