@@ -1264,7 +1264,8 @@ Read more on <a href="https://liveart.uservoice.com/knowledgebase/articles/18142
         </span><span class="s2">"fitProductImage"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
         </span><span class="s2">"fitEditableArea"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
         </span><span class="s2">"enableSnapGuides"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
-        </span><span class="s2">"showSuitableProductColorize"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+        </span><span class="s2">"showSuitableProductColorize"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"mergeDesignIdeas"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
     </span><span class="p">},</span><span class="w">
     </span><span class="s2">"textEffects"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
         </span><span class="s2">"config"</span><span class="p">:</span><span class="w"> </span><span class="s2">"config/textEffects.json"</span><span class="w">
@@ -1522,6 +1523,11 @@ While the LiveArt loads configuration by default out of static JSON files, you c
 <td>If <code class="prettyprint">true</code> — show only actual Current Locations colorizable areas.<br> (e.g. on &ldquo;Back&rdquo; location - show only colors from this location)<br>If <code class="prettyprint">false</code> — on each location show all colorizable areas list. Works only with multicolor product<br><em>Added to v0.10.25</em></td>
 <td>false</td>
 </tr>
+<tr>
+<td>mergeDesignIdeas</td>
+<td>If <code class="prettyprint">true</code> — the complex artwork and product templates will be merged and all shown under Design Ideas tab for a product<br>If <code class="prettyprint">false</code> — the complex artwork and product templates will not be merged (same logic as before)<br><em>Added to v0.10.32</em></td>
+<td>false</td>
+</tr>
 </tbody></table>
 
 <h2 id="la-config-js">LA.config.js</h2>
@@ -1529,9 +1535,9 @@ While the LiveArt loads configuration by default out of static JSON files, you c
 <blockquote>
 <p>Sample configuration</p>
 </blockquote>
-<pre class="highlight javascript"><code><span class="nx">liveArt</span><span class="p">.</span><span class="nx">init</span><span class="p">(</span><span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">'canvas-container'</span><span class="p">),</span> 
-    <span class="nx">configFile</span><span class="p">,</span> 
-    <span class="nx">controlsUpdateHandler</span><span class="p">,</span> 
+<pre class="highlight javascript"><code><span class="nx">liveArt</span><span class="p">.</span><span class="nx">init</span><span class="p">(</span><span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">'canvas-container'</span><span class="p">),</span>
+    <span class="nx">configFile</span><span class="p">,</span>
+    <span class="nx">controlsUpdateHandler</span><span class="p">,</span>
     <span class="nx">laOptions</span><span class="p">);</span>
 </code></pre>
 <h3 id="default-init-values">Default init values</h3>
@@ -1575,6 +1581,7 @@ While the LiveArt loads configuration by default out of static JSON files, you c
 <span class="p">};</span>
 
 <span class="nx">laOptions</span><span class="p">.</span><span class="nx">adminMode</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+<span class="nx">laOptions</span><span class="p">.</span><span class="nx">caaMode</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
 <span class="nx">laOptions</span><span class="p">.</span><span class="nx">defaultDesignId</span> <span class="o">=</span> <span class="s2">"design_id_1"</span><span class="p">;</span>
 <span class="nx">laOptions</span><span class="p">.</span><span class="nx">defaultProductId</span> <span class="o">=</span> <span class="s2">"product_id_1"</span><span class="p">;</span>
 <span class="nx">laOptions</span><span class="p">.</span><span class="nx">defaultGraphicId</span> <span class="o">=</span> <span class="s2">"graphics_id_1"</span><span class="p">;</span>
@@ -1647,6 +1654,11 @@ While the LiveArt loads configuration by default out of static JSON files, you c
 <td>translation</td>
 <td><code class="prettyprint">object</code></td>
 <td>optional translation dictionary; by default - English. See more at <a href="https://liveart.uservoice.com/knowledgebase/articles/917133">How to add translations to LiveArt</a><br><em>Added to v0.10.5</em></td>
+</tr>
+<tr>
+<td>caaMode</td>
+<td><code class="prettyprint">boolean</code></td>
+<td>If true - forces Complex Artwork Mode. This attribute is processed only if laOptions.adminMode  === true <br>Syntax: <code class="prettyprint">?admin=true&amp;caa_mode=true</code><br><em>Added to v0.10.30</em></td>
 </tr>
 </tbody></table>
 
