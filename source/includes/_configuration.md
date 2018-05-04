@@ -124,7 +124,7 @@ fitProductImage | If `true` — product images are fitted and centered in the ca
 fitEditableArea | If `true` —  process *product.location.editableArea* and *product.location.clipRect* in coordinate system of product image<br>Before _v0.10.27_: Editable Area coordinates were always binded to canvas dimensions (not product image).<br>_Added to v0.10.27_ | false
 enableSnapGuides | If `true` — enabling snapping objects while dragging to another objects, editable area center or sides. Also helps to set object's rotation angle to 0°, 90°, 180°, and 270°<br>_Added to v0.10.17_  | true
 showSuitableProductColorize | If `true` — show only actual Current Locations colorizable areas.<br> (e.g. on "Back" location - show only colors from this location)<br>If `false` — on each location show all colorizable areas list. Works only with multicolor product<br>_Added to v0.10.25_ | false
-mergeDesignIdeas | If `true` — the complex artwork and product templates will be merged and all shown under Design Ideas tab for a product<br>If `false` — the complex artwork and product templates will not be merged (same logic as before)<br>_Added to v0.10.32_ | false
+mergeDesignIdeas | If `true` — the design ideas and product templates will be merged and all shown under Design Ideas tab for a product<br>If `false` — the design ideas and product templates will not be merged (same logic as before)<br>_Added to v0.10.32_ | false
 
 ## LA.config.js
 
@@ -155,7 +155,6 @@ var laOptions = {
 };
 
 laOptions.adminMode = true;
-laOptions.caaMode = true;
 laOptions.defaultDesignId = "design_id_1";
 laOptions.defaultProductId = "product_id_1";
 laOptions.defaultGraphicId = "graphics_id_1";
@@ -177,14 +176,14 @@ Property | Type | Description
 dimensions | ```array``` of 2 numbers | default canvas dimensions: ```[width, height]```<br/>Default values: ```[587, 543]```<br/>See ```/setup/README.txt``` in package for information how to change default canvas dimension
 adminMode | ```boolean``` | Enable "Admin Mode" for preparing templates (both global and product-based)
 defaultDesignId | ```string``` | Default design to be loaded; usually parsed from GET var
-defaultProductId | ```string``` | Default product ID to be loaded; usually parsed from GET var<br/>Note: recommended to use this value instead of ```config.defaultProductId```
+defaultProductId | ```string``` | Default product ID to be loaded; usually parsed from GET var <br/>If ID set to ```none``` - LiveArt will be open in "Design Idea" create mode without any predefined product. This value is processed only if laOptions.adminMode  === true<br/>Note: recommended to use this value instead of ```config.defaultProductId```
 defaultGraphicId | ```string``` | Default graphics ID to be added after load; usually parsed from GET var
 <a name="default-prod-attr-size"></a>defaultProductAttributes<br/>.sizeUnits | ```array``` of 2 numbers | default dimensions for resizable products (e.g. Sign 5"x4") in default units. <br>_Added to v0.10.25_
 defaultProductAttributes<br/>.quantities | ```array``` of ```object```s | Set default quantities for Order;<br>Higher priority over ```product.minQuantity```;<br>Syntax:<ol><li>```[{quantity: 30}]``` - default quantity (total for products without sizes OR for first size)</li><li>```[{size: "S", quantity: 5}, {size: "XL", quantity: 12}]``` - default quantities for product with sizes list</li></ol><br>_Added to v0.10.5_
 defaultProductAttributes<br/>.selectedUnit | ```string``` | Select current unit for resizable products. <br> See ```defaultUnit``` and ```secondaryUnit``` in [config.options](/#config-json) <br>_Added to v0.10.31_
 placeOrderHandler | ```function``` | optional for overriding default Place Order process function.<br/>Default value: ```null```<br/>Syntax: ```function (ordered_design_id: string) { /*custom code here*/ }```;<br/>Default behavior: Redirect to ```config.redirectUrl``` using ```config.redirectWindow```;
 translation | ```object``` |  optional translation dictionary; by default - English. See more at <a href="https://liveart.uservoice.com/knowledgebase/articles/917133">How to add translations to LiveArt</a><br>_Added to v0.10.5_
-caaMode | ```boolean``` | If true - forces Complex Artwork Mode. This attribute is processed only if laOptions.adminMode  === true <br>Syntax: ```?admin=true&caa_mode=true```<br>_Added to v0.10.30_
+caaMode | ```boolean``` | If true - forces Complex Artwork Mode. This attribute is processed only if laOptions.adminMode  === true <br>Syntax: ```?admin=true&caa_mode=true```<br>_Depreated in v0.10.33_
 
 All options named ```defaultNNN``` (e.g. ```defaultProductId```, ```defaultProductAttributes```, etc.) could be also obtained from GET vars (easiest setup) via build-in helper ```function getQueryParam(param, type)```.<br/>
 
