@@ -270,10 +270,10 @@ Attribute | Description | Type | Required
 id | unique identifier of product object, used for internal needs. | string | yes
 categoryId | unique identifier of category to which belongs the image. | string | yes
 colors | number of colors, present in the image. This will be used for correct get quote request if decoration price depends on number of colors (e.g. screenprinting). Type: string or array of strings. Possible values: <ul><li> `"-1"` — process colors is required, e.g. if the graphic is photo; </li><li> `"0"` — default value (need graphic to be `"colorize": true` and get colors information from selected fill color/outline/multicolor layers); </li><li> integer (e.g. `"5"`) — number of unique graphic colors;</li><li> array of hex web colors (e.g. `["#FFFFFF", "#000000"]`) — list of colors for accurate counting <br/>(in case of `"multicolor" : true` - added to colors list)</li></ul> | mixed<br/>(string, array of strings) | no
-colorize | acceptable values: true, false. This optional attribute tells designer whether the image can be colorized by user. Please note that this option works with SVG images only. Default value: false. | boolean | no
-colorizableElements | list of colorizable layers inside the SVG image. Please look for applicable samples of such SVG images inside your development package. | array/objects | no
+colorize | acceptable values: `true`, `false`. This optional attribute tells designer whether the image can be colorized by user. Please note that this option works with SVG images only. Default value: `false`. | boolean | no
+colorizableElements | list of colorizable layers inside the SVG image. Please look for applicable samples of such SVG images inside your development package. | array of objects | no
 description | short description of the image, visible to the end user. | string | no
-multicolor | acceptable values: true, false. Optional attribute for indicating whether artwork can be colorized in multiple layers. Works in conjunction with colorizableElements attribute and mutually exclusive with colorize. Default value: false. | boolean | no
+multicolor | acceptable values: `true`, `false`. Optional attribute for indicating whether artwork can be colorized in multiple layers. Works in conjunction with `colorizableElements` attribute and mutually exclusive with `colorize`. Default value: `false`. | boolean | no
 thumb | url to thumbnail image (allowed file extensions: *.jpg, *.png, *.gif, *.svg, dimensions: 110px x 110px) which will be shown in the graphics catalog. | string | no
 image | url to the full size image (allowed file extensions: *.jpg, *.png, *.gif, *.svg) which will be shown at the preview area. | string | yes
 
