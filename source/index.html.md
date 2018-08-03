@@ -186,8 +186,8 @@ location.colorsNum | amount of the colors which are used at the current location
 location.colorsList | list of hexadecimal values of the colors which are used at the current location. | array of strings
 location.designedArea | total area of all decoration objects at the current location (square units). [Example.](http://img.newtonideas.com/VJlUHYzuBWEyZOobVPVL.png) <br/>_v0.10.6 change: optional_;<br/><small>Present only if location has proper design area sizes configration.</small>| string
 location.designedAreaRect | area of rectangle, containing all objects in location (square units). [Example.](http://img.newtonideas.com/E9IwHIeA9biDA0seNsDD.png) <br/>_v0.10.6 change: optional_;<br/><small>Present only if location has proper design area sizes configration.</small>| string
-location.designedWidth | _v0.10.6 added_ optional attribute <br/> Width of designed area rect in units<br/><small>Present only if location has proper design area sizes configration.</small> | string
-location.designedHeight | _v0.10.6 added_ optional attribute <br/> Height of designed area rect in units<br/><small>Present only if location has proper design area sizes configration.</small> | string
+location.designedWidth | _v0.10.6 added_ optional attribute <br/> Width of designed area rect in units. [Example.](http://img.newtonideas.com/ps6TVyIcWN49kNfj0Gev.png) <br/><small>Present only if location has proper design area sizes configration.</small> | string
+location.designedHeight | _v0.10.6 added_ optional attribute <br/> Height of designed area rect in units. [Example.](http://img.newtonideas.com/MxjpBeSNyYew52w00f7p.png) <br/><small>Present only if location has proper design area sizes configration.</small> | string
 location.objectCount | total count of all decoration objects at the current location. | number
 location.letterings | total count of all text objects at the current location. | number
 location.images | total count of all graphic objects at the current location. | number
