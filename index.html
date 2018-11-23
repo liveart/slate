@@ -229,7 +229,7 @@
       <div class="content">
         <h1 id="introduction">Introduction</h1>
 
-<h3 id="current-version-0-10-28">Current version: 0.10.28</h3>
+<h3 id="current-version-0-10-34">Current version: 0.10.34</h3>
 
 <p>LiveArt HTML5 uses JSON format to transfer data, such as information about design, pricing and order, to backend. In order to prepare server-side application for work in pair with LiveArt component, backend services should be ready to receive and deliver valid data structures via HTTP queries. The detailed description of this queries and datatypes is given in the following article.</p>
 
@@ -467,22 +467,22 @@ If you need to switch off the pricing aspect of your application, simply leave <
 </tr>
 <tr>
 <td>location.designedArea</td>
-<td>total area of all decoration objects at the current location (square units). <br/><em>v0.10.6 change: optional</em>;<br/><small>Present only if location has proper design area sizes configration.</small></td>
+<td>total area of all decoration objects at the current location (square units). <a href="http://img.newtonideas.com/VJlUHYzuBWEyZOobVPVL.png">Example.</a> <br/><em>v0.10.6 change: optional</em>;<br/><small>Present only if location has proper design area sizes configration.</small></td>
 <td>string</td>
 </tr>
 <tr>
 <td>location.designedAreaRect</td>
-<td>area of rectangle, containing all objects in location (square units). <br/><em>v0.10.6 change: optional</em>;<br/><small>Present only if location has proper design area sizes configration.</small></td>
+<td>area of rectangle, containing all objects in location (square units). <a href="http://img.newtonideas.com/KVKN9YjAOSCYJRy37PhU.png">Example.</a> <br/><em>v0.10.6 change: optional</em>;<br/><small>Present only if location has proper design area sizes configration.</small></td>
 <td>string</td>
 </tr>
 <tr>
 <td>location.designedWidth</td>
-<td><em>v0.10.6 added</em> optional attribute <br/> Width of designed area rect in units<br/><small>Present only if location has proper design area sizes configration.</small></td>
+<td><em>v0.10.6 added</em> optional attribute <br/> Width of designed area rect in units. <a href="http://img.newtonideas.com/KVKN9YjAOSCYJRy37PhU.png">Example.</a> <br/><small>Present only if location has proper design area sizes configration.</small></td>
 <td>string</td>
 </tr>
 <tr>
 <td>location.designedHeight</td>
-<td><em>v0.10.6 added</em> optional attribute <br/> Height of designed area rect in units<br/><small>Present only if location has proper design area sizes configration.</small></td>
+<td><em>v0.10.6 added</em> optional attribute <br/> Height of designed area rect in units. <a href="http://img.newtonideas.com/KVKN9YjAOSCYJRy37PhU.png">Example.</a> <br/><small>Present only if location has proper design area sizes configration.</small></td>
 <td>string</td>
 </tr>
 <tr>
@@ -784,7 +784,7 @@ The response should be compiled and provided as `Content-Type: application/json`
 </tr>
 <tr>
 <td>templateId</td>
-<td><em>added in v0.10.30</em> <br/> <em>optional</em>: ID of the base template (product template/ the latest added complex artwork)</td>
+<td><em>added in v0.10.30</em> <br/> <em>optional</em>: ID of the base template (product template/ the latest added design idea)</td>
 <td>string</td>
 </tr>
 <tr>
@@ -1525,7 +1525,7 @@ While the LiveArt loads configuration by default out of static JSON files, you c
 </tr>
 <tr>
 <td>mergeDesignIdeas</td>
-<td>If <code class="prettyprint">true</code> — the complex artwork and product templates will be merged and all shown under Design Ideas tab for a product<br>If <code class="prettyprint">false</code> — the complex artwork and product templates will not be merged (same logic as before)<br><em>Added to v0.10.32</em></td>
+<td>If <code class="prettyprint">true</code> — the design ideas and product templates will be merged and all shown under Design Ideas tab for a product<br>If <code class="prettyprint">false</code> — the design ideas and product templates will not be merged (same logic as before)<br><em>Added to v0.10.32</em></td>
 <td>false</td>
 </tr>
 </tbody></table>
@@ -1581,7 +1581,6 @@ While the LiveArt loads configuration by default out of static JSON files, you c
 <span class="p">};</span>
 
 <span class="nx">laOptions</span><span class="p">.</span><span class="nx">adminMode</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
-<span class="nx">laOptions</span><span class="p">.</span><span class="nx">caaMode</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
 <span class="nx">laOptions</span><span class="p">.</span><span class="nx">defaultDesignId</span> <span class="o">=</span> <span class="s2">"design_id_1"</span><span class="p">;</span>
 <span class="nx">laOptions</span><span class="p">.</span><span class="nx">defaultProductId</span> <span class="o">=</span> <span class="s2">"product_id_1"</span><span class="p">;</span>
 <span class="nx">laOptions</span><span class="p">.</span><span class="nx">defaultGraphicId</span> <span class="o">=</span> <span class="s2">"graphics_id_1"</span><span class="p">;</span>
@@ -1623,7 +1622,7 @@ While the LiveArt loads configuration by default out of static JSON files, you c
 <tr>
 <td>defaultProductId</td>
 <td><code class="prettyprint">string</code></td>
-<td>Default product ID to be loaded; usually parsed from GET var<br/>Note: recommended to use this value instead of <code class="prettyprint">config.defaultProductId</code></td>
+<td>Default product ID to be loaded; usually parsed from GET var <br/>Admin Mode Values: <br/><ol><li><code class="prettyprint">none</code> - opens LiveArt without any predefined product. Can be used for creating Design Idea without a locking it to a product.<ol><li>Example: ?admin=true&amp;product_id=none</li><li> Added in v0.10.33</li></ol></li></ol><br/>Note: recommended to use this value instead of <code class="prettyprint">config.defaultProductId</code></td>
 </tr>
 <tr>
 <td>defaultGraphicId</td>
@@ -1658,7 +1657,7 @@ While the LiveArt loads configuration by default out of static JSON files, you c
 <tr>
 <td>caaMode</td>
 <td><code class="prettyprint">boolean</code></td>
-<td>If true - forces Complex Artwork Mode. This attribute is processed only if laOptions.adminMode  === true <br>Syntax: <code class="prettyprint">?admin=true&amp;caa_mode=true</code><br><em>Added to v0.10.30</em></td>
+<td>If true - forces Complex Artwork Mode. This attribute is processed only if laOptions.adminMode  === true <br>Syntax: <code class="prettyprint">?admin=true&amp;caa_mode=true</code><br><em>Depreated in v0.10.33</em></td>
 </tr>
 </tbody></table>
 
@@ -1895,13 +1894,13 @@ While the LiveArt loads configuration by default out of static JSON files, you c
 <td>namesNumbersEnabled</td>
 <td>enable tab for adding names and/or numbers placeholders to design, and fill appropriate table</td>
 <td>boolean</td>
-<td>false</td>
+<td>no</td>
 </tr>
 <tr>
 <td>pantones</td>
 <td><em>added in v0.10.14</em><br/> object to override default pantones setting from config.<br/>Sample: <code class="prettyprint">{ &quot;useForDecoration&quot;: false, &quot;useForProduct&quot;: false }</code><br/>(<code class="prettyprint">useForDecoration</code> — enabling/disabling pantones for the art, <code class="prettyprint">useForProduct</code> — enabling/disabling pantones for colorizing <code class="prettyprint">multicolor</code> product )</td>
 <td>object</td>
-<td>false</td>
+<td>no</td>
 </tr>
 <tr>
 <td>resizable</td>
@@ -2280,14 +2279,14 @@ Please pay attention that all coordinates or measurements should be numbers, not
 </tr>
 <tr>
 <td>colorize</td>
-<td>acceptable values: true, false. This optional attribute tells designer whether the image can be colorized by user. Please note that this option works with SVG images only. Default value: false.</td>
+<td>acceptable values: <code class="prettyprint">true</code>, <code class="prettyprint">false</code>. This optional attribute tells designer whether the image can be colorized by user. Please note that this option works with SVG images only. Default value: <code class="prettyprint">false</code>.</td>
 <td>boolean</td>
 <td>no</td>
 </tr>
 <tr>
 <td>colorizableElements</td>
 <td>list of colorizable layers inside the SVG image. Please look for applicable samples of such SVG images inside your development package.</td>
-<td>array/objects</td>
+<td>array of objects</td>
 <td>no</td>
 </tr>
 <tr>
@@ -2298,7 +2297,7 @@ Please pay attention that all coordinates or measurements should be numbers, not
 </tr>
 <tr>
 <td>multicolor</td>
-<td>acceptable values: true, false. Optional attribute for indicating whether artwork can be colorized in multiple layers. Works in conjunction with colorizableElements attribute and mutually exclusive with colorize. Default value: false.</td>
+<td>acceptable values: <code class="prettyprint">true</code>, <code class="prettyprint">false</code>. Optional attribute for indicating whether artwork can be colorized in multiple layers. Works in conjunction with <code class="prettyprint">colorizableElements</code> attribute and mutually exclusive with <code class="prettyprint">colorize</code>. Default value: <code class="prettyprint">false</code>.</td>
 <td>boolean</td>
 <td>no</td>
 </tr>
